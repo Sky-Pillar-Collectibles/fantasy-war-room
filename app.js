@@ -838,11 +838,11 @@ function tradeFit(me, them){
     if(gap >= FIT_GAP){
       raw += gap;
       reasons.push({dir:'buy', pos, gap,
-        text:`They're far deeper at <b>${pos}</b> — ${them[pos]}% vs your ${me[pos]}%`});
+        text:`They're far deeper at <b>${pos}</b> — ${them[pos]-100>0?'+':''}${them[pos]-100}% vs your ${me[pos]-100>0?'+':''}${me[pos]-100}%`});
     } else if(gap <= -FIT_GAP){
       raw += -gap;
       reasons.push({dir:'sell', pos, gap,
-        text:`You're far deeper at <b>${pos}</b> — ${me[pos]}% vs their ${them[pos]}%`});
+        text:`You're far deeper at <b>${pos}</b> — ${me[pos]-100>0?'+':''}${me[pos]-100}% vs their ${them[pos]-100>0?'+':''}${them[pos]-100}%`});
     }
   });
   // Both directions present means each side gets something it actually wants,
@@ -919,15 +919,32 @@ function renderTeams(){
       const avg = all.reduce((a,b)=>a+b,0)/(all.length||1);
       posAvg[pos] = { mine:mineV, avg, pct: avg? Math.round(100*mineV/avg) : 100 };
     });
+    // Shown as deviation from the league average rather than "95%", which reads
+    // like a score out of 100. The bar diverges from a centre line, so average
+    // is the middle and you can see direction at a glance.
     html += `<div class="card"><h2>Where You Stand</h2>
-      <div class="hint">Your top 3 at each spot vs. the league average. Under 100 is a hole to fill.</div>
+      <div class="hint">Your best three at each spot, compared with what the average team in this
+        league has. The centre line is average — right is surplus, left is a hole.</div>
       <div class="spacer"></div>
-      ${Object.entries(posAvg).map(([pos,d])=>`
-        <div style="margin-bottom:9px">
-          <div class="row small"><span class="grow"><b>${pos}</b></span>
-          <span style="color:${d.pct<85?'var(--bad)':d.pct>115?'var(--good)':'var(--dim)'}">${d.pct}%</span></div>
-          <div class="bar"><i style="width:${Math.min(100,d.pct/2)}%;background:${d.pct<85?'var(--bad)':d.pct>115?'var(--good)':'var(--gold)'}"></i></div>
-        </div>`).join('')}
+      ${Object.entries(posAvg).map(([pos,d])=>{
+        const dev = d.pct - 100;
+        const w = Math.min(50, Math.abs(dev) / 2);   // ±100% of average fills the half
+        const col = dev <= -15 ? 'var(--bad)' : dev >= 15 ? 'var(--good)' : 'var(--gold)';
+        const word = dev <= -15 ? 'below average' : dev >= 15 ? 'above average' : 'about average';
+        return `<div style="margin-bottom:11px">
+          <div class="row small">
+            <span class="grow"><b>${pos}</b> <span class="muted">${word}</span></span>
+            <span style="color:${col};font-weight:600">${dev>0?'+':''}${dev}%</span>
+          </div>
+          <div class="dbar">
+            <i style="${dev>=0?`left:50%;width:${w}%`:`right:50%;width:${w}%`};background:${col}"></i>
+            <span class="mid"></span>
+          </div>
+        </div>`;
+      }).join('')}
+      <div class="hint" style="margin-top:10px">Read it as: you have ${
+        Object.entries(posAvg).map(([pos,d])=>`${Math.abs(d.pct-100)}% ${d.pct>=100?'more':'less'} ${pos}`)
+          .join(', ')} value than a typical team here.</div>
     </div>`;
 
     // Held back and appended AFTER the trade-partner finder. You already know
@@ -970,14 +987,16 @@ function renderTeams(){
   html += list.map(t => {
     const f = t.fit, lab = fitLabel(f);
     const open = S.viewTeam === t.rosterId;
+    // Same convention as "Where You Stand": deviation from league average, and
+    // underneath it, how they compare with YOU — which is the tradeable gap.
     const bars = FIT_POS.map(pos => {
-      const v = t[pos], mineV = meProf ? meProf[pos] : 100;
-      const gap = v - mineV;
-      const col = v < 85 ? 'var(--bad)' : v > 115 ? 'var(--good)' : 'var(--dim)';
+      const dev = t[pos] - 100;
+      const gap = t[pos] - (meProf ? meProf[pos] : 100);
+      const col = dev <= -15 ? 'var(--bad)' : dev >= 15 ? 'var(--good)' : 'var(--dim)';
       return `<div style="flex:1;min-width:0;text-align:center">
-        <div style="font-family:'Teko';font-size:17px;line-height:1;color:${col}">${v}</div>
+        <div style="font-family:'Teko';font-size:17px;line-height:1;color:${col}">${dev>0?'+':''}${dev}%</div>
         <div style="font-size:8.5px;color:var(--faint);letter-spacing:.05em">${pos}${
-          meProf ? ` <span style="color:${gap>0?'var(--good)':gap<0?'var(--bad)':'var(--faint)'}">${gap>0?'+':''}${gap}</span>` : ''}</div>
+          meProf ? ` <span style="color:${gap>0?'var(--good)':gap<0?'var(--bad)':'var(--faint)'}">${gap>0?'+':''}${gap} vs you</span>` : ''}</div>
       </div>`;
     }).join('');
 
