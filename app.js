@@ -885,7 +885,7 @@ function renderTeams(){
   const mine = S.rosters.find(r => r.owner_id === S.user.user_id);
   const nameOf = {}; S.lusers.forEach(u=>nameOf[u.user_id]=u.display_name||u.username);
 
-  let html = '';
+  let html = '', myRosterHtml = '';
   if(mine){
     const roster = (mine.players||[]).map(pid=>S.bySleeper[String(pid)]).filter(Boolean)
                     .sort((a,b)=>a.overall-b.overall);
@@ -930,8 +930,14 @@ function renderTeams(){
         </div>`).join('')}
     </div>`;
 
-    html += `<div class="card"><h2>Roster</h2></div>
-      <div class="plist">${roster.map(p=>rowHTML(p)).join('')}</div><div class="spacer"></div>`;
+    // Held back and appended AFTER the trade-partner finder. You already know
+    // your own roster; the partner list is the part you came here to act on.
+    myRosterHtml = `<div class="card" style="cursor:pointer" onclick="toggleMyRoster()">
+        <div class="row"><h2 class="grow">My Roster (${roster.length})</h2>
+        <span class="small" style="color:var(--gold)">${S.showMyRoster?'▲ Hide':'▼ Show'}</span></div>
+      </div>
+      ${S.showMyRoster ? `<div class="plist">${roster.map(p=>rowHTML(p)).join('')}</div>` : ''}
+      <div class="spacer"></div>`;
   }
 
   /* ---------- league browser + trade-partner finder ---------- */
@@ -1005,11 +1011,14 @@ function renderTeams(){
     </div>`;
   }).join('');
 
+  html += myRosterHtml;
+
   box.innerHTML = html;
   box.querySelectorAll('.prow').forEach(el => el.onclick = () => openSheet(el.dataset.k));
 }
 
 function setTeamSort(m){ S.teamSort = m; renderTeams(); }
+function toggleMyRoster(){ S.showMyRoster = !S.showMyRoster; renderTeams(); }
 
 /* =====================================================================
    9. SETUP
