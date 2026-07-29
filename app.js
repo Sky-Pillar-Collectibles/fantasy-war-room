@@ -716,6 +716,56 @@ document.getElementById('tradeSearch').oninput = e => {
 /* =====================================================================
    8. MY TEAMS
    ===================================================================== */
+
+/* Plain-language explanation for each roster stat, including what it does NOT
+   tell you — a number you misread is worse than no number. */
+const STAT_INFO = {
+  rank: { title:'Value Rank',
+    body:`Where your roster sits, 1 to ${'{TEAMS}'}, if you add up the market value of every player
+      each manager owns. <b>1 means you hold the most valuable collection of assets in the league.</b>
+      <br><br>It answers "who has the best stuff", not "who wins on Sunday". It counts your whole
+      roster, so a team with lots of good depth can out-rank a team with three superstars and nothing
+      after them — and in a start-9 league, the superstars usually win. Treat it as a trade-leverage
+      reading, not a power ranking.` },
+  total: { title:'Total Value',
+    body:`The market value of everyone you own, added up, shown in thousands. The units are arbitrary
+      — the number only means something next to the other teams in this league.
+      <br><br>Its real use is trade math: it's the same currency the Trade tab prices packages in,
+      so you can see what a deal does to your overall holdings. On its own, ignore it.` },
+  players: { title:'Players',
+    body:`How many players on your roster the board has data for.
+      <br><br>If this is lower than your actual Sleeper roster count, the difference is deep bench guys
+      too far down to be ranked or priced anywhere — which is itself a signal about how much of your
+      bench is doing nothing.` },
+  diff: { title:'Difference-Makers',
+    body:`How many of your players land in <b>Tier 1 or Tier 2</b> — the ones who genuinely swing a
+      matchup, rather than filling a slot.
+      <br><br>This is the number to watch, more than the two on its left. Championships come from
+      concentrated talent, and it's the one stat here that a pile of mediocre depth can't inflate.
+      Four or more is a contender. One or two means you should be consolidating: trade three good
+      players for one great one.` }
+};
+
+function statBox(value, label, key){
+  return `<div class="srcbox statbox" onclick="toggleStat('${key}')">
+    <div class="n">${value}</div><div class="l">${esc(label)}</div>
+    <div class="qmark">?</div>
+  </div>`;
+}
+
+function toggleStat(key){
+  const panel = document.getElementById('statInfo');
+  if(!panel) return;
+  if(panel.dataset.open === key){ panel.dataset.open = ''; panel.innerHTML = ''; return; }
+  panel.dataset.open = key;
+  const info = STAT_INFO[key]; if(!info) return;
+  const teams = (S.league && S.league.teams) || 12;
+  panel.innerHTML = `<div class="statinfo">
+    <div class="row"><b class="grow">${esc(info.title)}</b>
+      <button class="btn sm" onclick="toggleStat('${key}')">Close</button></div>
+    <div class="hint" style="margin-top:6px">${info.body.replace('{TEAMS}', teams)}</div>
+  </div>`;
+}
 function renderTeams(){
   const box = document.getElementById('teamsBody');
   if(!S.user){
@@ -746,11 +796,13 @@ function renderTeams(){
       <h2>My Roster</h2>
       <div class="hint">${esc(S.league.name)} · ${mine.settings?`${mine.settings.wins}-${mine.settings.losses}`:''}</div>
       <div class="srcgrid" style="margin-top:10px">
-        <div class="srcbox"><div class="n">${rank}</div><div class="l">Value Rank</div></div>
-        <div class="srcbox"><div class="n">${Math.round(totalVal/1000)}k</div><div class="l">Total Value</div></div>
-        <div class="srcbox"><div class="n">${roster.length}</div><div class="l">Players</div></div>
-        <div class="srcbox"><div class="n">${roster.filter(p=>tierOf(p)<=2).length}</div><div class="l">Difference-Makers</div></div>
+        ${statBox(`${rank}<span style="font-size:13px;color:var(--faint)">/${S.rosters.length}</span>`, 'Value Rank', 'rank')}
+        ${statBox(Math.round(totalVal/1000)+'k', 'Total Value', 'total')}
+        ${statBox(roster.length, 'Players', 'players')}
+        ${statBox(roster.filter(p=>tierOf(p)<=2).length, 'Difference-Makers', 'diff')}
       </div>
+      <div class="hint" style="margin-top:8px">Tap any box to see what it means.</div>
+      <div id="statInfo" data-open=""></div>
     </div>`;
 
     // positional strength vs league
