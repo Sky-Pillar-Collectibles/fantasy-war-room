@@ -179,6 +179,13 @@ async function loadSleeperAccount(uname){
   // Skipped once the user has deliberately chosen from the dropdown.
   const saved = String(LS.get('league',''));
   const isReal = S.leagues.some(l => l.id === saved);
+  // A preset is a fallback for before Sleeper loads — never a destination once
+  // real leagues are known. If a preset somehow got pinned (a stray change event
+  // will do it), clear the pin rather than stranding the user on a league with
+  // no rosters. Only a genuine Sleeper league may hold the pin.
+  if(S.leagues.length && !isReal && LS.get('leaguePinned', false)){
+    LS.set('leaguePinned', false);
+  }
   if(S.leagues.length && !isReal && !LS.get('leaguePinned', false)){
     LS.set('league', S.leagues[0].id);
   }
@@ -924,8 +931,11 @@ document.getElementById('hardRefresh').onclick = async () => {
 };
 
 document.getElementById('leaguePick').onchange = async e => {
-  LS.set('league', e.target.value);
-  LS.set('leaguePinned', true);
+  const v = e.target.value;
+  LS.set('league', v);
+  // Only a real Sleeper league may be pinned. Pinning a preset would suppress
+  // the snap-to-real-league on every future load and leave rosters empty.
+  LS.set('leaguePinned', S.leagues.some(l => l.id === v));
   document.getElementById('boardList').innerHTML = '<div class="loading">Re-pricing for this league…</div>';
   await loadAll(false);
 };
