@@ -824,35 +824,39 @@ function leagueProfiles(){
 /* How well do two rosters match up as trade partners?
    The point is COMPLEMENTARY need, not raw wealth. A rich team that is strong
    exactly where you are strong has nothing you can pry loose at a fair price. */
+/* What matters is the gap BETWEEN the two rosters at each position, not each
+   team's distance from the league average. A manager sitting on RB 170 while
+   you're at RB 92 is a real trade target even though you're only slightly below
+   average — the 78-point gap is the tradeable surplus, and measuring each side
+   against 100 independently throws that away. */
+const FIT_GAP = 20;   // ignore anything smaller; it's noise, not a surplus
+
 function tradeFit(me, them){
-  let score = 0; const reasons = [];
+  let raw = 0; const reasons = [];
   FIT_POS.forEach(pos => {
-    const mySurplus  = me[pos] - 100;
-    const theirSurplus = them[pos] - 100;
-    // I'm deep here and they're thin -> I can sell into their need
-    if(mySurplus > 12 && theirSurplus < -12){
-      const w = Math.min(mySurplus, -theirSurplus);
-      score += w;
-      reasons.push({dir:'sell', pos, text:`You're deep at <b>${pos}</b> (${me[pos]}%), they're thin (${them[pos]}%)`});
-    }
-    // They're deep and I'm thin -> they can sell into my need
-    if(theirSurplus > 12 && mySurplus < -12){
-      const w = Math.min(theirSurplus, -mySurplus);
-      score += w;
-      reasons.push({dir:'buy', pos, text:`They're deep at <b>${pos}</b> (${them[pos]}%), you're thin (${me[pos]}%)`});
+    const gap = them[pos] - me[pos];
+    if(gap >= FIT_GAP){
+      raw += gap;
+      reasons.push({dir:'buy', pos, gap,
+        text:`They're far deeper at <b>${pos}</b> — ${them[pos]}% vs your ${me[pos]}%`});
+    } else if(gap <= -FIT_GAP){
+      raw += -gap;
+      reasons.push({dir:'sell', pos, gap,
+        text:`You're far deeper at <b>${pos}</b> — ${me[pos]}% vs their ${them[pos]}%`});
     }
   });
-  // A two-way match is worth far more than a one-way one: both sides have a
-  // reason to say yes, which is what actually gets a trade accepted.
+  // Both directions present means each side gets something it actually wants,
+  // which is what makes an offer get accepted rather than ignored.
   const twoWay = reasons.some(r=>r.dir==='sell') && reasons.some(r=>r.dir==='buy');
-  if(twoWay) score *= 1.6;
-  return { score: Math.round(score), reasons, twoWay };
+  const score = Math.round((twoWay ? raw * 1.6 : raw) / 2);
+  reasons.sort((a,b)=>Math.abs(b.gap)-Math.abs(a.gap));
+  return { score, reasons, twoWay };
 }
 
 function fitLabel(f){
-  if(f.twoWay && f.score >= 60) return {t:'Ideal Match', c:'var(--good)'};
-  if(f.score >= 45) return {t:'Strong Fit', c:'var(--good)'};
-  if(f.score >= 20) return {t:'Worth Asking', c:'var(--gold)'};
+  if(f.twoWay && f.score >= 110) return {t:'Ideal Match', c:'var(--good)'};
+  if(f.score >= 75) return {t:'Strong Fit', c:'var(--good)'};
+  if(f.score >= 40) return {t:'Worth Asking', c:'var(--gold)'};
   if(f.score > 0)   return {t:'Marginal', c:'var(--dim)'};
   return {t:'Poor Fit', c:'var(--faint)'};
 }
