@@ -560,9 +560,13 @@ function openSheet(key){
 
     <div class="spacer"></div>
     <div class="row">
-      <button class="btn grow" onclick="addTrade('${esc(p.key)}','give')">+ I Give</button>
-      <button class="btn grow" onclick="addTrade('${esc(p.key)}','get')">+ I Get</button>
+      <button class="btn grow ${p.mine?'gold':''}" onclick="addTrade('${esc(p.key)}','give')">
+        ${p.mine?'Trade him away':'+ I Give'}</button>
+      <button class="btn grow ${(p.owner&&!p.mine)?'gold':''}" onclick="addTrade('${esc(p.key)}','get')">
+        ${(p.owner&&!p.mine)?'Target him':'+ I Get'}</button>
     </div>
+    ${p.owner && !p.mine ? `<div class="small muted" style="margin-top:6px;text-align:center">
+      Owned by ${esc(p.owner)} — he'll show up on your Trade tab under "I Get".</div>` : ''}
     <div class="spacer"></div>
     <button class="btn grow" style="width:100%" onclick="toggleDrafted('${esc(p.key)}')">
       ${S.drafted.has(p.key)?'Un-mark drafted':'Mark as drafted'}</button>
@@ -773,6 +777,95 @@ function toggleStat(key){
     <div class="hint" style="margin-top:6px">${info.body.replace('{TEAMS}', teams)}</div>
   </div>`;
 }
+/* ---------------------------------------------------------------------
+   League-wide team profiles + trade-fit matching
+   --------------------------------------------------------------------- */
+const FIT_POS = ['QB','RB','WR','TE'];
+
+/* Build a profile for every roster: total value, tier counts, and positional
+   strength expressed as a percentage of the league average at that spot. */
+function leagueProfiles(){
+  const nameOf = {}; S.lusers.forEach(u => nameOf[u.user_id] = u.display_name || u.username);
+  const top3 = (players, pos) => players.filter(p=>p.pos===pos)
+      .sort((a,b)=>(b.value||0)-(a.value||0)).slice(0,3)
+      .reduce((s,p)=>s+(p.value||0),0);
+
+  const profiles = S.rosters.map(r => {
+    const players = (r.players||[]).map(pid=>S.bySleeper[String(pid)]).filter(Boolean)
+                      .sort((a,b)=>a.overall-b.overall);
+    return {
+      rosterId: r.roster_id,
+      ownerId: r.owner_id,
+      name: nameOf[r.owner_id] || ('Team ' + r.roster_id),
+      isMe: !!(S.user && r.owner_id === S.user.user_id),
+      record: r.settings ? `${r.settings.wins||0}-${r.settings.losses||0}` : '',
+      players,
+      total: players.reduce((s,p)=>s+(p.value||0),0),
+      diffMakers: players.filter(p=>tierOf(p)<=2).length,
+      raw: {}
+    };
+  });
+
+  // league average per position, then each team's % of it
+  FIT_POS.forEach(pos => {
+    const vals = profiles.map(t => top3(t.players, pos));
+    const avg = vals.reduce((a,b)=>a+b,0) / (vals.length||1);
+    profiles.forEach((t,i) => {
+      t.raw[pos] = vals[i];
+      t[pos] = avg ? Math.round(100 * vals[i] / avg) : 100;
+    });
+  });
+
+  profiles.sort((a,b)=>b.total-a.total);
+  profiles.forEach((t,i)=>{ t.valueRank = i+1; });
+  return profiles;
+}
+
+/* How well do two rosters match up as trade partners?
+   The point is COMPLEMENTARY need, not raw wealth. A rich team that is strong
+   exactly where you are strong has nothing you can pry loose at a fair price. */
+function tradeFit(me, them){
+  let score = 0; const reasons = [];
+  FIT_POS.forEach(pos => {
+    const mySurplus  = me[pos] - 100;
+    const theirSurplus = them[pos] - 100;
+    // I'm deep here and they're thin -> I can sell into their need
+    if(mySurplus > 12 && theirSurplus < -12){
+      const w = Math.min(mySurplus, -theirSurplus);
+      score += w;
+      reasons.push({dir:'sell', pos, text:`You're deep at <b>${pos}</b> (${me[pos]}%), they're thin (${them[pos]}%)`});
+    }
+    // They're deep and I'm thin -> they can sell into my need
+    if(theirSurplus > 12 && mySurplus < -12){
+      const w = Math.min(theirSurplus, -mySurplus);
+      score += w;
+      reasons.push({dir:'buy', pos, text:`They're deep at <b>${pos}</b> (${them[pos]}%), you're thin (${me[pos]}%)`});
+    }
+  });
+  // A two-way match is worth far more than a one-way one: both sides have a
+  // reason to say yes, which is what actually gets a trade accepted.
+  const twoWay = reasons.some(r=>r.dir==='sell') && reasons.some(r=>r.dir==='buy');
+  if(twoWay) score *= 1.6;
+  return { score: Math.round(score), reasons, twoWay };
+}
+
+function fitLabel(f){
+  if(f.twoWay && f.score >= 60) return {t:'Ideal Match', c:'var(--good)'};
+  if(f.score >= 45) return {t:'Strong Fit', c:'var(--good)'};
+  if(f.score >= 20) return {t:'Worth Asking', c:'var(--gold)'};
+  if(f.score > 0)   return {t:'Marginal', c:'var(--dim)'};
+  return {t:'Poor Fit', c:'var(--faint)'};
+}
+
+function viewTeam(rid){
+  S.viewTeam = (S.viewTeam === rid) ? null : rid;
+  renderTeams();
+  const el = document.getElementById('team_'+rid);
+  if(el && S.viewTeam === rid && typeof el.scrollIntoView === 'function'){
+    el.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+}
+
 function renderTeams(){
   const box = document.getElementById('teamsBody');
   if(!S.user){
@@ -837,18 +930,82 @@ function renderTeams(){
       <div class="plist">${roster.map(p=>rowHTML(p)).join('')}</div><div class="spacer"></div>`;
   }
 
-  html += `<div class="card"><h2>League Value Board</h2>
-    <table class="mini">${[...S.rosters].map(r=>({
-      n: nameOf[r.owner_id]||('Team '+r.roster_id),
-      me: r.owner_id===(S.user&&S.user.user_id),
-      v: (r.players||[]).reduce((s,pid)=>{const p=S.bySleeper[String(pid)];return s+(p&&p.value?p.value:0)},0)
-    })).sort((a,b)=>b.v-a.v).map((t,i)=>`<tr><td>${i+1}. ${esc(t.n)}${t.me?' <span class="tag mine">YOU</span>':''}</td>
-      <td>${Math.round(t.v/1000)}k</td></tr>`).join('')}</table></div>`;
+  /* ---------- league browser + trade-partner finder ---------- */
+  const profiles = leagueProfiles();
+  const meProf = profiles.find(t=>t.isMe);
+  const others = profiles.filter(t=>!t.isMe);
+
+  if(meProf){
+    others.forEach(t => { t.fit = tradeFit(meProf, t); });
+    others.sort((a,b)=> b.fit.score - a.fit.score || b.total - a.total);
+  } else {
+    others.forEach(t => { t.fit = {score:0, reasons:[], twoWay:false}; });
+  }
+
+  const sortMode = S.teamSort || 'fit';
+  const list = others.slice().sort((a,b) =>
+    sortMode === 'value' ? b.total - a.total : (b.fit.score - a.fit.score || b.total - a.total));
+
+  html += `<div class="card">
+    <h2>Trade Partners</h2>
+    <div class="hint">Ranked by how well their roster fits yours — where one of you is deep and the
+      other is thin. Tap a team to open their roster, then tap any player to price a deal.</div>
+    <div class="spacer"></div>
+    <div class="chips" style="padding-bottom:2px">
+      <button class="chip ${sortMode==='fit'?'on':''}" onclick="setTeamSort('fit')">Best Fit</button>
+      <button class="chip ${sortMode==='value'?'on':''}" onclick="setTeamSort('value')">Richest Roster</button>
+    </div>
+  </div>`;
+
+  html += list.map(t => {
+    const f = t.fit, lab = fitLabel(f);
+    const open = S.viewTeam === t.rosterId;
+    const bars = FIT_POS.map(pos => {
+      const v = t[pos], mineV = meProf ? meProf[pos] : 100;
+      const gap = v - mineV;
+      const col = v < 85 ? 'var(--bad)' : v > 115 ? 'var(--good)' : 'var(--dim)';
+      return `<div style="flex:1;min-width:0;text-align:center">
+        <div style="font-family:'Teko';font-size:17px;line-height:1;color:${col}">${v}</div>
+        <div style="font-size:8.5px;color:var(--faint);letter-spacing:.05em">${pos}${
+          meProf ? ` <span style="color:${gap>0?'var(--good)':gap<0?'var(--bad)':'var(--faint)'}">${gap>0?'+':''}${gap}</span>` : ''}</div>
+      </div>`;
+    }).join('');
+
+    return `<div class="card" id="team_${t.rosterId}" style="padding:0;overflow:hidden">
+      <div style="padding:12px;cursor:pointer" onclick="viewTeam(${t.rosterId})">
+        <div class="row">
+          <div class="grow" style="min-width:0">
+            <div style="font-weight:600;font-size:15px">${esc(t.name)}</div>
+            <div class="pmeta" style="margin-top:3px">
+              <span>#${t.valueRank} by value</span><span>${Math.round(t.total/1000)}k</span>
+              <span>${t.diffMakers} difference-makers</span>${t.record?`<span>${t.record}</span>`:''}
+            </div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-family:'Teko';font-size:19px;line-height:1;color:${lab.c}">${lab.t}</div>
+            <div style="font-size:8.5px;color:var(--faint);letter-spacing:.05em">FIT ${f.score}</div>
+          </div>
+        </div>
+        <div class="row" style="margin-top:10px;gap:4px">${bars}</div>
+        ${f.reasons.length ? `<div class="small" style="margin-top:9px;color:var(--dim);line-height:1.5">
+            ${f.reasons.map(r=>`${r.dir==='sell'?'▲':'▼'} ${r.text}`).join('<br>')}
+            ${f.twoWay?'<br><span style="color:var(--good)">Both sides have a reason to say yes.</span>':''}
+          </div>`
+        : `<div class="small muted" style="margin-top:9px">No complementary need — you're shaped alike.
+            Any deal here is one of you overpaying.</div>`}
+        <div class="small" style="margin-top:8px;color:var(--gold)">${open?'▲ Hide roster':'▼ Show roster'}</div>
+      </div>
+      ${open ? `<div class="plist" style="border-radius:0;border-left:0;border-right:0;border-bottom:0">
+          ${t.players.map(p=>rowHTML(p)).join('')}
+        </div>` : ''}
+    </div>`;
+  }).join('');
 
   box.innerHTML = html;
-  const pl = box.querySelector('.plist');
-  if(pl) pl.querySelectorAll('.prow').forEach(el=>el.onclick=()=>openSheet(el.dataset.k));
+  box.querySelectorAll('.prow').forEach(el => el.onclick = () => openSheet(el.dataset.k));
 }
+
+function setTeamSort(m){ S.teamSort = m; renderTeams(); }
 
 /* =====================================================================
    9. SETUP
