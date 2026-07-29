@@ -385,6 +385,20 @@ function timeAgo(t){
   return Math.floor(s/86400)+'d ago';
 }
 </script>
-<script src="app.js"></script>
+<script>
+/* Load the logic with a cache-buster. Browsers happily hold a stale app.js for
+   hours, which silently serves old code after an update — the worst kind of bug,
+   because everything looks fine. The file is ~40KB; correctness is worth more. */
+(function(){
+  var s = document.createElement('script');
+  s.src = 'app.js?v=' + Date.now();
+  s.onerror = function(){
+    document.getElementById('boardList').innerHTML =
+      '<div class="err">Could not load app.js. If you just updated the site, wait a minute for ' +
+      'GitHub Pages to finish deploying, then reload.</div>';
+  };
+  document.body.appendChild(s);
+})();
+</script>
 </body>
 </html>
