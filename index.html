@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#101913">
+<title>The War Room — 2026</title>
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#101913; --surface:#17211b; --surface-2:#1e2a22; --surface-3:#253328;
+  --line:#2a382f; --chalk:#EDEBE2; --dim:#A9B3AA; --faint:#6d7a71;
+  --gold:#E8A33D; --gold-dim:#7a5b24;
+  --t1:#3FA66B; --t2:#E8A33D; --t3:#6E8CA0; --t4:#8A8A78; --t5:#5B6560;
+  --good:#3FA66B; --bad:#D8574B; --info:#6E8CA0;
+  color-scheme: dark;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--chalk);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  font-size:15px;-webkit-text-size-adjust:100%}
+body{padding-bottom:76px}
+h1,h2,h3,.disp{font-family:'Teko',sans-serif;font-weight:600;letter-spacing:.02em;margin:0}
+a{color:var(--gold)}
+button,select,input{font-family:inherit;font-size:inherit}
+
+/* ---------- chrome ---------- */
+.hero{padding:14px 16px 10px;background:linear-gradient(180deg,#16231a,var(--bg));
+  border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}
+.hero-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.hero h1{font-size:30px;line-height:1;text-transform:uppercase}
+.hero .sub{color:var(--faint);font-size:11px;letter-spacing:.09em;text-transform:uppercase;margin-top:3px}
+.leaguepick{background:var(--surface-2);border:1px solid var(--line);color:var(--chalk);
+  border-radius:8px;padding:7px 9px;max-width:52%;font-size:13px}
+
+nav.tabs{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:50;
+  background:rgba(16,25,19,.97);backdrop-filter:blur(12px);border-top:1px solid var(--line);
+  padding-bottom:env(safe-area-inset-bottom)}
+nav.tabs button{flex:1;background:none;border:0;color:var(--faint);padding:10px 2px 11px;
+  font-size:10px;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:3px;font-weight:600}
+nav.tabs button .ic{font-size:17px;line-height:1}
+nav.tabs button.on{color:var(--gold)}
+.view{display:none;padding:12px 12px 20px}
+.view.on{display:block}
+
+/* ---------- generic ---------- */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:12px}
+.card h2{font-size:20px;text-transform:uppercase;color:var(--chalk);margin-bottom:2px}
+.card .hint{color:var(--faint);font-size:11.5px;line-height:1.45}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;background:var(--surface-2);border:1px solid var(--line);color:var(--dim);
+  border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.chip.on{background:var(--gold);border-color:var(--gold);color:#14200f}
+.btn{background:var(--surface-2);border:1px solid var(--line);color:var(--chalk);border-radius:9px;
+  padding:9px 13px;font-size:13px;font-weight:600;cursor:pointer}
+.btn:active{background:var(--surface-3)}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:#14200f}
+.btn.sm{padding:5px 9px;font-size:11.5px}
+input[type=text],input[type=search]{width:100%;background:var(--surface-2);border:1px solid var(--line);
+  color:var(--chalk);border-radius:9px;padding:10px 12px}
+input::placeholder{color:var(--faint)}
+.row{display:flex;gap:8px;align-items:center}
+.grow{flex:1}
+.muted{color:var(--faint)}
+.small{font-size:11.5px}
+.spacer{height:8px}
+
+/* ---------- player rows ---------- */
+.plist{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.prow{display:grid;grid-template-columns:34px 1fr auto;gap:9px;align-items:center;
+  background:var(--surface);padding:9px 10px;cursor:pointer}
+.prow:active{background:var(--surface-2)}
+.prow.gone{opacity:.32}
+.prow.gone .pname{text-decoration:line-through}
+.prk{font-family:'Teko',sans-serif;font-size:21px;line-height:1;text-align:center;color:var(--gold)}
+.prk small{display:block;font-family:'Inter';font-size:8.5px;color:var(--faint);letter-spacing:.05em}
+.pname{font-weight:600;font-size:14.5px;line-height:1.2}
+.pmeta{color:var(--faint);font-size:11px;margin-top:2px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.pright{text-align:right;min-width:56px}
+.pval{font-family:'Teko',sans-serif;font-size:19px;line-height:1;color:var(--chalk)}
+.pval small{display:block;font-family:'Inter';font-size:8.5px;color:var(--faint);letter-spacing:.05em}
+.tag{display:inline-block;border-radius:4px;padding:1px 5px;font-size:9.5px;font-weight:700;letter-spacing:.04em}
+.tag.t1{background:rgba(63,166,107,.18);color:var(--t1)}
+.tag.t2{background:rgba(232,163,61,.18);color:var(--t2)}
+.tag.t3{background:rgba(110,140,160,.18);color:var(--t3)}
+.tag.t4{background:rgba(138,138,120,.18);color:var(--t4)}
+.tag.t5{background:rgba(91,101,96,.2);color:var(--t5)}
+.tag.val{background:rgba(63,166,107,.18);color:var(--good)}
+.tag.reach{background:rgba(216,87,75,.18);color:var(--bad)}
+.tag.split{background:rgba(110,140,160,.16);color:var(--info)}
+.tag.mine{background:rgba(232,163,61,.22);color:var(--gold)}
+
+/* ---------- detail sheet ---------- */
+.sheet{position:fixed;inset:0;z-index:60;background:rgba(8,13,10,.72);display:none;align-items:flex-end}
+.sheet.on{display:flex}
+.sheet-in{background:var(--surface);border-top-left-radius:16px;border-top-right-radius:16px;
+  border-top:1px solid var(--line);width:100%;max-height:88vh;overflow-y:auto;padding:14px 14px 30px}
+.grab{width:36px;height:4px;background:var(--line);border-radius:3px;margin:0 auto 12px}
+.srcgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:6px;margin-top:8px}
+.srcbox{background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:7px;text-align:center}
+.srcbox .n{font-family:'Teko';font-size:20px;line-height:1;color:var(--chalk)}
+.srcbox .l{font-size:8.5px;color:var(--faint);letter-spacing:.05em;text-transform:uppercase;margin-top:2px}
+.bar{height:5px;background:var(--surface-3);border-radius:3px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--gold)}
+
+/* ---------- trade ---------- */
+.tradegrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tside{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:9px;min-height:96px}
+.tside h3{font-size:16px;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+.tpill{display:flex;justify-content:space-between;align-items:center;gap:6px;background:var(--surface);
+  border:1px solid var(--line);border-radius:7px;padding:6px 8px;margin-bottom:5px;font-size:12.5px}
+.tpill button{background:none;border:0;color:var(--bad);font-size:15px;cursor:pointer;padding:0 2px;line-height:1}
+.verdict{text-align:center;padding:14px;border-radius:10px;margin-top:10px;border:1px solid var(--line);background:var(--surface-2)}
+.verdict .big{font-family:'Teko';font-size:34px;line-height:1}
+.verdict.win{border-color:rgba(63,166,107,.5)} .verdict.win .big{color:var(--good)}
+.verdict.lose{border-color:rgba(216,87,75,.5)} .verdict.lose .big{color:var(--bad)}
+.verdict.even .big{color:var(--dim)}
+
+/* ---------- misc ---------- */
+.hbar{display:flex;gap:4px;align-items:center;margin-top:4px}
+.hdot{width:7px;height:7px;border-radius:50%;background:var(--bad)}
+.hdot.ok{background:var(--good)} .hdot.warn{background:var(--gold)}
+table.mini{width:100%;border-collapse:collapse;font-size:12px}
+table.mini td{padding:5px 4px;border-bottom:1px solid var(--line)}
+table.mini td:last-child{text-align:right;font-weight:600}
+.empty{text-align:center;color:var(--faint);padding:26px 12px;font-size:13px;line-height:1.5}
+.loading{text-align:center;color:var(--faint);padding:30px;font-size:13px}
+.err{background:rgba(216,87,75,.1);border:1px solid rgba(216,87,75,.4);color:#f0a49c;
+  border-radius:9px;padding:10px;font-size:12.5px;line-height:1.5;margin-bottom:10px}
+.ok-note{background:rgba(63,166,107,.09);border:1px solid rgba(63,166,107,.35);color:#9fd3b5;
+  border-radius:9px;padding:10px;font-size:12.5px;line-height:1.5;margin-bottom:10px}
+@media(min-width:760px){
+  body{max-width:900px;margin:0 auto;padding-bottom:20px}
+  nav.tabs{position:static;background:none;backdrop-filter:none;border-top:0;border-bottom:1px solid var(--line);max-width:900px;margin:0 auto}
+  nav.tabs button{flex-direction:row;gap:7px;font-size:12px;padding:12px}
+  .view{padding:16px 0}
+  .hero{border-radius:0}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-row">
+    <div>
+      <h1>The War Room</h1>
+      <div class="sub" id="subline">2026 · loading feeds…</div>
+    </div>
+    <select class="leaguepick" id="leaguePick"></select>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button data-v="board" class="on"><span class="ic">▤</span>Board</button>
+  <button data-v="draft"><span class="ic">◈</span>Draft</button>
+  <button data-v="trade"><span class="ic">⇄</span>Trade</button>
+  <button data-v="teams"><span class="ic">★</span>My Teams</button>
+  <button data-v="setup"><span class="ic">⚙</span>Setup</button>
+</nav>
+
+<!-- ============ BOARD ============ -->
+<section class="view on" id="v-board">
+  <div id="boardAlerts"></div>
+  <input type="search" id="boardSearch" placeholder="Search player…" autocomplete="off">
+  <div class="spacer"></div>
+  <div class="chips" id="posChips"></div>
+  <div class="chips" id="sortChips">
+    <button class="chip on" data-sort="consensus">Consensus</button>
+    <button class="chip" data-sort="expert">Expert Blend</button>
+    <button class="chip" data-sort="market">Market Value</button>
+    <button class="chip" data-sort="split">Most Disputed</button>
+    <button class="chip" data-sort="value">Buy Low</button>
+    <button class="chip" data-sort="trend">Rising</button>
+  </div>
+  <div id="boardList"><div class="loading">Pulling feeds…</div></div>
+</section>
+
+<!-- ============ DRAFT ============ -->
+<section class="view" id="v-draft">
+  <div class="card">
+    <div class="row">
+      <div class="grow">
+        <h2>Draft Mode</h2>
+        <div class="hint" id="draftHint">Tap a player to mark them gone. Board re-sorts to best available.</div>
+      </div>
+      <button class="btn sm" id="draftReset">Reset</button>
+    </div>
+    <div class="spacer"></div>
+    <div class="row">
+      <input type="text" id="draftId" placeholder="Sleeper draft ID (optional — auto-sync picks)">
+      <button class="btn sm" id="draftSync">Sync</button>
+    </div>
+  </div>
+  <div class="card" id="scarcityCard">
+    <h2>Positional Scarcity</h2>
+    <div class="hint">Starter-quality players left at each position, by tier.</div>
+    <div class="spacer"></div>
+    <div id="scarcity"></div>
+  </div>
+  <div class="chips" id="draftPosChips"></div>
+  <div id="draftList"></div>
+</section>
+
+<!-- ============ TRADE ============ -->
+<section class="view" id="v-trade">
+  <div class="card">
+    <h2>Trade Evaluator</h2>
+    <div class="hint">Values come from FantasyCalc's live market — derived from thousands of real completed
+      trades, re-configured for the league you picked above. A package of many pieces is discounted, because
+      you can only start so many players.</div>
+  </div>
+  <input type="search" id="tradeSearch" placeholder="Search a player to add…" autocomplete="off">
+  <div id="tradeResults"></div>
+  <div class="spacer"></div>
+  <div class="tradegrid">
+    <div class="tside"><h3>I Give</h3><div id="giveList"></div></div>
+    <div class="tside"><h3>I Get</h3><div id="getList"></div></div>
+  </div>
+  <div id="tradeVerdict"></div>
+  <div class="spacer"></div>
+  <button class="btn" id="tradeClear">Clear both sides</button>
+</section>
+
+<!-- ============ TEAMS ============ -->
+<section class="view" id="v-teams">
+  <div id="teamsBody"><div class="empty">Add your Sleeper username in <b>Setup</b> to pull your leagues and rosters.</div></div>
+</section>
+
+<!-- ============ SETUP ============ -->
+<section class="view" id="v-setup">
+  <div class="card">
+    <h2>Sleeper Account</h2>
+    <div class="hint">Read-only. Your username is stored on this device only — nothing is sent anywhere but Sleeper's own public API.</div>
+    <div class="spacer"></div>
+    <div class="row">
+      <input type="text" id="sleeperUser" placeholder="Sleeper username" autocapitalize="off" autocorrect="off">
+      <button class="btn gold sm" id="sleeperSave">Connect</button>
+    </div>
+    <div id="sleeperStatus" class="small muted" style="margin-top:8px"></div>
+  </div>
+
+  <div class="card">
+    <h2>League Settings</h2>
+    <div class="hint">Leagues pulled from Sleeper are configured automatically. Manual entries below are used
+      when no Sleeper league is selected.</div>
+    <div class="spacer"></div>
+    <div id="leagueEditor"></div>
+  </div>
+
+  <div class="card">
+    <h2>Feed Health</h2>
+    <div class="hint">Every source this page pulled on load. If something is red, the number below it is stale.</div>
+    <div class="spacer"></div>
+    <div id="health"></div>
+    <div class="spacer"></div>
+    <button class="btn" id="hardRefresh">Force refresh all feeds</button>
+  </div>
+
+  <div class="card">
+    <h2>How The Blend Works</h2>
+    <div class="hint" id="methodology"></div>
+  </div>
+</section>
+
+<div class="sheet" id="sheet"><div class="sheet-in" id="sheetIn"></div></div>
+
+<script>
+/* =====================================================================
+   THE WAR ROOM — 2026
+   Zero-cost, no-server, no-API-key fantasy football decision console.
+   All data fetched client-side from free public endpoints.
+   ===================================================================== */
+
+const S = {
+  players: [],        // unified player objects
+  bySleeper: {},      // sleeperId -> player
+  expert: null,       // bundled expert blend json
+  fc: null,           // fantasycalc payload
+  sleeperMap: {},     // sleeperId -> {n,p,t}
+  leagues: [],        // sleeper leagues
+  league: null,       // active league config
+  user: null,
+  rosters: [],
+  lusers: [],
+  drafted: new Set(),
+  give: [], get: [],
+  health: [],
+  pos: 'ALL', sort: 'consensus', dpos: 'ALL'
+};
+
+const LS = {
+  get(k, d){ try{ const v = localStorage.getItem('wr26_'+k); return v==null?d:JSON.parse(v);}catch(e){return d} },
+  set(k, v){ try{ localStorage.setItem('wr26_'+k, JSON.stringify(v)); }catch(e){} },
+  del(k){ try{ localStorage.removeItem('wr26_'+k); }catch(e){} }
+};
+
+/* ---------- fallback league presets ----------
+   These mirror Bobby's three real Sleeper leagues and are only used before the
+   Sleeper account loads (or if Sleeper is unreachable). Once connected, the
+   live league settings from Sleeper always win. */
+const PRESETS = [
+  { id:'preset_du',   name:'DU & Friends (SF Dynasty, TE+)', teams:12, ppr:1, qbs:2, dynasty:true,
+    tePremium:0.5, usesK:false, usesDST:false,
+    scoring:{ pass_td:6, int:-2, pass_yd:0.04, rush_yd:0.1, rush_td:6, fum:-2, rec:1 } },
+  { id:'preset_pffp', name:'PFFP Dynasty (SF Dynasty, TE+)', teams:12, ppr:1, qbs:2, dynasty:true,
+    tePremium:0.5, usesK:false, usesDST:false,
+    scoring:{ pass_td:4, int:-1, pass_yd:0.04, rush_yd:0.1, rush_td:6, fum:-2, rec:1 } },
+  { id:'preset_rutgers', name:'Rutgers DU Alum (1QB Redraft)', teams:12, ppr:1, qbs:1, dynasty:false,
+    tePremium:0, usesK:true, usesDST:true,
+    scoring:{ pass_td:6, int:-2, pass_yd:0.04, rush_yd:0.1, rush_td:6, fum:-2, rec:1 } }
+];
+
+/* ---------- name normalisation for cross-source joins ---------- */
+const SUFFIX = /\b(jr|sr|ii|iii|iv|v)\.?$/i;
+// Sources spell the same player differently ("Cam" vs "Cameron Skattebo"),
+// which silently splits him into two board entries. Canonicalise first names.
+const NICK = { cam:'cameron', kenny:'kenneth', nick:'nicholas', mike:'michael',
+  chris:'christopher', joe:'joseph', tony:'anthony', will:'william', matt:'matthew',
+  zach:'zachary', dave:'david', ben:'benjamin', sam:'samuel', tim:'timothy',
+  tom:'thomas', dan:'daniel', greg:'gregory', rob:'robert', josh:'joshua',
+  ken:'kenneth', jeff:'jeffrey', tj:'tj', dj:'dj', aj:'aj', cj:'cj' };
+function norm(n){
+  if(!n) return '';
+  const base = n.toLowerCase()
+    .replace(/[.'`’]/g,'')
+    .replace(/\s+/g,' ')
+    .trim()
+    .replace(SUFFIX,'')
+    .trim()
+    .replace(/[^a-z ]/g,'')
+    .trim();
+  const parts = base.split(' ');
+  if(parts.length > 1 && NICK[parts[0]]) parts[0] = NICK[parts[0]];
+  return parts.join(' ');
+}
+const TEAMFIX = { ARZ:'ARI', JAC:'JAX', LAR:'LAR', LA:'LAR', WSH:'WAS', WFT:'WAS', OAK:'LV', SD:'LAC', STL:'LAR' };
+function fixTeam(t){ if(!t) return ''; t=t.toUpperCase(); return TEAMFIX[t]||t; }
+
+function markHealth(name, ok, note){
+  S.health = S.health.filter(h=>h.name!==name);
+  S.health.push({name, ok, note, at:new Date()});
+}
+
+async function getJSON(url, name, ttlMin){
+  const ck = 'cache_'+url;
+  const cached = LS.get(ck, null);
+  const now = Date.now();
+  if(cached && ttlMin && (now - cached.t) < ttlMin*60000){
+    markHealth(name, true, 'cached · '+timeAgo(cached.t));
+    return cached.d;
+  }
+  try{
+    const r = await fetch(url, {cache:'no-store'});
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const d = await r.json();
+    if(ttlMin){ LS.set(ck, {t:now, d:d}); }
+    markHealth(name, true, 'live · just now');
+    return d;
+  }catch(e){
+    if(cached){ markHealth(name,'warn','offline · using copy from '+timeAgo(cached.t)); return cached.d; }
+    markHealth(name, false, e.message);
+    return null;
+  }
+}
+function timeAgo(t){
+  const s = Math.floor((Date.now()-t)/1000);
+  if(s<60) return 'just now';
+  if(s<3600) return Math.floor(s/60)+'m ago';
+  if(s<86400) return Math.floor(s/3600)+'h ago';
+  return Math.floor(s/86400)+'d ago';
+}
+</script>
+<script src="app.js"></script>
+</body>
+</html>

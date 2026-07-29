@@ -1,0 +1,5 @@
+{
+  "generated": "not yet populated",
+  "note": "Backup copy of market values, written by the weekly refresh task. The app only reads this if the live FantasyCalc call fails. Keys are league formats: red|dyn _ <n>qb _ <n>tm _ ppr<n>. Empty until the first weekly run.",
+  "configs": {}
+}

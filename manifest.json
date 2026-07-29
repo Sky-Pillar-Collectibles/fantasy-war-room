@@ -1,0 +1,18 @@
+{
+  "name": "The War Room — 2026 Fantasy",
+  "short_name": "War Room",
+  "description": "Blended fantasy football rankings, live draft board, and trade evaluator wired to Sleeper.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#101913",
+  "theme_color": "#101913",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='96' fill='%23101913'/%3E%3Ctext x='256' y='340' font-family='Georgia,serif' font-size='260' font-weight='bold' fill='%23E8A33D' text-anchor='middle'%3EW%3C/text%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
