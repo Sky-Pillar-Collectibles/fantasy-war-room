@@ -126,12 +126,16 @@ async function loadAll(force){
 }
 
 async function loadLeagueRosters(L){
-  if(!L || !L.raw){ S.rosters = []; S.lusers = []; return; }
-  const [ros, usr] = await Promise.all([
+  if(!L || !L.raw){ S.rosters = []; S.lusers = []; S.tradedPicks = []; return; }
+  const jobs = [
     getJSON(`${SLEEPER}/league/${L.id}/rosters`, 'League Rosters', 15),
     getJSON(`${SLEEPER}/league/${L.id}/users`, 'League Managers', 60*24)
-  ]);
-  S.rosters = ros || []; S.lusers = usr || [];
+  ];
+  // Future rookie picks are real, tradeable assets in a dynasty league — often
+  // worth more than the players being discussed. Redraft leagues have none.
+  if(L.dynasty) jobs.push(getJSON(`${SLEEPER}/league/${L.id}/traded_picks`, 'Traded Draft Picks', 15));
+  const [ros, usr, tp] = await Promise.all(jobs);
+  S.rosters = ros || []; S.lusers = usr || []; S.tradedPicks = tp || [];
 }
 
 async function loadSleeperPlayers(){
@@ -359,6 +363,78 @@ function buildUnified(){
 
   // ---- tag rostered players in the active league ----
   tagOwnership();
+
+  // ---- future rookie picks as first-class assets ----
+  buildPickAssets();
+}
+
+/* =====================================================================
+   3b. FUTURE DRAFT PICKS
+   In a dynasty league a 2027 1st is a top-100 asset — worth more than most
+   starters. Leaving picks out of the roster maths makes it look like a win to
+   trade three firsts for one player, which is exactly how a team gets gutted.
+   ===================================================================== */
+const ORD = {1:'1st', 2:'2nd', 3:'3rd', 4:'4th', 5:'5th'};
+
+function buildPickAssets(){
+  S.picks = [];
+  S.pickValueMap = {};
+  const L = S.league;
+  if(!L || !L.dynasty || !S.rosters.length) return;
+
+  // FantasyCalc prices picks under names like "2027 1st". Index them.
+  S.fc.forEach(row => {
+    const pl = row.player || {};
+    if(pl.position === 'PICK' && pl.name) S.pickValueMap[pl.name.trim()] = row.value;
+  });
+  if(!Object.keys(S.pickValueMap).length) return;
+
+  const curSeason = parseInt(L.raw && L.raw.season ? L.raw.season : SEASON, 10);
+  const rounds = (L.raw && L.raw.settings && L.raw.settings.draft_rounds) || 4;
+
+  // Sleeper records only TRADED picks; everything else sits with its original
+  // team. How many years out a league trades isn't exposed, so take the furthest
+  // season anyone has actually traded, with a floor of two years.
+  const tradedSeasons = (S.tradedPicks||[]).map(p=>parseInt(p.season,10)).filter(n=>n>curSeason);
+  const maxSeason = Math.max(curSeason + 2, ...(tradedSeasons.length?tradedSeasons:[0]));
+  const seasons = [];
+  for(let y = curSeason + 1; y <= maxSeason; y++) seasons.push(y);
+  S.pickSeasons = seasons;
+
+  // start with every team holding its own picks, then apply the trades
+  const owner = {};                       // "season|round|originalRosterId" -> rosterId
+  S.rosters.forEach(r => seasons.forEach(y => {
+    for(let rd = 1; rd <= rounds; rd++) owner[`${y}|${rd}|${r.roster_id}`] = r.roster_id;
+  }));
+  (S.tradedPicks||[]).forEach(tp => {
+    const y = parseInt(tp.season,10);
+    if(y < curSeason+1 || y > maxSeason || tp.round > rounds) return;
+    const k = `${y}|${tp.round}|${tp.roster_id}`;
+    if(k in owner) owner[k] = tp.owner_id;
+  });
+
+  for(const k in owner){
+    const [y, rd, origId] = k.split('|');
+    const name = `${y} ${ORD[rd] || rd+'th'}`;
+    const value = S.pickValueMap[name];
+    if(value == null) continue;           // no market price -> don't invent one
+    S.picks.push({
+      key: `pick_${y}_${rd}_${origId}`,
+      name, pos: 'PICK', season: +y, round: +rd,
+      origRosterId: +origId, rosterId: owner[k],
+      value, isPick: true,
+      team: '', bye: null, injury: null, srcRanks: {}, nSources: 0
+    });
+  }
+  S.picks.sort((a,b)=>b.value-a.value);
+}
+
+function picksOf(rosterId){ return (S.picks||[]).filter(p=>p.rosterId === rosterId); }
+
+function myRosterId(){
+  if(!S.user) return null;
+  const r = S.rosters.find(x=>x.owner_id === S.user.user_id);
+  return r ? r.roster_id : null;
 }
 
 function tagOwnership(){
@@ -510,7 +586,7 @@ function wireRows(containerId, fn){
     el.onclick = () => fn(el.dataset.k);
   });
 }
-const findByKey = k => S.players.find(p=>p.key===k);
+const findByKey = k => S.players.find(p=>p.key===k) || (S.picks||[]).find(p=>p.key===k);
 
 /* ---------- detail sheet ---------- */
 function openSheet(key){
@@ -678,6 +754,49 @@ function renderTrade(){
   const cls = Math.abs(pct) < 8 ? 'even' : (diff > 0 ? 'win' : 'lose');
   const word = Math.abs(pct) < 8 ? 'Fair Deal' : (diff > 0 ? 'You Win' : 'You Lose');
 
+  /* ---- future capital check ----
+     The failure mode this exists to catch: a package of picks can clear the
+     value bar and still hollow out the team, because picks are the only asset
+     that replaces itself for free every year. */
+  let capital = '';
+  const myRid = myRosterId();
+  if(myRid != null && (S.picks||[]).length){
+    const mine = picksOf(myRid);
+    const myPickTotal = mine.reduce((s,p)=>s+p.value,0);
+    const outPicks = S.give.map(k=>findByKey(k)).filter(p=>p && p.isPick);
+    const inPicks  = S.get.map(k=>findByKey(k)).filter(p=>p && p.isPick);
+    const outVal = outPicks.reduce((s,p)=>s+p.value,0);
+    const inVal  = inPicks.reduce((s,p)=>s+p.value,0);
+    const netOut = outVal - inVal;
+
+    if(outPicks.length || inPicks.length){
+      const pctGone = myPickTotal ? Math.round(100*netOut/myPickTotal) : 0;
+      const firstsOut = outPicks.filter(p=>p.round===1).length;
+      const firstsLeft = mine.filter(p=>p.round===1).length - firstsOut + inPicks.filter(p=>p.round===1).length;
+      const severe = pctGone >= 45 || firstsOut >= 2 || firstsLeft <= 0;
+      const mild   = !severe && pctGone >= 20;
+
+      if(netOut > 0 && (severe || mild)){
+        capital = `<div class="${severe?'err':'ok-note'}" style="margin-top:10px;text-align:left">
+          <b>${severe?'You are mortgaging the future.':'Heads up on draft capital.'}</b>
+          This sends away <b>${pctGone}%</b> of your future draft capital${
+            firstsOut?` — including <b>${firstsOut} first-round pick${firstsOut>1?'s':''}</b>`:''}.
+          ${firstsLeft<=0
+            ? `You would have <b>no first-rounders left</b> in ${S.pickSeasons.join(' or ')}. If this player
+               doesn't work out, there is nothing behind him.`
+            : `You'd be left with ${firstsLeft} future 1st${firstsLeft===1?'':'s'}.`}
+          <br><br>The trade may still be right — contenders should buy — but picks are the only asset
+          that renews itself every year, so this is a real cost the value totals alone won't show you.
+        </div>`;
+      } else if(netOut < 0){
+        capital = `<div class="ok-note" style="margin-top:10px;text-align:left">
+          <b>You're buying future capital.</b> This nets you
+          ${inPicks.length} pick${inPicks.length===1?'':'s'} worth ${Math.abs(netOut).toLocaleString()}.
+          Good if you're rebuilding; a real cost if you're trying to win this year.</div>`;
+      }
+    }
+  }
+
   // roster-need context
   let need = '';
   if(S.rosters.length && S.user){
@@ -702,7 +821,9 @@ function renderTrade(){
       <tr><td class="muted">Raw sum, no depth discount</td><td class="muted">${g.raw.toLocaleString()} → ${r.raw.toLocaleString()}</td></tr>
     </table>
     ${need}
-    <div class="small muted" style="margin-top:8px">Configured for ${S.league.teams}-team ${S.league.qbs===2?'superflex':'1QB'}${S.league.dynasty?' dynasty':''}.</div>
+    ${capital}
+    <div class="small muted" style="margin-top:8px">Configured for ${S.league.teams}-team ${S.league.qbs===2?'superflex':'1QB'}${S.league.dynasty?' dynasty':''}${
+      S.league.dynasty && S.pickSeasons ? ` · future picks priced for ${S.pickSeasons.join(' & ')}` : ''}.</div>
   </div>`;
 }
 document.getElementById('tradeClear').onclick = () => { S.give=[]; S.get=[]; renderTrade(); };
@@ -711,12 +832,21 @@ document.getElementById('tradeSearch').oninput = e => {
   const q = e.target.value.trim();
   const box = document.getElementById('tradeResults');
   if(q.length < 2){ box.innerHTML=''; return; }
-  const hits = filtered('ALL', q).slice(0,8);
+  // Picks are searchable too — type "2027" or "1st" to pull them up.
+  const nq = q.toLowerCase();
+  const pickHits = (S.picks||[]).filter(p => p.name.toLowerCase().includes(nq))
+      .filter((p,i,arr) => arr.findIndex(x=>x.name===p.name && x.rosterId===p.rosterId)===i);
+  const hits = pickHits.slice(0,6).concat(filtered('ALL', q)).slice(0,10);
+  const ownerName = rid => {
+    const r = S.rosters.find(x=>x.roster_id===rid); if(!r) return '';
+    const u = S.lusers.find(x=>x.user_id===r.owner_id);
+    return u ? (u.display_name||u.username) : ('Team '+rid);
+  };
   box.innerHTML = hits.length ? `<div class="plist" style="margin-top:8px">${hits.map(p=>`
     <div class="prow">
-      <div class="prk">${p.overall}<small>OVR</small></div>
+      <div class="prk">${p.isPick?'📄':p.overall}<small>${p.isPick?'PICK':'OVR'}</small></div>
       <div><div class="pname">${esc(p.name)}</div>
-        <div class="pmeta"><span>${esc(p.pos)} · ${esc(p.team||'FA')}</span><span>${p.value!=null?p.value.toLocaleString():'—'}</span></div></div>
+        <div class="pmeta"><span>${p.isPick?esc(ownerName(p.rosterId)):esc(p.pos)+' · '+esc(p.team||'FA')}</span><span>${p.value!=null?p.value.toLocaleString():'—'}</span></div></div>
       <div class="pright" style="display:flex;gap:4px">
         <button class="btn sm" onclick="addTrade('${esc(p.key)}','give')">Give</button>
         <button class="btn sm" onclick="addTrade('${esc(p.key)}','get')">Get</button>
@@ -739,10 +869,21 @@ const STAT_INFO = {
       after them — and in a start-9 league, the superstars usually win. Treat it as a trade-leverage
       reading, not a power ranking.` },
   total: { title:'Total Value',
-    body:`The market value of everyone you own, added up, shown in thousands. The units are arbitrary
+    body:`The market value of everything you own, added up, shown in thousands. The units are arbitrary
       — the number only means something next to the other teams in this league.
+      <br><br><b>In a dynasty league this includes your future rookie picks</b>, because they are real
+      tradeable assets and a total that ignored them would be flattering nonsense.
       <br><br>Its real use is trade math: it's the same currency the Trade tab prices packages in,
       so you can see what a deal does to your overall holdings. On its own, ignore it.` },
+  picks: { title:'Future 1sts / Picks',
+    body:`Your future rookie draft picks — first-rounders shown first, total picks after the slash.
+      Pulled live from Sleeper, including every pick you've traded for or away.
+      <br><br>These are priced by the same market as players. A 2027 1st is currently worth more than
+      most starters, which is exactly why trading them away can look like a win on a value sheet while
+      quietly hollowing out the team.
+      <br><br>The Trade tab now warns you when a deal sends away a big share of this, and tells you how
+      many first-rounders you'd have left. Contenders should spend picks; the point is to do it knowing
+      the price.` },
   players: { title:'Players',
     body:`How many players on your roster the board has data for.
       <br><br>If this is lower than your actual Sleeper roster count, the difference is deep bench guys
@@ -793,14 +934,19 @@ function leagueProfiles(){
   const profiles = S.rosters.map(r => {
     const players = (r.players||[]).map(pid=>S.bySleeper[String(pid)]).filter(Boolean)
                       .sort((a,b)=>a.overall-b.overall);
+    const picks = picksOf(r.roster_id);
+    const playerVal = players.reduce((s,p)=>s+(p.value||0),0);
+    const pickVal = picks.reduce((s,p)=>s+p.value,0);
     return {
       rosterId: r.roster_id,
       ownerId: r.owner_id,
       name: nameOf[r.owner_id] || ('Team ' + r.roster_id),
       isMe: !!(S.user && r.owner_id === S.user.user_id),
       record: r.settings ? `${r.settings.wins||0}-${r.settings.losses||0}` : '',
-      players,
-      total: players.reduce((s,p)=>s+(p.value||0),0),
+      players, picks,
+      playerVal, pickVal,
+      firsts: picks.filter(p=>p.round===1).length,
+      total: playerVal + pickVal,   // picks are assets; a value rank that ignores them lies
       diffMakers: players.filter(p=>tierOf(p)<=2).length,
       raw: {}
     };
@@ -889,12 +1035,10 @@ function renderTeams(){
   if(mine){
     const roster = (mine.players||[]).map(pid=>S.bySleeper[String(pid)]).filter(Boolean)
                     .sort((a,b)=>a.overall-b.overall);
-    const starters = (mine.starters||[]).map(pid=>S.bySleeper[String(pid)]).filter(Boolean);
-    const totalVal = roster.reduce((s,p)=>s+(p.value||0),0);
-    const rank = [...S.rosters].map(r=>({
-      id:r.roster_id,
-      v:(r.players||[]).reduce((s,pid)=>{const p=S.bySleeper[String(pid)];return s+(p&&p.value?p.value:0)},0)
-    })).sort((a,b)=>b.v-a.v).findIndex(x=>x.id===mine.roster_id)+1;
+    const myPicks = picksOf(mine.roster_id);
+    const pickVal = myPicks.reduce((s,p)=>s+p.value,0);
+    const totalVal = roster.reduce((s,p)=>s+(p.value||0),0) + pickVal;
+    const rank = leagueProfiles().findIndex(t=>t.rosterId===mine.roster_id)+1;
 
     html += `<div class="card">
       <h2>My Roster</h2>
@@ -904,10 +1048,24 @@ function renderTeams(){
         ${statBox(Math.round(totalVal/1000)+'k', 'Total Value', 'total')}
         ${statBox(roster.length, 'Players', 'players')}
         ${statBox(roster.filter(p=>tierOf(p)<=2).length, 'Difference-Makers', 'diff')}
+        ${myPicks.length ? statBox(
+            `${myPicks.filter(p=>p.round===1).length}<span style="font-size:13px;color:var(--faint)">/${myPicks.length}</span>`,
+            'Future 1sts / Picks', 'picks') : ''}
       </div>
       <div class="hint" style="margin-top:8px">Tap any box to see what it means.</div>
       <div id="statInfo" data-open=""></div>
     </div>`;
+
+    if(myPicks.length){
+      html += `<div class="card" style="cursor:pointer" onclick="toggleMyPicks()">
+          <div class="row"><h2 class="grow">Draft Capital · ${Math.round(pickVal/1000)}k</h2>
+          <span class="small" style="color:var(--gold)">${S.showMyPicks?'▲ Hide':'▼ Show'}</span></div>
+          <div class="hint">${myPicks.filter(p=>p.round===1).length} future 1st-rounders across
+            ${S.pickSeasons.join(' & ')} · ${Math.round(100*pickVal/(totalVal||1))}% of everything you own.</div>
+        </div>
+        ${S.showMyPicks ? `<div class="plist">${myPicks.map(p=>pickRowHTML(p)).join('')}</div>` : ''}
+        <div class="spacer"></div>`;
+    }
 
     // positional strength vs league
     const posAvg = {};
@@ -1007,7 +1165,9 @@ function renderTeams(){
             <div style="font-weight:600;font-size:15px">${esc(t.name)}</div>
             <div class="pmeta" style="margin-top:3px">
               <span>#${t.valueRank} by value</span><span>${Math.round(t.total/1000)}k</span>
-              <span>${t.diffMakers} difference-makers</span>${t.record?`<span>${t.record}</span>`:''}
+              <span>${t.diffMakers} difference-makers</span>
+              ${t.picks && t.picks.length?`<span>${t.firsts} future 1st${t.firsts===1?'':'s'}</span>`:''}
+              ${t.record?`<span>${t.record}</span>`:''}
             </div>
           </div>
           <div style="text-align:right">
@@ -1026,6 +1186,7 @@ function renderTeams(){
       </div>
       ${open ? `<div class="plist" style="border-radius:0;border-left:0;border-right:0;border-bottom:0">
           ${t.players.map(p=>rowHTML(p)).join('')}
+          ${(t.picks||[]).map(p=>pickRowHTML(p)).join('')}
         </div>` : ''}
     </div>`;
   }).join('');
@@ -1033,11 +1194,72 @@ function renderTeams(){
   html += myRosterHtml;
 
   box.innerHTML = html;
-  box.querySelectorAll('.prow').forEach(el => el.onclick = () => openSheet(el.dataset.k));
+  box.querySelectorAll('.prow').forEach(el => {
+    if(el.dataset.pick) el.onclick = () => openPickSheet(el.dataset.pick);
+    else el.onclick = () => openSheet(el.dataset.k);
+  });
+}
+
+function openPickSheet(key){
+  const p = findByKey(key); if(!p) return;
+  const myRid = myRosterId();
+  const isMine = p.rosterId === myRid;
+  const holder = S.rosters.find(r=>r.roster_id===p.rosterId);
+  const holderName = holder ? ((S.lusers.find(u=>u.user_id===holder.owner_id)||{}).display_name||'') : '';
+  const allSame = (S.picks||[]).filter(x=>x.name===p.name);
+  const rankAmong = allSame.length;
+  document.getElementById('sheetIn').innerHTML = `
+    <div class="grab"></div>
+    <h2 style="font-size:26px">${esc(p.name)}</h2>
+    <div class="muted small" style="margin-bottom:10px">
+      Rookie draft pick · held by <span style="color:var(--gold)">${isMine?'you':esc(holderName)}</span>
+    </div>
+    <div class="srcgrid">
+      <div class="srcbox"><div class="n">${p.value.toLocaleString()}</div><div class="l">Market Value</div></div>
+      <div class="srcbox"><div class="n">${p.season}</div><div class="l">Season</div></div>
+      <div class="srcbox"><div class="n">R${p.round}</div><div class="l">Round</div></div>
+      <div class="srcbox"><div class="n">${rankAmong}</div><div class="l">In League</div></div>
+    </div>
+    <div class="spacer"></div>
+    <div class="card" style="margin:0"><div class="small">
+      Priced by the same market that prices players, so it can sit on either side of a trade honestly.
+      For scale, this pick is worth about as much as the
+      <b>#${(S.players.filter(x=>(x.value||0) >= p.value).length)||1}</b> most valuable player in the pool.
+      <br><br>Picks are the only asset that renews every year. Trading them is borrowing against seasons
+      you haven't played yet.
+    </div></div>
+    <div class="spacer"></div>
+    <div class="row">
+      <button class="btn grow ${isMine?'gold':''}" onclick="addTrade('${esc(p.key)}','give')">${isMine?'Trade it away':'+ I Give'}</button>
+      <button class="btn grow ${!isMine?'gold':''}" onclick="addTrade('${esc(p.key)}','get')">${!isMine?'Acquire it':'+ I Get'}</button>
+    </div>
+    <div class="spacer"></div>
+    <button class="btn" style="width:100%" onclick="closeSheet()">Close</button>`;
+  document.getElementById('sheet').classList.add('on');
 }
 
 function setTeamSort(m){ S.teamSort = m; renderTeams(); }
 function toggleMyRoster(){ S.showMyRoster = !S.showMyRoster; renderTeams(); }
+function toggleMyPicks(){ S.showMyPicks = !S.showMyPicks; renderTeams(); }
+
+/* A pick renders like a player row so it reads as the asset it is. */
+function pickRowHTML(p){
+  const orig = S.rosters.find(r=>r.roster_id===p.origRosterId);
+  const ownName = orig && orig.roster_id !== p.rosterId
+    ? (S.lusers.find(u=>u.user_id===orig.owner_id)||{}).display_name : null;
+  return `<div class="prow" data-pick="${esc(p.key)}">
+    <div class="prk" style="font-size:15px">${p.season}<small>R${p.round}</small></div>
+    <div>
+      <div class="pname">${esc(p.name)}</div>
+      <div class="pmeta">
+        <span>Rookie pick</span>
+        ${ownName?`<span>via ${esc(ownName)}</span>`:''}
+        ${p.round===1?'<span class="tag t1">1ST</span>':''}
+      </div>
+    </div>
+    <div class="pright"><div class="pval">${p.value.toLocaleString()}<small>VALUE</small></div></div>
+  </div>`;
+}
 
 /* =====================================================================
    9. SETUP
