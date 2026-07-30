@@ -877,7 +877,11 @@ function renderBalancers(){
    favour, and never surfaces.
    ===================================================================== */
 const IDEA_FAIR_PCT = 12;   // value must be within this to be worth proposing
-const IDEA_MIN_HELP = 10;   // both sides must gain at least this much positionally
+// Both sides must gain at least this much positionally. Tuned against the live
+// league: at 10 the only shape that survived was "sell a WR for picks", which
+// hid the equally valid "sell a WR for a RB" — the second-biggest hole on this
+// roster. Lower and it starts proposing swaps neither manager would notice.
+const IDEA_MIN_HELP = 8;
 
 function tradeIdeas(limit){
   limit = limit || 8;
