@@ -487,7 +487,7 @@ const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':
 
 function renderAll(){
   renderSub(); renderBoard(); renderDraft(); renderTeams(); renderHealth();
-  renderMethodology(); renderLeagueEditor();
+  renderMethodology(); renderLeagueEditor(); renderIdeas();
 }
 
 function renderSub(){
@@ -866,6 +866,132 @@ function renderBalancers(){
     ${s.side==='get' ? `<div class="hint" style="margin-top:9px">These come off
       ${esc(s.fromName)}'s roster — it's what you'd be asking them to include.</div>` : ''}
   </div>`;
+}
+
+/* =====================================================================
+   TRADE IDEAS
+   Proposals generated across the whole league. The scoring deliberately uses
+   min(my benefit, their benefit): a trade only ranks well if BOTH sides fix a
+   real hole. That is what stops it proposing daylight robbery — a deal that
+   only helps you scores zero here, however lopsided the value is in your
+   favour, and never surfaces.
+   ===================================================================== */
+const IDEA_FAIR_PCT = 12;   // value must be within this to be worth proposing
+const IDEA_MIN_HELP = 10;   // both sides must gain at least this much positionally
+
+function tradeIdeas(limit){
+  limit = limit || 8;
+  if(!S.rosters.length || !S.user) return [];
+  const P = leagueProfiles();
+  const me = P.find(t => t.isMe);
+  if(!me) return [];
+  const groups = FIT_POS.concat(me.PICKS != null ? ['PICKS'] : []);
+  const grpOf = a => a.isPick ? 'PICKS' : a.pos;
+  const worth = a => a.value != null && a.value >= 700;   // ignore roster filler
+
+  const ideas = [];
+  const myAssets = me.players.filter(worth).concat(me.picks || []);
+
+  P.filter(t => !t.isMe).forEach(T => {
+    const theirAssets = T.players.filter(worth).concat(T.picks || []);
+    myAssets.forEach(A => {
+      const ga = grpOf(A);
+      if(groups.indexOf(ga) < 0) return;
+      theirAssets.forEach(B => {
+        const gb = grpOf(B);
+        if(groups.indexOf(gb) < 0 || ga === gb) return;   // like-for-like fixes nothing
+
+        const pct = A.value ? (B.value - A.value) / A.value * 100 : 0;
+        if(Math.abs(pct) > IDEA_FAIR_PCT) return;         // must be near-even money
+
+        // I receive at gb (where I'm thin) and spend at ga (where I'm deep).
+        // Both conditions have to hold, hence the min.
+        const myBenefit    = Math.min(100 - me[gb], me[ga] - 100);
+        // They receive at ga (where they're thin) and spend at gb (where they're deep).
+        const theirBenefit = Math.min(100 - T[ga],  T[gb] - 100);
+        const mutual = Math.min(myBenefit, theirBenefit);
+        if(mutual < IDEA_MIN_HELP) return;
+
+        ideas.push({
+          partner: T.name, partnerRank: T.valueRank, rosterId: T.rosterId,
+          give: A, get: B, pct, mutual,
+          myBenefit, theirBenefit,
+          why: `You're thin at ${gb === 'PICKS' ? 'future picks' : gb} and deep at ${ga === 'PICKS' ? 'picks' : ga}. ` +
+               `${T.name} is the mirror image, so both rosters come out better balanced.`
+        });
+      });
+    });
+  });
+
+  // Spread the list around: at most one idea per asset of mine, two per partner,
+  // so it reads as a set of options rather than eight versions of one trade.
+  ideas.sort((a,b) => b.mutual - a.mutual || Math.abs(a.pct) - Math.abs(b.pct));
+  const usedAsset = new Set(), perPartner = {};
+  const out = [];
+  for(const i of ideas){
+    if(usedAsset.has(i.give.key)) continue;
+    perPartner[i.partner] = perPartner[i.partner] || 0;
+    if(perPartner[i.partner] >= 2) continue;
+    usedAsset.add(i.give.key); perPartner[i.partner]++;
+    out.push(i);
+    if(out.length >= limit) break;
+  }
+  return out;
+}
+
+function loadIdea(giveKey, getKey){
+  S.give = [giveKey]; S.get = [getKey];
+  renderTrade();
+  const el = document.getElementById('tradeVerdict');
+  if(el && typeof el.scrollIntoView === 'function') el.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function renderIdeas(){
+  const box = document.getElementById('ideasBox');
+  if(!box) return;
+  const ideas = tradeIdeas(8);
+  if(!ideas.length){
+    box.innerHTML = `<div class="card"><h2>Trade Ideas</h2>
+      <div class="hint">${S.rosters.length
+        ? `Nothing right now that clearly helps both sides at a fair price. That usually means your
+           roster is shaped like everyone else's — check <b>My Teams → Trade Partners</b> for where the
+           gaps are.`
+        : `Pick a Sleeper league from the dropdown to generate ideas.`}</div></div>`;
+    return;
+  }
+  box.innerHTML = `<div class="card">
+      <h2>Trade Ideas</h2>
+      <div class="hint">Offers worth sending. Each one is within ${IDEA_FAIR_PCT}% on value and fixes a
+        real hole <b>on both rosters</b> — a deal that only helped you would score zero here and never
+        appear. Tap one to load it into the evaluator.</div>
+    </div>
+    ${ideas.map(i => `
+      <div class="card" style="padding:12px;cursor:pointer" onclick="loadIdea('${esc(i.give.key)}','${esc(i.get.key)}')">
+        <div class="row">
+          <div class="grow" style="min-width:0">
+            <div style="font-weight:600;font-size:14px">${esc(i.partner)}
+              <span class="muted" style="font-weight:400">· #${i.partnerRank} by value</span></div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-family:'Teko';font-size:17px;line-height:1;color:${Math.abs(i.pct)<=6?'var(--good)':'var(--gold)'}">
+              ${i.pct>0?'+':''}${Math.round(i.pct)}%</div>
+            <div style="font-size:8.5px;color:var(--faint);letter-spacing:.05em">VALUE SWING</div>
+          </div>
+        </div>
+        <div class="row" style="margin-top:9px;gap:8px;align-items:stretch">
+          <div class="tside" style="flex:1;min-height:0;padding:7px">
+            <div style="font-size:8.5px;color:var(--faint);letter-spacing:.06em">YOU SEND</div>
+            <div style="font-weight:600;font-size:13px;margin-top:2px">${esc(i.give.displayName || i.give.name)}</div>
+            <div class="muted" style="font-size:11px">${i.give.isPick?'Pick':esc(i.give.pos)} · ${i.give.value.toLocaleString()}</div>
+          </div>
+          <div class="tside" style="flex:1;min-height:0;padding:7px">
+            <div style="font-size:8.5px;color:var(--faint);letter-spacing:.06em">YOU GET</div>
+            <div style="font-weight:600;font-size:13px;margin-top:2px">${esc(i.get.displayName || i.get.name)}</div>
+            <div class="muted" style="font-size:11px">${i.get.isPick?'Pick':esc(i.get.pos)} · ${i.get.value.toLocaleString()}</div>
+          </div>
+        </div>
+        <div class="small" style="margin-top:8px;color:var(--dim);line-height:1.5">${i.why}</div>
+      </div>`).join('')}`;
 }
 
 function renderTrade(){
