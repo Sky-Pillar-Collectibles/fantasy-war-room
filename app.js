@@ -447,7 +447,8 @@ function tagOwnership(){
     (r.players || []).forEach(pid => {
       const p = S.bySleeper[String(pid)];
       if(p){ p.owner = nameOf[r.owner_id] || 'Team '+r.roster_id;
-             p.mine = uid && r.owner_id === uid; }
+             p.mine = uid && r.owner_id === uid;
+             p.rosterId = r.roster_id; }   // needed to pull balancing pieces off a specific team
     });
   });
 }
@@ -734,6 +735,119 @@ function packageValue(keys){
   return { adjusted: Math.round(total), raw: Math.round(vals.reduce((a,b)=>a+b,0)), n: vals.length };
 }
 
+/* Who is on the other side of this trade? Inferred from whoever owns most of
+   what you're asking for — the app never makes you pick a partner manually. */
+function counterpartyRosterId(){
+  const counts = {};
+  S.get.map(k=>findByKey(k)).filter(Boolean).forEach(a => {
+    const rid = a.isPick ? a.rosterId : a.rosterId;
+    if(rid != null && rid !== myRosterId()) counts[rid] = (counts[rid]||0) + 1;
+  });
+  const best = Object.entries(counts).sort((a,b)=>b[1]-a[1])[0];
+  return best ? +best[0] : null;
+}
+
+/* Suggest pieces that would even out a lopsided offer.
+   Candidates are scored by simulating the trade WITH them added, so the
+   package discount is respected — matching raw value to the raw gap would
+   consistently overshoot. */
+const FAIR_PCT = 8;
+
+function suggestBalancers(){
+  if(!S.give.length || !S.get.length) return null;
+  const g0 = packageValue(S.give), r0 = packageValue(S.get);
+  const diff0 = r0.adjusted - g0.adjusted;
+  const pct0 = g0.adjusted ? (diff0 / g0.adjusted * 100) : 0;
+  if(Math.abs(pct0) < FAIR_PCT) return { balanced: true, pct: pct0 };
+
+  const iAmUp = diff0 > 0;               // I'm receiving more than I'm sending
+  const side  = iAmUp ? 'give' : 'get';  // so the light side is mine (give) or theirs (get)
+  const myRid = myRosterId();
+  const cpRid = counterpartyRosterId();
+  const fromRid = iAmUp ? myRid : cpRid;
+  if(fromRid == null) return { needPartner: !iAmUp, pct: pct0 };
+
+  const inTrade = new Set(S.give.concat(S.get));
+  const pool = S.players.filter(p => p.rosterId === fromRid && p.value != null && !inTrade.has(p.key))
+    .concat((S.picks||[]).filter(p => p.rosterId === fromRid && !inTrade.has(p.key)));
+
+  const scored = pool.map(c => {
+    const give = side === 'give' ? S.give.concat(c.key) : S.give;
+    const get  = side === 'get'  ? S.get.concat(c.key)  : S.get;
+    const g = packageValue(give), r = packageValue(get);
+    const d = r.adjusted - g.adjusted;
+    const p = g.adjusted ? (d / g.adjusted * 100) : 0;
+    return { asset: c, newPct: p, absPct: Math.abs(p) };
+  }).filter(x => x.absPct < Math.abs(pct0))       // must actually improve things
+    .sort((a,b) => a.absPct - b.absPct)
+    .slice(0, 5);
+
+  return { balanced:false, pct: pct0, side, iAmUp, fromRid, options: scored,
+           fromName: (() => {
+             const r = S.rosters.find(x=>x.roster_id===fromRid); if(!r) return '';
+             const u = S.lusers.find(x=>x.user_id===r.owner_id);
+             return fromRid === myRid ? 'your roster' : ((u&&(u.display_name||u.username))||'their roster');
+           })() };
+}
+
+function renderBalancers(){
+  const box = document.getElementById('balanceBox');
+  if(!box) return;
+  const s = suggestBalancers();
+  if(!s){ box.innerHTML = ''; return; }
+
+  if(s.balanced){
+    box.innerHTML = `<div class="card" style="margin-top:10px">
+      <h2>Even It Out</h2>
+      <div class="hint">This is already inside ${FAIR_PCT}% — close enough that neither side is being
+        fleeced. Nothing to add.</div></div>`;
+    return;
+  }
+  if(s.needPartner){
+    box.innerHTML = `<div class="card" style="margin-top:10px">
+      <h2>Even It Out</h2>
+      <div class="hint">Add a player you'd be receiving so I know which team you're dealing with,
+        and I'll suggest what to ask them for.</div></div>`;
+    return;
+  }
+  if(!s.options.length){
+    box.innerHTML = `<div class="card" style="margin-top:10px">
+      <h2>Even It Out</h2>
+      <div class="hint">Nothing on ${esc(s.fromName)} closes this gap without overshooting it.
+        The pieces are too big or too small — try changing the main players instead.</div></div>`;
+    return;
+  }
+
+  box.innerHTML = `<div class="card" style="margin-top:10px">
+    <h2>Even It Out</h2>
+    <div class="hint">You're ${s.iAmUp?'ahead':'behind'} by ${Math.abs(Math.round(s.pct))}%.
+      Adding one of these from <b>${esc(s.fromName)}</b> to the
+      <b>${s.side==='give'?'I Give':'I Get'}</b> side gets closest to even.
+      Each figure below is what the deal would read after adding that piece.</div>
+    <div class="spacer"></div>
+    <div class="plist">
+      ${s.options.map(o => {
+        const a = o.asset;
+        const col = o.absPct < FAIR_PCT ? 'var(--good)' : 'var(--gold)';
+        return `<div class="prow" onclick="addTrade('${esc(a.key)}','${s.side}')">
+          <div class="prk" style="font-size:15px">${a.isPick?'📄':(a.pos||'')}<small>${a.isPick?'PICK':'POS'}</small></div>
+          <div>
+            <div class="pname">${esc(a.name)}</div>
+            <div class="pmeta">
+              <span>${a.value.toLocaleString()} value</span>
+              ${a.isPick?'':`<span>${esc(a.team||'FA')}</span>`}
+              ${!a.isPick && tierOf(a)<=2 ? '<span class="tag t1">CORE</span>' : ''}
+            </div>
+          </div>
+          <div class="pright"><div class="pval" style="color:${col}">${o.newPct>0?'+':''}${Math.round(o.newPct)}%<small>AFTER</small></div></div>
+        </div>`;
+      }).join('')}
+    </div>
+    ${s.side==='get' ? `<div class="hint" style="margin-top:9px">These come off
+      ${esc(s.fromName)}'s roster — it's what you'd be asking them to include.</div>` : ''}
+  </div>`;
+}
+
 function renderTrade(){
   const paint = (arr, side, elId) => {
     document.getElementById(elId).innerHTML = arr.length ? arr.map(k=>{
@@ -747,7 +861,7 @@ function renderTrade(){
 
   const g = packageValue(S.give), r = packageValue(S.get);
   const el = document.getElementById('tradeVerdict');
-  if(!S.give.length || !S.get.length){ el.innerHTML=''; return; }
+  if(!S.give.length || !S.get.length){ el.innerHTML=''; renderBalancers(); return; }
 
   const diff = r.adjusted - g.adjusted;
   const pct = g.adjusted ? (diff / g.adjusted * 100) : 0;
@@ -825,6 +939,8 @@ function renderTrade(){
     <div class="small muted" style="margin-top:8px">Configured for ${S.league.teams}-team ${S.league.qbs===2?'superflex':'1QB'}${S.league.dynasty?' dynasty':''}${
       S.league.dynasty && S.pickSeasons ? ` · future picks priced for ${S.pickSeasons.join(' & ')}` : ''}.</div>
   </div>`;
+
+  renderBalancers();
 }
 document.getElementById('tradeClear').onclick = () => { S.give=[]; S.get=[]; renderTrade(); };
 
