@@ -1077,21 +1077,31 @@ function renderTeams(){
       const avg = all.reduce((a,b)=>a+b,0)/(all.length||1);
       posAvg[pos] = { mine:mineV, avg, pct: avg? Math.round(100*mineV/avg) : 100 };
     });
+
+    // Draft capital belongs on this chart too — it's the fifth position group in
+    // a dynasty league, and the one this roster is actually shortest on.
+    if(S.league.dynasty && myPicks.length){
+      const all = S.rosters.map(r => picksOf(r.roster_id).reduce((s,p)=>s+p.value,0));
+      const avg = all.reduce((a,b)=>a+b,0)/(all.length||1);
+      posAvg['PICKS'] = { mine:pickVal, avg, pct: avg ? Math.round(100*pickVal/avg) : 100, isPicks:true };
+    }
     // Shown as deviation from the league average rather than "95%", which reads
     // like a score out of 100. The bar diverges from a centre line, so average
     // is the middle and you can see direction at a glance.
     html += `<div class="card"><h2>Where You Stand</h2>
       <div class="hint">Your best three at each spot, compared with what the average team in this
-        league has. The centre line is average — right is surplus, left is a hole.</div>
+        league has. The centre line is average — right is surplus, left is a hole.${
+        posAvg.PICKS ? ` <b>Picks</b> is all your future draft capital, not a top three.` : ''}</div>
       <div class="spacer"></div>
       ${Object.entries(posAvg).map(([pos,d])=>{
         const dev = d.pct - 100;
         const w = Math.min(50, Math.abs(dev) / 2);   // ±100% of average fills the half
         const col = dev <= -15 ? 'var(--bad)' : dev >= 15 ? 'var(--good)' : 'var(--gold)';
         const word = dev <= -15 ? 'below average' : dev >= 15 ? 'above average' : 'about average';
-        return `<div style="margin-bottom:11px">
+        return `<div style="margin-bottom:11px${d.isPicks?';padding-top:10px;border-top:1px solid var(--line)':''}">
           <div class="row small">
-            <span class="grow"><b>${pos}</b> <span class="muted">${word}</span></span>
+            <span class="grow"><b>${d.isPicks?'PICKS':pos}</b> <span class="muted">${word}${
+              d.isPicks?` · ${myPicks.length} pick${myPicks.length===1?'':'s'}, ${myPicks.filter(p=>p.round===1).length} 1st${myPicks.filter(p=>p.round===1).length===1?'':'s'}`:''}</span></span>
             <span style="color:${col};font-weight:600">${dev>0?'+':''}${dev}%</span>
           </div>
           <div class="dbar">
@@ -1101,8 +1111,8 @@ function renderTeams(){
         </div>`;
       }).join('')}
       <div class="hint" style="margin-top:10px">Read it as: you have ${
-        Object.entries(posAvg).map(([pos,d])=>`${Math.abs(d.pct-100)}% ${d.pct>=100?'more':'less'} ${pos}`)
-          .join(', ')} value than a typical team here.</div>
+        Object.entries(posAvg).map(([pos,d])=>`${Math.abs(d.pct-100)}% ${d.pct>=100?'more':'less'} ${
+          d.isPicks?'draft capital':pos}`).join(', ')} than a typical team here.</div>
     </div>`;
 
     // Held back and appended AFTER the trade-partner finder. You already know
