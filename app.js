@@ -962,6 +962,17 @@ function leagueProfiles(){
     });
   });
 
+  // Draft capital scored on the same scale, so a pick-rich team is as visible
+  // as a receiver-rich one. Dynasty only — redraft has no future picks.
+  if(S.league && S.league.dynasty && (S.picks||[]).length){
+    const vals = profiles.map(t => t.pickVal);
+    const avg = vals.reduce((a,b)=>a+b,0) / (vals.length||1);
+    profiles.forEach((t,i) => {
+      t.raw.PICKS = vals[i];
+      t.PICKS = avg ? Math.round(100 * vals[i] / avg) : 100;
+    });
+  }
+
   profiles.sort((a,b)=>b.total-a.total);
   profiles.forEach((t,i)=>{ t.valueRank = i+1; });
   return profiles;
@@ -979,16 +990,23 @@ const FIT_GAP = 20;   // ignore anything smaller; it's noise, not a surplus
 
 function tradeFit(me, them){
   let raw = 0; const reasons = [];
-  FIT_POS.forEach(pos => {
+  const groups = FIT_POS.concat(me.PICKS != null && them.PICKS != null ? ['PICKS'] : []);
+  const dev = v => (v-100 > 0 ? '+' : '') + (v-100) + '%';
+  groups.forEach(pos => {
     const gap = them[pos] - me[pos];
+    const isP = pos === 'PICKS';
     if(gap >= FIT_GAP){
       raw += gap;
       reasons.push({dir:'buy', pos, gap,
-        text:`They're far deeper at <b>${pos}</b> — ${them[pos]-100>0?'+':''}${them[pos]-100}% vs your ${me[pos]-100>0?'+':''}${me[pos]-100}%`});
+        text: isP
+          ? `They're sitting on far more <b>future capital</b> — ${dev(them.PICKS)} vs your ${dev(me.PICKS)}. A rebuild partner: they take a veteran, you take picks.`
+          : `They're far deeper at <b>${pos}</b> — ${dev(them[pos])} vs your ${dev(me[pos])}`});
     } else if(gap <= -FIT_GAP){
       raw += -gap;
       reasons.push({dir:'sell', pos, gap,
-        text:`You're far deeper at <b>${pos}</b> — ${me[pos]-100>0?'+':''}${me[pos]-100}% vs their ${them[pos]-100>0?'+':''}${them[pos]-100}%`});
+        text: isP
+          ? `You hold far more <b>future capital</b> — ${dev(me.PICKS)} vs their ${dev(them.PICKS)}. They're buying now; picks are what you'd send.`
+          : `You're far deeper at <b>${pos}</b> — ${dev(me[pos])} vs their ${dev(them[pos])}`});
     }
   });
   // Both directions present means each side gets something it actually wants,
@@ -1157,14 +1175,17 @@ function renderTeams(){
     const open = S.viewTeam === t.rosterId;
     // Same convention as "Where You Stand": deviation from league average, and
     // underneath it, how they compare with YOU — which is the tradeable gap.
-    const bars = FIT_POS.map(pos => {
+    const groups = FIT_POS.concat(t.PICKS != null ? ['PICKS'] : []);
+    const bars = groups.map(pos => {
       const dev = t[pos] - 100;
       const gap = t[pos] - (meProf ? meProf[pos] : 100);
       const col = dev <= -15 ? 'var(--bad)' : dev >= 15 ? 'var(--good)' : 'var(--dim)';
-      return `<div style="flex:1;min-width:0;text-align:center">
+      const isP = pos === 'PICKS';
+      return `<div style="flex:1;min-width:0;text-align:center${isP?';border-left:1px solid var(--line)':''}">
         <div style="font-family:'Teko';font-size:17px;line-height:1;color:${col}">${dev>0?'+':''}${dev}%</div>
         <div style="font-size:8.5px;color:var(--faint);letter-spacing:.05em">${pos}${
           meProf ? ` <span style="color:${gap>0?'var(--good)':gap<0?'var(--bad)':'var(--faint)'}">${gap>0?'+':''}${gap} vs you</span>` : ''}</div>
+        ${isP?`<div style="font-size:8px;color:var(--faint);margin-top:1px">${t.picks.length}p · ${t.firsts} 1st${t.firsts===1?'':'s'}</div>`:''}
       </div>`;
     }).join('');
 
