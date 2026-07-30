@@ -426,6 +426,18 @@ function buildPickAssets(){
       team: '', bye: null, injury: null, srcRanks: {}, nSources: 0
     });
   }
+  // A team can hold several "2027 1st"s acquired from different managers. They
+  // are distinct assets, so name them by origin or the UI shows duplicates.
+  const nameOfRoster = rid => {
+    const r = S.rosters.find(x=>x.roster_id===rid); if(!r) return 'Team '+rid;
+    const u = S.lusers.find(x=>x.user_id===r.owner_id);
+    return (u && (u.display_name||u.username)) || ('Team '+rid);
+  };
+  S.picks.forEach(p => {
+    p.displayName = p.origRosterId === p.rosterId
+      ? p.name
+      : `${p.name} (${nameOfRoster(p.origRosterId)}'s)`;
+  });
   S.picks.sort((a,b)=>b.value-a.value);
 }
 
@@ -779,10 +791,18 @@ function suggestBalancers(){
     const p = g.adjusted ? (d / g.adjusted * 100) : 0;
     return { asset: c, newPct: p, absPct: Math.abs(p) };
   }).filter(x => x.absPct < Math.abs(pct0))       // must actually improve things
-    .sort((a,b) => a.absPct - b.absPct)
-    .slice(0, 5);
+    .sort((a,b) => a.absPct - b.absPct);
 
-  return { balanced:false, pct: pct0, side, iAmUp, fromRid, options: scored,
+  // Interchangeable assets (three identical 2027 1sts) should take one slot,
+  // not crowd out the genuinely different options.
+  const seen = new Set();
+  const options = scored.filter(x => {
+    const sig = `${x.asset.isPick ? x.asset.name : x.asset.key}|${x.asset.value}`;
+    if(seen.has(sig)) return false;
+    seen.add(sig); return true;
+  }).slice(0, 5);
+
+  return { balanced:false, pct: pct0, side, iAmUp, fromRid, options,
            fromName: (() => {
              const r = S.rosters.find(x=>x.roster_id===fromRid); if(!r) return '';
              const u = S.lusers.find(x=>x.user_id===r.owner_id);
@@ -832,7 +852,7 @@ function renderBalancers(){
         return `<div class="prow" onclick="addTrade('${esc(a.key)}','${s.side}')">
           <div class="prk" style="font-size:15px">${a.isPick?'📄':(a.pos||'')}<small>${a.isPick?'PICK':'POS'}</small></div>
           <div>
-            <div class="pname">${esc(a.name)}</div>
+            <div class="pname">${esc(a.displayName || a.name)}</div>
             <div class="pmeta">
               <span>${a.value.toLocaleString()} value</span>
               ${a.isPick?'':`<span>${esc(a.team||'FA')}</span>`}
@@ -852,7 +872,7 @@ function renderTrade(){
   const paint = (arr, side, elId) => {
     document.getElementById(elId).innerHTML = arr.length ? arr.map(k=>{
       const p = findByKey(k); if(!p) return '';
-      return `<div class="tpill"><span>${esc(p.name)} <span class="muted">${esc(p.pos)}</span></span>
+      return `<div class="tpill"><span>${esc(p.displayName || p.name)} <span class="muted">${esc(p.pos)}</span></span>
         <span><b>${p.value!=null?p.value.toLocaleString():'—'}</b>
         <button onclick="removeTrade('${esc(k)}','${side}')">×</button></span></div>`;
     }).join('') : '<div class="muted small">Nothing yet.</div>';
@@ -950,8 +970,8 @@ document.getElementById('tradeSearch').oninput = e => {
   if(q.length < 2){ box.innerHTML=''; return; }
   // Picks are searchable too — type "2027" or "1st" to pull them up.
   const nq = q.toLowerCase();
-  const pickHits = (S.picks||[]).filter(p => p.name.toLowerCase().includes(nq))
-      .filter((p,i,arr) => arr.findIndex(x=>x.name===p.name && x.rosterId===p.rosterId)===i);
+  const pickHits = (S.picks||[]).filter(p =>
+      p.name.toLowerCase().includes(nq) || (p.displayName||'').toLowerCase().includes(nq));
   const hits = pickHits.slice(0,6).concat(filtered('ALL', q)).slice(0,10);
   const ownerName = rid => {
     const r = S.rosters.find(x=>x.roster_id===rid); if(!r) return '';
@@ -961,7 +981,7 @@ document.getElementById('tradeSearch').oninput = e => {
   box.innerHTML = hits.length ? `<div class="plist" style="margin-top:8px">${hits.map(p=>`
     <div class="prow">
       <div class="prk">${p.isPick?'📄':p.overall}<small>${p.isPick?'PICK':'OVR'}</small></div>
-      <div><div class="pname">${esc(p.name)}</div>
+      <div><div class="pname">${esc(p.displayName || p.name)}</div>
         <div class="pmeta"><span>${p.isPick?esc(ownerName(p.rosterId)):esc(p.pos)+' · '+esc(p.team||'FA')}</span><span>${p.value!=null?p.value.toLocaleString():'—'}</span></div></div>
       <div class="pright" style="display:flex;gap:4px">
         <button class="btn sm" onclick="addTrade('${esc(p.key)}','give')">Give</button>
@@ -1357,7 +1377,7 @@ function openPickSheet(key){
   const rankAmong = allSame.length;
   document.getElementById('sheetIn').innerHTML = `
     <div class="grab"></div>
-    <h2 style="font-size:26px">${esc(p.name)}</h2>
+    <h2 style="font-size:26px">${esc(p.displayName || p.name)}</h2>
     <div class="muted small" style="margin-bottom:10px">
       Rookie draft pick · held by <span style="color:var(--gold)">${isMine?'you':esc(holderName)}</span>
     </div>
@@ -1391,16 +1411,12 @@ function toggleMyPicks(){ S.showMyPicks = !S.showMyPicks; renderTeams(); }
 
 /* A pick renders like a player row so it reads as the asset it is. */
 function pickRowHTML(p){
-  const orig = S.rosters.find(r=>r.roster_id===p.origRosterId);
-  const ownName = orig && orig.roster_id !== p.rosterId
-    ? (S.lusers.find(u=>u.user_id===orig.owner_id)||{}).display_name : null;
   return `<div class="prow" data-pick="${esc(p.key)}">
     <div class="prk" style="font-size:15px">${p.season}<small>R${p.round}</small></div>
     <div>
-      <div class="pname">${esc(p.name)}</div>
+      <div class="pname">${esc(p.displayName || p.name)}</div>
       <div class="pmeta">
         <span>Rookie pick</span>
-        ${ownName?`<span>via ${esc(ownName)}</span>`:''}
         ${p.round===1?'<span class="tag t1">1ST</span>':''}
       </div>
     </div>
