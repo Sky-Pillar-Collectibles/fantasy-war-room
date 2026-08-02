@@ -546,7 +546,7 @@ function rowHTML(p, opts){
   const primary = opts.rankField === 'pos' ? (p.pos + (p.posRank||'')) : p.overall;
   const rightNum = p.value != null ? p.value.toLocaleString() : '—';
 
-  return `<div class="prow ${gone?'gone':''}" data-k="${esc(p.key)}">
+  return `<div class="prow tier-${t} ${gone?'gone':''}" data-k="${esc(p.key)}">
     <div class="prk">${primary}<small>${opts.rankField==='pos'?'POS':'OVR'}</small></div>
     <div>
       <div class="pname">${esc(p.name)}</div>
