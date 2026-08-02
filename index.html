@@ -28,11 +28,19 @@ a{color:var(--gold)}
 button,select,input{font-family:inherit;font-size:inherit}
 
 /* ---------- chrome ---------- */
-.hero{padding:14px 16px 10px;background:linear-gradient(180deg,#16231a,var(--bg));
-  border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}
-.hero-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.hero h1{font-size:30px;line-height:1;text-transform:uppercase}
-.hero .sub{color:var(--faint);font-size:11px;letter-spacing:.09em;text-transform:uppercase;margin-top:3px}
+/* Yard lines behind the header, hash marks along its bottom edge, and a gold
+   sideline rule. Purely decorative: pointer-events:none so nothing here can
+   swallow a tap meant for the league picker. */
+.hero{padding:14px 16px 12px;background:linear-gradient(180deg,#16231a,var(--bg));
+  border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:40;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:.09;
+  background:repeating-linear-gradient(90deg,var(--chalk) 0 1px,transparent 1px 46px)}
+.hero::after{content:'';position:absolute;left:0;right:0;bottom:0;height:9px;pointer-events:none;
+  opacity:.30;background:repeating-linear-gradient(90deg,var(--chalk) 0 1px,transparent 1px 23px)}
+.hero-row{display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative}
+.hero h1{font-size:30px;line-height:1;text-transform:uppercase;letter-spacing:.06em}
+.hero .season{color:var(--gold);font-size:10px;letter-spacing:.15em;text-transform:uppercase;margin-top:5px}
+.hero .sub{color:var(--faint);font-size:11px;letter-spacing:.09em;text-transform:uppercase;margin-top:2px}
 .leaguepick{background:var(--surface-2);border:1px solid var(--line);color:var(--chalk);
   border-radius:8px;padding:7px 9px;max-width:52%;font-size:13px}
 
@@ -49,7 +57,9 @@ nav.tabs button.on{color:var(--gold)}
 
 /* ---------- generic ---------- */
 .card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:12px}
-.card h2{font-size:20px;text-transform:uppercase;color:var(--chalk);margin-bottom:2px}
+/* Chalk-dashed underline on card headings, like a play sketched on a board. */
+.card h2{font-size:20px;text-transform:uppercase;color:var(--chalk);margin-bottom:2px;
+  letter-spacing:.05em;padding-bottom:7px;border-bottom:1px dashed var(--line)}
 .card .hint{color:var(--faint);font-size:11.5px;line-height:1.45}
 .chips{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
@@ -77,8 +87,18 @@ input::placeholder{color:var(--faint)}
 .prow:active{background:var(--surface-2)}
 .prow.gone{opacity:.32}
 .prow.gone .pname{text-decoration:line-through}
-.prk{font-family:'Teko',sans-serif;font-size:21px;line-height:1;text-align:center;color:var(--gold)}
-.prk small{display:block;font-family:'Inter';font-size:8.5px;color:var(--faint);letter-spacing:.05em}
+/* Tier colour as a stripe down the left edge, so tier reads at a glance without
+   hunting for the badge. Class is set in app.js rowHTML (tier-1 … tier-5). */
+.prow.tier-1{border-left:3px solid var(--t1)}
+.prow.tier-2{border-left:3px solid var(--t2)}
+.prow.tier-3{border-left:3px solid var(--t3)}
+.prow.tier-4{border-left:3px solid var(--t4)}
+.prow.tier-5{border-left:3px solid var(--t5)}
+/* Rank stencilled like a jersey number. */
+.prk{font-family:'Teko',sans-serif;font-size:19px;line-height:1.35;text-align:center;color:var(--gold);
+  border:1px solid var(--line);border-radius:4px;padding:1px 0}
+.prk small{display:block;font-family:'Inter';font-size:8.5px;color:var(--faint);letter-spacing:.05em;
+  border-top:1px solid var(--line);margin-top:2px;padding-top:2px}
 .pname{font-weight:600;font-size:14.5px;line-height:1.2}
 .pmeta{color:var(--faint);font-size:11px;margin-top:2px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .pright{text-align:right;min-width:56px}
@@ -115,8 +135,15 @@ input::placeholder{color:var(--faint)}
   padding:11px;margin-top:9px}
 .statinfo .hint{color:var(--dim);font-size:12.5px;line-height:1.55}
 .statinfo b{color:var(--chalk)}
-.bar{height:5px;background:var(--surface-3);border-radius:3px;overflow:hidden;margin-top:6px}
-.bar i{display:block;height:100%;background:var(--gold)}
+/* Scarcity bar read as a field: yard divisions across it, and a marked red zone
+   at 25% — the threshold the draft logic already treats as "the run has started",
+   which until now was buried in the code and never shown. */
+.bar{position:relative;height:9px;background:var(--surface-3);border-radius:3px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--gold);position:relative;z-index:1}
+.bar::before{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.16;
+  background:repeating-linear-gradient(90deg,var(--chalk) 0 1px,transparent 1px 25%)}
+.bar::after{content:'';position:absolute;left:25%;top:0;bottom:0;width:1px;z-index:3;
+  pointer-events:none;background:var(--chalk);opacity:.45}
 /* Diverging bar: centre line is the league average, so direction is readable
    at a glance instead of every team looking half-full. */
 .dbar{position:relative;height:8px;background:var(--surface-3);border-radius:4px;margin-top:5px;overflow:hidden}
@@ -164,6 +191,7 @@ table.mini td:last-child{text-align:right;font-weight:600}
   <div class="hero-row">
     <div>
       <h1>The War Room</h1>
+      <div class="season">2026 Season</div>
       <div class="sub" id="subline">2026 · loading feeds…</div>
     </div>
     <select class="leaguepick" id="leaguePick"></select>
@@ -213,7 +241,8 @@ table.mini td:last-child{text-align:right;font-weight:600}
   </div>
   <div class="card" id="scarcityCard">
     <h2>Positional Scarcity</h2>
-    <div class="hint">Starter-quality players left at each position, by tier.</div>
+    <div class="hint">Starter-quality players left at each position, by tier.
+      The marked line is the red zone at 25% — below it, the run has started and the next tier is a cliff.</div>
     <div class="spacer"></div>
     <div id="scarcity"></div>
   </div>
