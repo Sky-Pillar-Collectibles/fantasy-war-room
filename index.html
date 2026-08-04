@@ -11,18 +11,36 @@
 <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#101913; --surface:#17211b; --surface-2:#1e2a22; --surface-3:#253328;
-  --line:#2a382f; --chalk:#EDEBE2; --dim:#A9B3AA; --faint:#6d7a71;
-  --gold:#E8A33D; --gold-dim:#7a5b24;
-  --t1:#3FA66B; --t2:#E8A33D; --t3:#6E8CA0; --t4:#8A8A78; --t5:#5B6560;
-  --good:#3FA66B; --bad:#D8574B; --info:#6E8CA0;
+  /* Mid-tone field green rather than near-black, with brighter accents. Panels
+     step up from the page so the playbook background reads only in the gaps. */
+  --bg:#16301F; --surface:#1D3E29; --surface-2:#254B33; --surface-3:#2E5B3E;
+  --line:#3A6B4B; --chalk:#F3F2E7; --dim:#C4D2C7; --faint:#A8B8AE;
+  --gold:#F5B841; --gold-dim:#8a6828;
+  --t1:#4FCB7F; --t2:#F5B841; --t3:#87B8D8; --t4:#B3B394; --t5:#A3B6A8;
+  --good:#4FCB7F; --bad:#F79A84; --info:#87B8D8;
+  /* Position identity. Distinct from each other AND from the tier colours, so a
+     green stripe never reads as "Tier 1". Every value below clears 4.5:1 against
+     the lightest panel — raising the page brightness cost contrast, and these are
+     the tuned values that win it back. */
+  --pQB:#F79A84; --pRB:#4FCB7F; --pWR:#77BAEA; --pTE:#D49CF0; --pK:#F5B841; --pDST:#A3B6A8;
   color-scheme: dark;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0;background:var(--bg);color:var(--chalk);
   font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   font-size:15px;-webkit-text-size-adjust:100%}
-body{padding-bottom:76px}
+/* Playbook tiled behind everything: routes with arrowheads, curved and dashed
+   motion paths, X blocking assignments and O receiver groupings, in two tones.
+   300px tile so the repeat isn't obvious. Inline SVG data URI, so the app stays
+   one file with no external assets and still works offline. Opacity stays low —
+   panels are opaque, so this only reads in the gaps and the desktop margins.
+   Fixed attachment so the chart doesn't slide as the board scrolls. */
+html{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E %3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E %3Cg stroke='%23F3F2E7' stroke-width='2.6' opacity='0.13'%3E %3Cpath d='M22 66 C40 30 74 26 96 44'/%3E%3Cpath d='M96 44 l-11 1 M96 44 l-3 -10'/%3E %3Cpath d='M186 30 H120' stroke-dasharray='7 7'/%3E%3Cpath d='M120 30 l10 -5 M120 30 l10 5'/%3E %3Cpath d='M150 148 L150 96'/%3E%3Cpath d='M150 96 l-6 10 M150 96 l6 10'/%3E %3Cpath d='M40 214 C64 240 96 236 112 210' /%3E%3Cpath d='M112 210 l-10 3 M112 210 l1 -10'/%3E %3Cpath d='M232 258 L268 222'/%3E%3Cpath d='M268 222 l-11 2 M268 222 l2 -11'/%3E %3Ccircle cx='196' cy='96' r='9'/%3E%3Ccircle cx='222' cy='96' r='9'/%3E%3Ccircle cx='248' cy='96' r='9'/%3E %3Ccircle cx='58' cy='134' r='9'/%3E%3Ccircle cx='84' cy='134' r='9'/%3E %3Ccircle cx='268' cy='168' r='9'/%3E %3Cpath d='M36 262 l16 16 M52 262 l-16 16'/%3E %3Cpath d='M170 212 l16 16 M186 212 l-16 16'/%3E %3Cpath d='M254 40 l14 14 M268 40 l-14 14'/%3E %3C/g%3E %3Cg stroke='%238FE3AE' stroke-width='2.6' opacity='0.12'%3E %3Cpath d='M62 168 L104 126' stroke-dasharray='3 8'/%3E%3Cpath d='M104 126 l-11 1 M104 126 l-1 -11'/%3E %3Cpath d='M200 140 C222 154 244 148 256 128'/%3E%3Cpath d='M256 128 l-9 5 M256 128 l-6 -9'/%3E %3Cpath d='M118 288 L118 244 L164 244' stroke-dasharray='7 7'/%3E%3Cpath d='M164 244 l-9 -6 M164 244 l-9 6'/%3E %3Cpath d='M282 292 C266 262 276 236 296 224'/%3E %3Cpath d='M12 108 C28 92 26 70 12 54'/%3E %3Cpath d='M104 84 l14 14 M118 84 l-14 14'/%3E %3Cpath d='M126 84 l14 14 M140 84 l-14 14'/%3E %3Cpath d='M206 268 l14 14 M220 268 l-14 14'/%3E %3Cpath d='M86 196 l14 14 M100 196 l-14 14'/%3E %3Ccircle cx='150' cy='186' r='9'/%3E %3Ccircle cx='24' cy='170' r='9'/%3E %3C/g%3E %3C/g%3E %3C/svg%3E");
+  background-repeat:repeat;
+  background-attachment:fixed;
+}
+body{padding-bottom:76px;background:transparent}
 h1,h2,h3,.disp{font-family:'Teko',sans-serif;font-weight:600;letter-spacing:.02em;margin:0}
 a{color:var(--gold)}
 button,select,input{font-family:inherit;font-size:inherit}
@@ -31,8 +49,10 @@ button,select,input{font-family:inherit;font-size:inherit}
 /* Yard lines behind the header, hash marks along its bottom edge, and a gold
    sideline rule. Purely decorative: pointer-events:none so nothing here can
    swallow a tap meant for the league picker. */
-.hero{padding:14px 16px 12px;background:linear-gradient(180deg,#16231a,var(--bg));
+.hero{padding:14px 16px 12px;background:linear-gradient(180deg,#22523A,#1A3A26);
   border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:40;overflow:hidden}
+.hero .brand{display:flex;align-items:center;gap:11px;min-width:0}
+.hero .crest{flex:0 0 auto;width:46px;height:50px;display:block}
 .hero::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:.09;
   background:repeating-linear-gradient(90deg,var(--chalk) 0 1px,transparent 1px 46px)}
 .hero::after{content:'';position:absolute;left:0;right:0;bottom:0;height:9px;pointer-events:none;
@@ -87,13 +107,24 @@ input::placeholder{color:var(--faint)}
 .prow:active{background:var(--surface-2)}
 .prow.gone{opacity:.32}
 .prow.gone .pname{text-decoration:line-through}
-/* Tier colour as a stripe down the left edge, so tier reads at a glance without
-   hunting for the badge. Class is set in app.js rowHTML (tier-1 … tier-5). */
-.prow.tier-1{border-left:3px solid var(--t1)}
-.prow.tier-2{border-left:3px solid var(--t2)}
-.prow.tier-3{border-left:3px solid var(--t3)}
-.prow.tier-4{border-left:3px solid var(--t4)}
-.prow.tier-5{border-left:3px solid var(--t5)}
+/* Position as a stripe down the left edge — scannable straight down a 300-row
+   board. Tier is still readable from the T1/T2 badge on each row. Class is set
+   in app.js rowHTML (pos-QB … pos-DST). */
+.prow.pos-QB{border-left:4px solid var(--pQB)}
+.prow.pos-RB{border-left:4px solid var(--pRB)}
+.prow.pos-WR{border-left:4px solid var(--pWR)}
+.prow.pos-TE{border-left:4px solid var(--pTE)}
+.prow.pos-K{border-left:4px solid var(--pK)}
+.prow.pos-DST{border-left:4px solid var(--pDST)}
+/* Matching chip on the position text so the colour is decoded without a legend. */
+.poschip{display:inline-block;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:700;
+  letter-spacing:.04em}
+.poschip.QB{background:rgba(247,154,132,.18);color:var(--pQB)}
+.poschip.RB{background:rgba(79,203,127,.18);color:var(--pRB)}
+.poschip.WR{background:rgba(119,186,234,.18);color:var(--pWR)}
+.poschip.TE{background:rgba(212,156,240,.18);color:var(--pTE)}
+.poschip.K{background:rgba(245,184,65,.18);color:var(--pK)}
+.poschip.DST{background:rgba(163,182,168,.20);color:var(--pDST)}
 /* Rank stencilled like a jersey number. */
 .prk{font-family:'Teko',sans-serif;font-size:19px;line-height:1.35;text-align:center;color:var(--gold);
   border:1px solid var(--line);border-radius:4px;padding:1px 0}
@@ -193,9 +224,24 @@ table.mini td:last-child{text-align:right;font-weight:600}
 <header class="hero">
   <div class="hero-row">
     <div>
-      <h1>The War Room</h1>
-      <div class="season">2026 Season</div>
-      <div class="sub" id="subline">2026 · loading feeds…</div>
+    <div class="brand">
+      <svg class="crest" viewBox="0 0 48 52" aria-hidden="true">
+        <path d="M24 3 L45 10 V27 C45 39 35 46 24 50 C13 46 3 39 3 27 V10 Z"
+              fill="#1A3A26" stroke="var(--gold)" stroke-width="2.4" stroke-linejoin="round"/>
+        <path d="M8 20 H40 M8 34 H40" stroke="var(--chalk)" stroke-width="1" opacity=".22"/>
+        <ellipse cx="24" cy="24" rx="11.5" ry="7.4" fill="var(--gold)"/>
+        <path d="M17 24 H31 M21 21.2 V26.8 M24 20.6 V27.4 M27 21.2 V26.8"
+              stroke="#1A3A26" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M14 37 L24 41.5 L34 37 M14 42.5 L24 47 L34 42.5"
+              fill="none" stroke="var(--gold)" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>
+      </svg>
+      <div style="min-width:0">
+        <h1>The War Room</h1>
+        <div class="season">2026 Season</div>
+        <div class="sub" id="subline">2026 · loading feeds…</div>
+      </div>
+    </div>
     </div>
     <select class="leaguepick" id="leaguePick"></select>
   </div>
@@ -313,6 +359,63 @@ table.mini td:last-child{text-align:right;font-weight:600}
   <div class="card">
     <h2>How The Blend Works</h2>
     <div class="hint" id="methodology"></div>
+  </div>
+
+  <div class="card">
+    <h2>How Value Is Calculated</h2>
+    <div class="hint">
+      <p><b>First, the honest part: the app does not invent a point system.</b> The big number on the right
+      of every row is <b>FantasyCalc's</b> market value — what players actually cost in thousands of real,
+      completed trades, re-queried for this league's exact format (dynasty or redraft, superflex or 1QB,
+      team count, PPR setting). It is a market price, not a projection and not a score somebody assigned.
+      Everything below is what this app does <i>on top of</i> that number, and each step is listed so you can
+      disagree with it.</p>
+
+      <p><b>1 · TE premium adjustment.</b> No market feed prices a TE-premium league. A starting tight end
+      catches roughly 70 balls, so a +0.5/reception bonus is about 35 extra points a season. The app bumps
+      TE values by <code>1 + (bonus × 0.36)</code> — about <b>+18%</b> at +0.5/rec. This is an explicit
+      approximation, not a measurement, and it is labelled as one everywhere it appears.</p>
+
+      <p><b>2 · Overall board order.</b> Sorted by market value, highest first, because it is the only signal
+      that compares a running back to a quarterback honestly. Ties break toward the better consensus rank.
+      If the market feed is down, the board falls back to expert consensus weighted by position
+      (superflex pushes QBs up sharply, K and DST fall near zero) and says so at the top rather than
+      quietly showing you stale numbers.</p>
+
+      <p><b>3 · Consensus positional rank.</b> The average of a player's positional rank across every source
+      that covers him — the expert outlets plus the market's own positional rank. The "n src" on each row
+      is how many sources that average is built from. Fewer sources means a softer number.</p>
+
+      <p><b>4 · The flags, and their exact thresholds.</b></p>
+      <p style="margin-left:10px">
+      <b>SPLIT</b> — at least 3 sources cover him, and the gap between his best and worst rank is at least
+      6 places <i>and</i> in the widest fifth of disagreements at his position. Deliberately relative:
+      a 10-place spread means something different at QB than at WR.<br><br>
+      <b>BUY LOW / HYPED</b> — the gap between where the market ranks him and where the analysts do.
+      6+ places of daylight in your favour flags BUY LOW; 6+ the other way flags HYPED.<br><br>
+      <b>RISING / FALLING</b> — 30-day movement in real trade prices of 15 points or more.</p>
+
+      <p><b>5 · Tiers.</b> Taken from the expert blend's own tier label where one exists, then the market's
+      tier, and only if neither exists from positional rank (top 5 / 12 / 24 / 40). Tier is capped at 1–5.</p>
+
+      <p><b>6 · Draft picks.</b> Priced by the same market as players — FantasyCalc quotes future rookie
+      picks like "2027 1st" directly. A pick with no market price is left off the board entirely rather
+      than given an invented value. In dynasty leagues picks count toward your total roster value, because
+      a total that ignored them would flatter you.</p>
+
+      <p><b>7 · Trade packages get a depth discount.</b> You can only start so many players, so the pieces in
+      a package are worth progressively less: the best piece counts fully, the second at 92%, the third at
+      about 85%, the fourth at 78%. Both the raw sum and the discounted total are shown on every trade so
+      you can see exactly what the discount did. A deal inside <b>8%</b> is called fair.</p>
+
+      <p><b>8 · Trade Ideas are scored on mutual benefit.</b> Each proposal takes the <i>smaller</i> of what
+      it does for you and what it does for the other manager. A lopsided steal scores zero and never
+      appears, however good it looks for you — the point is offers that actually get accepted. Ideas must
+      also land within 12% on value and fix a real positional hole on both rosters.</p>
+
+      <p class="muted">None of this predicts the future. It collapses the informed opinion that already
+      exists into one screen and marks where that opinion is genuinely divided rather than merely loud.</p>
+    </div>
   </div>
 </section>
 
