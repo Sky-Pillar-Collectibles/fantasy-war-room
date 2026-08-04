@@ -143,8 +143,14 @@ async function loadLeagueRosters(L){
   S.rosters = ros || []; S.lusers = usr || []; S.tradedPicks = tp || [];
 }
 
+/* The cache key carries a version. The stored shape changed when depth chart,
+   vitals and injury detail were added, and a returning browser holds the old
+   copy for up to seven days — so without bumping the key the new fields simply
+   never arrive. Bump it again if the fields kept below change. */
+const SLIM_KEY = 'slimPlayersV2';
+
 async function loadSleeperPlayers(){
-  const slim = LS.get('slimPlayers', null);
+  const slim = LS.get(SLIM_KEY, null);
   if(slim && (Date.now() - slim.t) < 7*86400000){
     S.sleeperMap = slim.d;
     markHealth('Sleeper Player DB', true, 'cached · ' + timeAgo(slim.t));
@@ -185,7 +191,7 @@ async function loadSleeperPlayers(){
     S.sleeperMap = map;
     // If the enriched map overflows the storage quota the write silently fails
     // and the app simply re-downloads next load — slower, never broken.
-    LS.set('slimPlayers', {t:Date.now(), d:map});
+    LS.set(SLIM_KEY, {t:Date.now(), d:map});
     markHealth('Sleeper Player DB', true, 'live · just now');
   }catch(e){
     if(slim){ S.sleeperMap = slim.d; markHealth('Sleeper Player DB','warn','offline · copy from '+timeAgo(slim.t)); }
