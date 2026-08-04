@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#101913">
+<meta name="theme-color" content="#2B2418">
 <title>The War Room — 2026</title>
 <link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,33 +11,36 @@
 <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  /* Mid-tone field green rather than near-black, with brighter accents. Panels
-     step up from the page so the playbook background reads only in the gaps. */
-  --bg:#16301F; --surface:#1D3E29; --surface-2:#254B33; --surface-3:#2E5B3E;
-  --line:#3A6B4B; --chalk:#F3F2E7; --dim:#C4D2C7; --faint:#A8B8AE;
-  --gold:#F5B841; --gold-dim:#8a6828;
-  --t1:#4FCB7F; --t2:#F5B841; --t3:#87B8D8; --t4:#B3B394; --t5:#A3B6A8;
-  --good:#4FCB7F; --bad:#F79A84; --info:#87B8D8;
+  /* Warm brown/brass ramp sampled from the war-room artwork behind the page, so
+     the UI and the photograph read as one world rather than two. Panels step up
+     from the page; the art shows in the gaps and the desktop margins. */
+  --bg:#2B2418; --surface:#38301F; --surface-2:#453B27; --surface-3:#544831;
+  --line:#6B5C3E; --chalk:#F5EFE1; --dim:#D6CBB4; --faint:#B4A88D;
+  --gold:#E9B84C; --gold-dim:#8a6828;
+  --t1:#6FBF73; --t2:#E9B84C; --t3:#8FB4CC; --t4:#C3B48C; --t5:#B3A891;
+  --good:#6FBF73; --bad:#E99281; --info:#8FB4CC;
   /* Position identity. Distinct from each other AND from the tier colours, so a
      green stripe never reads as "Tier 1". Every value below clears 4.5:1 against
-     the lightest panel — raising the page brightness cost contrast, and these are
-     the tuned values that win it back. */
-  --pQB:#F79A84; --pRB:#4FCB7F; --pWR:#77BAEA; --pTE:#D49CF0; --pK:#F5B841; --pDST:#A3B6A8;
+     the lightest panel — each palette change costs contrast, and these are the
+     tuned values that win it back. */
+  --pQB:#E99281; --pRB:#6FBF73; --pWR:#7FB2E0; --pTE:#C997E2; --pK:#E9B84C; --pDST:#B5A98D;
   color-scheme: dark;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0;background:var(--bg);color:var(--chalk);
   font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   font-size:15px;-webkit-text-size-adjust:100%}
-/* Playbook tiled behind everything: routes with arrowheads, curved and dashed
-   motion paths, X blocking assignments and O receiver groupings, in two tones.
-   300px tile so the repeat isn't obvious. Inline SVG data URI, so the app stays
-   one file with no external assets and still works offline. Opacity stays low —
-   panels are opaque, so this only reads in the gaps and the desktop margins.
-   Fixed attachment so the chart doesn't slide as the board scrolls. */
+/* The war-room desk photograph sits behind the whole page, fixed so it doesn't
+   slide as the board scrolls. Cropped to drop the artwork's own title card —
+   the crest and wordmark carry the branding, and two titles would collide.
+   A flat scrim over the top holds it back so panels and text stay first. The
+   3.1MB source was re-encoded to ~140KB; a background is not worth a slow load. */
 html{
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E %3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E %3Cg stroke='%23F3F2E7' stroke-width='2.6' opacity='0.13'%3E %3Cpath d='M22 66 C40 30 74 26 96 44'/%3E%3Cpath d='M96 44 l-11 1 M96 44 l-3 -10'/%3E %3Cpath d='M186 30 H120' stroke-dasharray='7 7'/%3E%3Cpath d='M120 30 l10 -5 M120 30 l10 5'/%3E %3Cpath d='M150 148 L150 96'/%3E%3Cpath d='M150 96 l-6 10 M150 96 l6 10'/%3E %3Cpath d='M40 214 C64 240 96 236 112 210' /%3E%3Cpath d='M112 210 l-10 3 M112 210 l1 -10'/%3E %3Cpath d='M232 258 L268 222'/%3E%3Cpath d='M268 222 l-11 2 M268 222 l2 -11'/%3E %3Ccircle cx='196' cy='96' r='9'/%3E%3Ccircle cx='222' cy='96' r='9'/%3E%3Ccircle cx='248' cy='96' r='9'/%3E %3Ccircle cx='58' cy='134' r='9'/%3E%3Ccircle cx='84' cy='134' r='9'/%3E %3Ccircle cx='268' cy='168' r='9'/%3E %3Cpath d='M36 262 l16 16 M52 262 l-16 16'/%3E %3Cpath d='M170 212 l16 16 M186 212 l-16 16'/%3E %3Cpath d='M254 40 l14 14 M268 40 l-14 14'/%3E %3C/g%3E %3Cg stroke='%238FE3AE' stroke-width='2.6' opacity='0.12'%3E %3Cpath d='M62 168 L104 126' stroke-dasharray='3 8'/%3E%3Cpath d='M104 126 l-11 1 M104 126 l-1 -11'/%3E %3Cpath d='M200 140 C222 154 244 148 256 128'/%3E%3Cpath d='M256 128 l-9 5 M256 128 l-6 -9'/%3E %3Cpath d='M118 288 L118 244 L164 244' stroke-dasharray='7 7'/%3E%3Cpath d='M164 244 l-9 -6 M164 244 l-9 6'/%3E %3Cpath d='M282 292 C266 262 276 236 296 224'/%3E %3Cpath d='M12 108 C28 92 26 70 12 54'/%3E %3Cpath d='M104 84 l14 14 M118 84 l-14 14'/%3E %3Cpath d='M126 84 l14 14 M140 84 l-14 14'/%3E %3Cpath d='M206 268 l14 14 M220 268 l-14 14'/%3E %3Cpath d='M86 196 l14 14 M100 196 l-14 14'/%3E %3Ccircle cx='150' cy='186' r='9'/%3E %3Ccircle cx='24' cy='170' r='9'/%3E %3C/g%3E %3C/g%3E %3C/svg%3E");
-  background-repeat:repeat;
+  background-color:var(--bg);
+  background-image:linear-gradient(rgba(43,36,24,.78),rgba(43,36,24,.78)),url("bg.jpg");
+  background-repeat:no-repeat;
+  background-position:center center;
+  background-size:cover;
   background-attachment:fixed;
 }
 body{padding-bottom:76px;background:transparent}
@@ -49,7 +52,7 @@ button,select,input{font-family:inherit;font-size:inherit}
 /* Yard lines behind the header, hash marks along its bottom edge, and a gold
    sideline rule. Purely decorative: pointer-events:none so nothing here can
    swallow a tap meant for the league picker. */
-.hero{padding:14px 16px 12px;background:linear-gradient(180deg,#22523A,#1A3A26);
+.hero{padding:14px 16px 12px;background:linear-gradient(180deg,#4A3D26,#332B1B);
   border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:40;overflow:hidden}
 .hero .brand{display:flex;align-items:center;gap:11px;min-width:0}
 .hero .crest{flex:0 0 auto;width:46px;height:50px;display:block}
@@ -65,7 +68,7 @@ button,select,input{font-family:inherit;font-size:inherit}
   border-radius:8px;padding:7px 9px;max-width:52%;font-size:13px}
 
 nav.tabs{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:50;
-  background:rgba(16,25,19,.97);backdrop-filter:blur(12px);border-top:1px solid var(--line);
+  background:rgba(43,36,24,.97);backdrop-filter:blur(12px);border-top:1px solid var(--line);
   padding-bottom:env(safe-area-inset-bottom)}
 nav.tabs button{flex:1;background:none;border:0;color:var(--faint);padding:10px 2px 11px;
   font-size:10px;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;
@@ -85,11 +88,11 @@ nav.tabs button.on{color:var(--gold)}
 .chips::-webkit-scrollbar{display:none}
 .chip{flex:0 0 auto;background:var(--surface-2);border:1px solid var(--line);color:var(--dim);
   border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap}
-.chip.on{background:var(--gold);border-color:var(--gold);color:#14200f}
+.chip.on{background:var(--gold);border-color:var(--gold);color:#2B2418}
 .btn{background:var(--surface-2);border:1px solid var(--line);color:var(--chalk);border-radius:9px;
   padding:9px 13px;font-size:13px;font-weight:600;cursor:pointer}
 .btn:active{background:var(--surface-3)}
-.btn.gold{background:var(--gold);border-color:var(--gold);color:#14200f}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:#2B2418}
 .btn.sm{padding:5px 9px;font-size:11.5px}
 input[type=text],input[type=search]{width:100%;background:var(--surface-2);border:1px solid var(--line);
   color:var(--chalk);border-radius:9px;padding:10px 12px}
@@ -119,12 +122,12 @@ input::placeholder{color:var(--faint)}
 /* Matching chip on the position text so the colour is decoded without a legend. */
 .poschip{display:inline-block;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:700;
   letter-spacing:.04em}
-.poschip.QB{background:rgba(247,154,132,.18);color:var(--pQB)}
-.poschip.RB{background:rgba(79,203,127,.18);color:var(--pRB)}
-.poschip.WR{background:rgba(119,186,234,.18);color:var(--pWR)}
-.poschip.TE{background:rgba(212,156,240,.18);color:var(--pTE)}
-.poschip.K{background:rgba(245,184,65,.18);color:var(--pK)}
-.poschip.DST{background:rgba(163,182,168,.20);color:var(--pDST)}
+.poschip.QB{background:rgba(233,146,129,.18);color:var(--pQB)}
+.poschip.RB{background:rgba(111,191,115,.18);color:var(--pRB)}
+.poschip.WR{background:rgba(127,178,224,.18);color:var(--pWR)}
+.poschip.TE{background:rgba(201,151,226,.18);color:var(--pTE)}
+.poschip.K{background:rgba(233,184,76,.18);color:var(--pK)}
+.poschip.DST{background:rgba(181,169,141,.20);color:var(--pDST)}
 /* Rank stencilled like a jersey number. */
 .prk{font-family:'Teko',sans-serif;font-size:19px;line-height:1.35;text-align:center;color:var(--gold);
   border:1px solid var(--line);border-radius:4px;padding:1px 0}
@@ -136,18 +139,18 @@ input::placeholder{color:var(--faint)}
 .pval{font-family:'Teko',sans-serif;font-size:19px;line-height:1;color:var(--chalk)}
 .pval small{display:block;font-family:'Inter';font-size:8.5px;color:var(--faint);letter-spacing:.05em}
 .tag{display:inline-block;border-radius:4px;padding:1px 5px;font-size:9.5px;font-weight:700;letter-spacing:.04em}
-.tag.t1{background:rgba(63,166,107,.18);color:var(--t1)}
-.tag.t2{background:rgba(232,163,61,.18);color:var(--t2)}
-.tag.t3{background:rgba(110,140,160,.18);color:var(--t3)}
-.tag.t4{background:rgba(138,138,120,.18);color:var(--t4)}
-.tag.t5{background:rgba(91,101,96,.2);color:var(--t5)}
-.tag.val{background:rgba(63,166,107,.18);color:var(--good)}
-.tag.reach{background:rgba(216,87,75,.18);color:var(--bad)}
-.tag.split{background:rgba(110,140,160,.16);color:var(--info)}
-.tag.mine{background:rgba(232,163,61,.22);color:var(--gold)}
+.tag.t1{background:rgba(111,191,115,.18);color:var(--t1)}
+.tag.t2{background:rgba(233,184,76,.18);color:var(--t2)}
+.tag.t3{background:rgba(143,180,204,.18);color:var(--t3)}
+.tag.t4{background:rgba(195,180,140,.18);color:var(--t4)}
+.tag.t5{background:rgba(179,168,145,.2);color:var(--t5)}
+.tag.val{background:rgba(111,191,115,.18);color:var(--good)}
+.tag.reach{background:rgba(233,146,129,.18);color:var(--bad)}
+.tag.split{background:rgba(143,180,204,.16);color:var(--info)}
+.tag.mine{background:rgba(233,184,76,.22);color:var(--gold)}
 
 /* ---------- detail sheet ---------- */
-.sheet{position:fixed;inset:0;z-index:60;background:rgba(8,13,10,.72);display:none;align-items:flex-end}
+.sheet{position:fixed;inset:0;z-index:60;background:rgba(20,16,10,.72);display:none;align-items:flex-end}
 .sheet.on{display:flex}
 .sheet-in{background:var(--surface);border-top-left-radius:16px;border-top-right-radius:16px;
   border-top:1px solid var(--line);width:100%;max-height:88vh;overflow-y:auto;padding:14px 14px 30px}
@@ -190,8 +193,8 @@ input::placeholder{color:var(--faint)}
 .tpill button{background:none;border:0;color:var(--bad);font-size:15px;cursor:pointer;padding:0 2px;line-height:1}
 .verdict{text-align:center;padding:14px;border-radius:10px;margin-top:10px;border:1px solid var(--line);background:var(--surface-2)}
 .verdict .big{font-family:'Teko';font-size:34px;line-height:1}
-.verdict.win{border-color:rgba(63,166,107,.5)} .verdict.win .big{color:var(--good)}
-.verdict.lose{border-color:rgba(216,87,75,.5)} .verdict.lose .big{color:var(--bad)}
+.verdict.win{border-color:rgba(111,191,115,.5)} .verdict.win .big{color:var(--good)}
+.verdict.lose{border-color:rgba(233,146,129,.5)} .verdict.lose .big{color:var(--bad)}
 .verdict.even .big{color:var(--dim)}
 
 /* ---------- misc ---------- */
@@ -203,9 +206,9 @@ table.mini td{padding:5px 4px;border-bottom:1px solid var(--line)}
 table.mini td:last-child{text-align:right;font-weight:600}
 .empty{text-align:center;color:var(--faint);padding:26px 12px;font-size:13px;line-height:1.5}
 .loading{text-align:center;color:var(--faint);padding:30px;font-size:13px}
-.err{background:rgba(216,87,75,.1);border:1px solid rgba(216,87,75,.4);color:#f0a49c;
+.err{background:rgba(233,146,129,.12);border:1px solid rgba(233,146,129,.45);color:#F0B5A6;
   border-radius:9px;padding:10px;font-size:12.5px;line-height:1.5;margin-bottom:10px}
-.ok-note{background:rgba(63,166,107,.09);border:1px solid rgba(63,166,107,.35);color:#9fd3b5;
+.ok-note{background:rgba(111,191,115,.10);border:1px solid rgba(111,191,115,.40);color:#B0DCB3;
   border-radius:9px;padding:10px;font-size:12.5px;line-height:1.5;margin-bottom:10px}
 @media(min-width:760px){
   /* Capped rather than fluid: a row stretched across a 2500px monitor puts the
@@ -227,11 +230,11 @@ table.mini td:last-child{text-align:right;font-weight:600}
     <div class="brand">
       <svg class="crest" viewBox="0 0 48 52" aria-hidden="true">
         <path d="M24 3 L45 10 V27 C45 39 35 46 24 50 C13 46 3 39 3 27 V10 Z"
-              fill="#1A3A26" stroke="var(--gold)" stroke-width="2.4" stroke-linejoin="round"/>
+              fill="#332B1B" stroke="var(--gold)" stroke-width="2.4" stroke-linejoin="round"/>
         <path d="M8 20 H40 M8 34 H40" stroke="var(--chalk)" stroke-width="1" opacity=".22"/>
         <ellipse cx="24" cy="24" rx="11.5" ry="7.4" fill="var(--gold)"/>
         <path d="M17 24 H31 M21 21.2 V26.8 M24 20.6 V27.4 M27 21.2 V26.8"
-              stroke="#1A3A26" stroke-width="1.5" stroke-linecap="round"/>
+              stroke="#332B1B" stroke-width="1.5" stroke-linecap="round"/>
         <path d="M14 37 L24 41.5 L34 37 M14 42.5 L24 47 L34 42.5"
               fill="none" stroke="var(--gold)" stroke-width="2.2"
               stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>
