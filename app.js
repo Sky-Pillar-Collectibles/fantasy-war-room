@@ -652,16 +652,19 @@ const findByKey = k => S.players.find(p=>p.key===k) || (S.picks||[]).find(p=>p.k
    parts degrade to a plain note when player_notes.json is missing or stale. */
 
 /* Sleeper hosts a headshot for every player at a predictable URL. No key, no
-   rate limit. onerror hides the frame rather than showing a broken image. */
+   rate limit. onerror hides the frame rather than showing a broken image.
+   Deliberately NOT: the sheet is display:none until it opens, so
+   a lazy image is judged off-screen and never starts loading at all. These only
+   exist once the profile is open, so eager is both correct and cheap. */
 function headshotHTML(p){
   if(!p.sleeperId) return '';
   return `<img class="pshot" src="https://sleepercdn.com/content/nfl/players/${esc(p.sleeperId)}.jpg"
-     alt="" loading="lazy" onerror="this.style.display='none'">`;
+     alt="" onerror="this.style.display='none'">`;
 }
 function teamLogoHTML(team){
   if(!team) return '';
   return `<img class="plogo" src="https://sleepercdn.com/images/team_logos/nfl/${esc(String(team).toLowerCase())}.png"
-     alt="" loading="lazy" onerror="this.style.display='none'">`;
+     alt="" onerror="this.style.display='none'">`;
 }
 
 function notesFor(p){
