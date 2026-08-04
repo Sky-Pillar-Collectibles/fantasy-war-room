@@ -42,8 +42,13 @@ html{
      picture. Bump the number whenever the image changes. */
   background-image:linear-gradient(rgba(43,36,24,.78),rgba(43,36,24,.78)),url("bg.jpg?v=2");
   background-repeat:no-repeat;
-  background-position:center center;
-  background-size:cover;
+  /* Anchored left at natural proportions rather than "cover". On a wide monitor
+     cover scaled the art about 2.5x, which made the helmet and notebook loom.
+     Sizing to viewport height keeps them life-size, and left-anchoring puts them
+     in the margin beside the board — the objects all sit on that side anyway.
+     The right margin stays flat warm brown, which reads as deliberate. */
+  background-position:left center;
+  background-size:auto 100%;
   background-attachment:fixed;
 }
 body{padding-bottom:76px;background:transparent}
