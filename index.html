@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#2B2418">
-<title>The War Room — 2026</title>
+<title>The Fantasy War Room — 2026</title>
 <link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,23 +30,15 @@
 html,body{margin:0;padding:0;background:var(--bg);color:var(--chalk);
   font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   font-size:15px;-webkit-text-size-adjust:100%}
-/* The war-room desk photograph sits behind the whole page, fixed so it doesn't
-   slide as the board scrolls. Cropped to drop the artwork's own title card —
-   the crest and wordmark carry the branding, and two titles would collide.
-   A flat scrim over the top holds it back so panels and text stay first. The
-   3.1MB source was re-encoded to ~140KB; a background is not worth a slow load. */
+/* The war-room desk artwork sits behind the whole page, fixed so it doesn't
+   slide as the board scrolls, with a flat scrim over it so panels and text stay
+   in front. The art is authored at 2:1 to match a widescreen monitor, so "cover"
+   fills the viewport with no stretching, no cropping and no dead space at the
+   sides. ?v= is a cache key, not a real query — browsers hold a background image
+   for days, so bump the number whenever the image itself changes. */
 html{
   background-color:var(--bg);
-  /* ?v= is a cache key, not a real query. Browsers hold a background image for
-     days, so replacing bg.jpg without changing this URL silently serves the old
-     picture. Bump the number whenever the image changes. */
-  /* One image: the full artwork, composited onto a 2:1 canvas with its own
-     texture extended and blurred outward past the edges. That extension is what
-     lets "cover" fill a wide monitor without blowing the art up — the scale is
-     about 1.27x rather than the 2.5x that made the helmet loom. Earlier attempts
-     cropped the picture and stitched panels back together, which left a visible
-     seam mid-screen; one canvas has no seam to hide. */
-  background-image:linear-gradient(rgba(43,36,24,.78),rgba(43,36,24,.78)),url("bg-wide.jpg?v=2");
+  background-image:linear-gradient(rgba(43,36,24,.78),rgba(43,36,24,.78)),url("bg-wide.jpg?v=3");
   background-position:center center;
   background-size:cover;
   background-repeat:no-repeat;
@@ -58,17 +50,21 @@ a{color:var(--gold)}
 button,select,input{font-family:inherit;font-size:inherit}
 
 /* ---------- chrome ---------- */
-/* Yard lines behind the header, hash marks along its bottom edge, and a gold
-   sideline rule. Purely decorative: pointer-events:none so nothing here can
-   swallow a tap meant for the league picker. */
-.hero{padding:14px 16px 12px;background:linear-gradient(180deg,#4A3D26,#332B1B);
-  border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:40;overflow:hidden}
+/* The header carries the same backdrop as the page, at the same size, position
+   and fixed attachment — so it lines up pixel-for-pixel and the artwork appears
+   to run straight through it. It can't simply be transparent: the header is
+   sticky, and scrolled rows would show through and collide with the title.
+   Repeating its own background is what keeps it opaque while looking seamless. */
+.hero{padding:14px 16px 12px;position:sticky;top:0;z-index:40;overflow:hidden;
+  background-color:var(--bg);
+  background-image:linear-gradient(rgba(43,36,24,.78),rgba(43,36,24,.78)),url("bg-wide.jpg?v=3");
+  background-position:center center;
+  background-size:cover;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+  border-bottom:1px solid var(--line)}
 .hero .brand{display:flex;align-items:center;gap:11px;min-width:0}
 .hero .crest{flex:0 0 auto;width:46px;height:50px;display:block}
-.hero::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:.09;
-  background:repeating-linear-gradient(90deg,var(--chalk) 0 1px,transparent 1px 46px)}
-.hero::after{content:'';position:absolute;left:0;right:0;bottom:0;height:9px;pointer-events:none;
-  opacity:.30;background:repeating-linear-gradient(90deg,var(--chalk) 0 1px,transparent 1px 23px)}
 .hero-row{display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative}
 .hero h1{font-size:30px;line-height:1;text-transform:uppercase;letter-spacing:.06em}
 .hero .season{color:var(--gold);font-size:10px;letter-spacing:.15em;text-transform:uppercase;margin-top:5px}
@@ -249,7 +245,7 @@ table.mini td:last-child{text-align:right;font-weight:600}
               stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>
       </svg>
       <div style="min-width:0">
-        <h1>The War Room</h1>
+        <h1>The Fantasy War Room</h1>
         <div class="season">2026 Season</div>
         <div class="sub" id="subline">2026 · loading feeds…</div>
       </div>
