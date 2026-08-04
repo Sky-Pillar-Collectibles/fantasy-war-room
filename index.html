@@ -40,16 +40,24 @@ html{
   /* ?v= is a cache key, not a real query. Browsers hold a background image for
      days, so replacing bg.jpg without changing this URL silently serves the old
      picture. Bump the number whenever the image changes. */
-  background-image:linear-gradient(rgba(43,36,24,.78),rgba(43,36,24,.78)),url("bg.jpg?v=2");
-  background-repeat:no-repeat;
-  /* Anchored left at natural proportions rather than "cover". On a wide monitor
-     cover scaled the art about 2.5x, which made the helmet and notebook loom.
-     Sizing to viewport height keeps them life-size, and left-anchoring puts them
-     in the margin beside the board — the objects all sit on that side anyway.
-     The right margin stays flat warm brown, which reads as deliberate. */
-  background-position:left center;
-  background-size:auto 100%;
-  background-attachment:fixed;
+  /* Four layers, listed topmost first:
+       1. scrim, holding the whole thing back so panels and text stay in front
+       2. bg.jpg      — helmet, game plan notebook, dog tags, anchored left
+       3. bg-right.jpg — football sketch, dossier, pen, anchored right
+       4. bg-tile.jpg  — seamless aged-paper texture filling the middle
+     The two art panels are sized to viewport height rather than "cover": cover
+     scaled them ~2.5x on a wide monitor and the objects loomed. At natural
+     proportions they no longer meet in the middle, so the tile closes the gap —
+     without it there's a visible band where the desk stops. */
+  background-image:
+    linear-gradient(rgba(43,36,24,.78),rgba(43,36,24,.78)),
+    url("bg.jpg?v=2"),
+    url("bg-right.jpg?v=1"),
+    url("bg-tile.jpg?v=1");
+  background-position:center center, left center, right center, center center;
+  background-size:cover, auto 100%, auto 100%, 400px 400px;
+  background-repeat:no-repeat, no-repeat, no-repeat, repeat;
+  background-attachment:fixed, fixed, fixed, fixed;
 }
 body{padding-bottom:76px;background:transparent}
 h1,h2,h3,.disp{font-family:'Teko',sans-serif;font-weight:600;letter-spacing:.02em;margin:0}
