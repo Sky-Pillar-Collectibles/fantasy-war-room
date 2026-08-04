@@ -50,18 +50,11 @@ a{color:var(--gold)}
 button,select,input{font-family:inherit;font-size:inherit}
 
 /* ---------- chrome ---------- */
-/* The header carries the same backdrop as the page, at the same size, position
-   and fixed attachment — so it lines up pixel-for-pixel and the artwork appears
-   to run straight through it. It can't simply be transparent: the header is
-   sticky, and scrolled rows would show through and collide with the title.
-   Repeating its own background is what keeps it opaque while looking seamless. */
-.hero{padding:14px 16px 12px;position:sticky;top:0;z-index:40;overflow:hidden;
-  background-color:var(--bg);
-  background-image:linear-gradient(rgba(43,36,24,.78),rgba(43,36,24,.78)),url("bg-wide.jpg?v=3");
-  background-position:center center;
-  background-size:cover;
-  background-repeat:no-repeat;
-  background-attachment:fixed;
+/* The header scrolls away with the page rather than sticking to the top. Because
+   it no longer has to stay opaque over scrolling rows, it needs no background of
+   its own — the page backdrop simply shows through, which is both simpler and
+   genuinely seamless rather than two images lined up to look seamless. */
+.hero{padding:14px 16px 12px;background:transparent;
   border-bottom:1px solid var(--line)}
 .hero .brand{display:flex;align-items:center;gap:11px;min-width:0}
 .hero .crest{flex:0 0 auto;width:46px;height:50px;display:block}
