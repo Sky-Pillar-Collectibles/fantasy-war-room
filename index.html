@@ -40,24 +40,17 @@ html{
   /* ?v= is a cache key, not a real query. Browsers hold a background image for
      days, so replacing bg.jpg without changing this URL silently serves the old
      picture. Bump the number whenever the image changes. */
-  /* Four layers, listed topmost first:
-       1. scrim, holding the whole thing back so panels and text stay in front
-       2. bg.jpg      — helmet, game plan notebook, dog tags, anchored left
-       3. bg-right.jpg — football sketch, dossier, pen, anchored right
-       4. bg-tile.jpg  — seamless aged-paper texture filling the middle
-     The two art panels are sized to viewport height rather than "cover": cover
-     scaled them ~2.5x on a wide monitor and the objects loomed. At natural
-     proportions they no longer meet in the middle, so the tile closes the gap —
-     without it there's a visible band where the desk stops. */
-  background-image:
-    linear-gradient(rgba(43,36,24,.78),rgba(43,36,24,.78)),
-    url("bg.jpg?v=2"),
-    url("bg-right.jpg?v=1"),
-    url("bg-tile.jpg?v=1");
-  background-position:center center, left center, right center, center center;
-  background-size:cover, auto 100%, auto 100%, 400px 400px;
-  background-repeat:no-repeat, no-repeat, no-repeat, repeat;
-  background-attachment:fixed, fixed, fixed, fixed;
+  /* One image: the full artwork, composited onto a 2:1 canvas with its own
+     texture extended and blurred outward past the edges. That extension is what
+     lets "cover" fill a wide monitor without blowing the art up — the scale is
+     about 1.27x rather than the 2.5x that made the helmet loom. Earlier attempts
+     cropped the picture and stitched panels back together, which left a visible
+     seam mid-screen; one canvas has no seam to hide. */
+  background-image:linear-gradient(rgba(43,36,24,.78),rgba(43,36,24,.78)),url("bg-wide.jpg?v=1");
+  background-position:center center;
+  background-size:cover;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
 }
 body{padding-bottom:76px;background:transparent}
 h1,h2,h3,.disp{font-family:'Teko',sans-serif;font-weight:600;letter-spacing:.02em;margin:0}
