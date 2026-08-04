@@ -93,6 +93,11 @@ async function loadAll(force){
   const expert = await getJSON('expert_blend.json', 'Expert Blend (SI/NBC/BR/ESPN)', 60*24*3);
   S.expert = expert;
 
+  // --- written outlooks, rebuilt weekly. Entirely optional: if the file is
+  //     missing or stale the profile falls back to live data and says so,
+  //     rather than showing an empty section or breaking. ---
+  S.notes = await getJSON('player_notes.json', 'Player Outlooks (weekly)', 60*24) || null;
+
   // --- FantasyCalc live market values, configured to THIS league ---
   const fcUrl = `${FCALC}?isDynasty=${!!L.dynasty}&numQbs=${L.qbs}&numTeams=${L.teams}&ppr=${L.ppr}`;
   let fc = await getJSON(fcUrl, 'FantasyCalc Market (live)', 60*6);
@@ -155,15 +160,31 @@ async function loadSleeperPlayers(){
       if(!p || !p.position) continue;
       if(!['QB','RB','WR','TE','K','DEF'].includes(p.position)) continue;
       if(p.position !== 'DEF' && !p.team && p.status === 'Inactive') continue;
-      map[id] = { n: p.full_name || ((p.first_name||'')+' '+(p.last_name||'')).trim(),
+      // Short keys on purpose: this whole map goes into localStorage, which caps
+      // out around 5MB. Optional fields are only written when they exist so a
+      // healthy player with no injury data costs nothing.
+      const m = { n: p.full_name || ((p.first_name||'')+' '+(p.last_name||'')).trim(),
                   p: p.position === 'DEF' ? 'DST' : p.position,
                   t: fixTeam(p.team || ''),
                   b: p.bye_week || null,
                   i: p.injury_status || null,
                   a: p.age || null,
                   e: p.years_exp };
+      if(p.depth_chart_position) m.dp = p.depth_chart_position;
+      if(p.depth_chart_order != null) m.do = p.depth_chart_order;
+      if(p.number != null) m.num = p.number;
+      if(p.height) m.ht = p.height;
+      if(p.weight) m.wt = p.weight;
+      if(p.college) m.col = p.college;
+      if(p.injury_body_part) m.ibp = p.injury_body_part;
+      if(p.injury_notes) m.inote = String(p.injury_notes).slice(0,220);
+      if(p.status && p.status !== 'Active') m.st = p.status;
+      if(p.news_updated) m.nu = p.news_updated;
+      map[id] = m;
     }
     S.sleeperMap = map;
+    // If the enriched map overflows the storage quota the write silently fails
+    // and the app simply re-downloads next load — slower, never broken.
     LS.set('slimPlayers', {t:Date.now(), d:map});
     markHealth('Sleeper Player DB', true, 'live · just now');
   }catch(e){
@@ -288,7 +309,24 @@ function buildUnified(){
       p.bye = m.b; p.injury = m.i;
       if(p.age == null) p.age = m.a;
       if(!p.team) p.team = m.t;
+      // Profile-only detail. Carried through so the sheet never has to re-query.
+      p.exp = m.e; p.depthPos = m.dp; p.depthOrder = m.do; p.number = m.num;
+      p.height = m.ht; p.weight = m.wt; p.college = m.col;
+      p.injuryPart = m.ibp; p.injuryNote = m.inote; p.rosterStatus = m.st;
+      p.newsUpdated = m.nu;
     }
+  });
+
+  // How many players his own team lists at his position — turns a bare
+  // depth_chart_order into "WR2 of 6", which is the number that actually means
+  // something when deciding whether he sees the field.
+  const depthCount = {};
+  for(const id in S.sleeperMap){
+    const m = S.sleeperMap[id];
+    if(m.t && m.dp) depthCount[m.t + '|' + m.dp] = (depthCount[m.t + '|' + m.dp] || 0) + 1;
+  }
+  players.forEach(p => {
+    if(p.team && p.depthPos) p.depthOf = depthCount[p.team + '|' + p.depthPos] || null;
   });
 
   // ---- positional consensus: average available normalised ranks ----
@@ -601,28 +639,103 @@ function wireRows(containerId, fn){
 }
 const findByKey = k => S.players.find(p=>p.key===k) || (S.picks||[]).find(p=>p.key===k);
 
-/* ---------- detail sheet ---------- */
+/* ---------- full player profile ----------
+   Everything known about one player in a single view: who he is, where he sits
+   on his own depth chart, what the market and the analysts each think, and the
+   written outlook from the weekly refresh. Live data always renders; the written
+   parts degrade to a plain note when player_notes.json is missing or stale. */
+
+/* Sleeper hosts a headshot for every player at a predictable URL. No key, no
+   rate limit. onerror hides the frame rather than showing a broken image. */
+function headshotHTML(p){
+  if(!p.sleeperId) return '';
+  return `<img class="pshot" src="https://sleepercdn.com/content/nfl/players/${esc(p.sleeperId)}.jpg"
+     alt="" loading="lazy" onerror="this.style.display='none'">`;
+}
+function teamLogoHTML(team){
+  if(!team) return '';
+  return `<img class="plogo" src="https://sleepercdn.com/images/team_logos/nfl/${esc(String(team).toLowerCase())}.png"
+     alt="" loading="lazy" onerror="this.style.display='none'">`;
+}
+
+function notesFor(p){
+  if(!S.notes) return null;
+  const byId = S.notes.players && p.sleeperId ? S.notes.players[String(p.sleeperId)] : null;
+  if(byId) return byId;
+  // Fall back to a normalised name match — a player can change Sleeper id.
+  if(S.notes.players){
+    const want = norm(p.name);
+    for(const k in S.notes.players){
+      const n = S.notes.players[k];
+      if(n && n.player && norm(n.player) === want) return n;
+    }
+  }
+  return null;
+}
+
 function openSheet(key){
   const p = findByKey(key); if(!p) return;
+  if(p.isPick) return openPickSheet(key);
   const t = tierOf(p);
   const srcs = Object.entries(p.srcRanks);
-  const el = document.getElementById('sheetIn');
-  el.innerHTML = `
+  const note = notesFor(p);
+  const teamBrief = S.notes && S.notes.teams && p.team ? S.notes.teams[p.team] : null;
+  const gen = S.notes && S.notes.generated ? S.notes.generated : null;
+
+  const vitals = [];
+  if(p.number != null) vitals.push('#' + p.number);
+  if(p.age) vitals.push(p.age + ' yrs');
+  if(p.exp != null) vitals.push(p.exp === 0 ? 'Rookie' : p.exp + ' yr' + (p.exp===1?'':'s') + ' exp');
+  if(p.height) vitals.push(String(p.height).replace(/^(\d)(\d+)$/, "$1'$2\""));
+  if(p.weight) vitals.push(p.weight + ' lb');
+  if(p.college) vitals.push(p.college);
+
+  const stat = (n, l, col) =>
+    `<div class="srcbox"><div class="n"${col?` style="color:${col}"`:''}>${n}</div><div class="l">${esc(l)}</div></div>`;
+
+  document.getElementById('sheetIn').innerHTML = `
     <div class="grab"></div>
-    <h2 style="font-size:26px">${esc(p.name)}</h2>
-    <div class="muted small" style="margin-bottom:10px">
-      ${esc(p.pos)}${p.posRank?' #'+p.posRank:''} · ${esc(p.team||'FA')}${p.bye?' · Bye '+p.bye:''}${p.age?' · Age '+p.age:''}
-      ${p.owner?` · <span style="color:var(--gold)">${esc(p.owner)}</span>`:''}
+
+    <div class="phead">
+      ${headshotHTML(p)}
+      <div style="min-width:0;flex:1">
+        <div class="row" style="gap:7px;align-items:center">
+          ${teamLogoHTML(p.team)}
+          <h2 style="font-size:25px;line-height:1.05">${esc(p.name)}</h2>
+        </div>
+        <div class="pmeta" style="margin-top:5px">
+          <span class="poschip ${esc(p.pos)}">${esc(p.pos)}${p.posRank?('#'+p.posRank):''}</span>
+          <span>${esc(p.team||'FA')}</span>
+          ${p.bye?`<span>BYE ${p.bye}</span>`:''}
+          ${p.depthPos && p.depthOrder!=null
+            ? `<span class="tag ${p.depthOrder<=1?'t1':p.depthOrder===2?'t2':'t4'}">${esc(p.depthPos)}${p.depthOrder}${p.depthOf?' of '+p.depthOf:''} on depth chart</span>`
+            : ''}
+        </div>
+        ${vitals.length?`<div class="small muted" style="margin-top:5px">${vitals.map(esc).join(' · ')}</div>`:''}
+        ${p.owner?`<div class="small" style="margin-top:4px;color:var(--gold)">${p.mine?'On your roster':'Rostered by '+esc(p.owner)}</div>`:''}
+      </div>
     </div>
+
+    ${(p.injury || p.rosterStatus) ? `
+      <div class="err" style="margin-top:10px;text-align:left">
+        <b>${esc(p.injury || p.rosterStatus)}</b>${p.injuryPart?` — ${esc(p.injuryPart)}`:''}
+        ${p.injuryNote?`<br><span class="small">${esc(p.injuryNote)}</span>`:''}
+        ${p.newsUpdated?`<br><span class="small muted">Sleeper record updated ${timeAgo(p.newsUpdated)}</span>`:''}
+      </div>` : ''}
+
+    <div class="spacer"></div>
     <div class="srcgrid">
-      <div class="srcbox"><div class="n">${p.overall}</div><div class="l">Overall</div></div>
-      <div class="srcbox"><div class="n">${p.value!=null?p.value.toLocaleString():'—'}</div><div class="l">Mkt Value</div></div>
-      <div class="srcbox"><div class="n" style="color:${p.trend>0?'var(--good)':p.trend<0?'var(--bad)':'var(--chalk)'}">${p.trend!=null?(p.trend>0?'+':'')+p.trend:'—'}</div><div class="l">30d Trend</div></div>
-      <div class="srcbox"><div class="n" style="color:var(--t${t})">T${t}</div><div class="l">${tierLabel(t)}</div></div>
+      ${stat(p.overall, 'Overall')}
+      ${stat(p.posRank ? p.pos + p.posRank : '—', 'At position')}
+      ${stat(p.value!=null?p.value.toLocaleString():'—', 'Market value')}
+      ${stat(p.trend!=null?(p.trend>0?'+':'')+p.trend:'—', '30-day trend',
+             p.trend>0?'var(--good)':p.trend<0?'var(--bad)':null)}
+      ${stat('T'+t, tierLabel(t), 'var(--t'+t+')')}
+      ${p.rostered!=null?stat(Math.round(p.rostered)+'%', 'Rostered'):''}
     </div>
 
     <div class="spacer"></div>
-    <h3 class="disp" style="font-size:17px;text-transform:uppercase">Where the sources land</h3>
+    <h3 class="disp psec">Where the sources land</h3>
     <div class="hint" style="margin-bottom:6px">Positional rank from each independent source. Wide gaps mean the pros disagree — that's your risk signal.</div>
     <div class="srcgrid">
       ${srcs.map(([k,v])=>`<div class="srcbox"><div class="n">${v}</div><div class="l">${esc(k)}</div></div>`).join('')}
@@ -645,7 +758,19 @@ function openSheet(key){
           : `the market is ${Math.round(Math.abs(p.edge))} spots ahead of the analysts. You'd be paying for hype the pros haven't signed off on.`}</span></div>
       </div>`:''}
 
-    ${p.rostered!=null?`<div class="small muted" style="margin-top:8px">Rostered in ${(p.rostered).toFixed(0)}% of leagues</div>`:''}
+    <div class="spacer"></div>
+    <h3 class="disp psec">Outlook</h3>
+    ${note && note.outlook ? `
+      <div class="pnote">${esc(note.outlook)}</div>
+      ${note.watch?`<div class="pnote sub"><b>Watch:</b> ${esc(note.watch)}</div>`:''}`
+    : `<div class="hint">No written outlook for this player yet. The weekly refresh writes these — everything above is live from Sleeper and the market.</div>`}
+
+    ${teamBrief && teamBrief.brief ? `
+      <div class="spacer"></div>
+      <h3 class="disp psec">${esc(p.team)} situation</h3>
+      <div class="pnote">${esc(teamBrief.brief)}</div>` : ''}
+
+    ${gen?`<div class="small muted" style="margin-top:8px">Outlook written ${esc(gen)}. Market value and injury status above are live.</div>`:''}
 
     <div class="spacer"></div>
     <div class="row">
@@ -654,8 +779,6 @@ function openSheet(key){
       <button class="btn grow ${(p.owner&&!p.mine)?'gold':''}" onclick="addTrade('${esc(p.key)}','get')">
         ${(p.owner&&!p.mine)?'Target him':'+ I Get'}</button>
     </div>
-    ${p.owner && !p.mine ? `<div class="small muted" style="margin-top:6px;text-align:center">
-      Owned by ${esc(p.owner)} — he'll show up on your Trade tab under "I Get".</div>` : ''}
     <div class="spacer"></div>
     <button class="btn grow" style="width:100%" onclick="toggleDrafted('${esc(p.key)}')">
       ${S.drafted.has(p.key)?'Un-mark drafted':'Mark as drafted'}</button>
