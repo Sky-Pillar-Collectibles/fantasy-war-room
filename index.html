@@ -37,7 +37,10 @@ html,body{margin:0;padding:0;background:var(--bg);color:var(--chalk);
    3.1MB source was re-encoded to ~140KB; a background is not worth a slow load. */
 html{
   background-color:var(--bg);
-  background-image:linear-gradient(rgba(43,36,24,.78),rgba(43,36,24,.78)),url("bg.jpg");
+  /* ?v= is a cache key, not a real query. Browsers hold a background image for
+     days, so replacing bg.jpg without changing this URL silently serves the old
+     picture. Bump the number whenever the image changes. */
+  background-image:linear-gradient(rgba(43,36,24,.78),rgba(43,36,24,.78)),url("bg.jpg?v=2");
   background-repeat:no-repeat;
   background-position:center center;
   background-size:cover;
