@@ -546,12 +546,12 @@ function rowHTML(p, opts){
   const primary = opts.rankField === 'pos' ? (p.pos + (p.posRank||'')) : p.overall;
   const rightNum = p.value != null ? p.value.toLocaleString() : '—';
 
-  return `<div class="prow tier-${t} ${gone?'gone':''}" data-k="${esc(p.key)}">
+  return `<div class="prow pos-${esc(p.pos)} ${gone?'gone':''}" data-k="${esc(p.key)}">
     <div class="prk">${primary}<small>${opts.rankField==='pos'?'POS':'OVR'}</small></div>
     <div>
       <div class="pname">${esc(p.name)}</div>
       <div class="pmeta">
-        <span>${esc(p.pos)}${p.posRank?('#'+p.posRank):''}</span>
+        <span class="poschip ${esc(p.pos)}">${esc(p.pos)}${p.posRank?('#'+p.posRank):''}</span>
         <span>${esc(p.team||'FA')}</span>
         ${p.bye?`<span>BYE ${p.bye}</span>`:''}
         ${p.trend!=null&&p.trend!==0?`<span>${p.trend>0?'▲':'▼'}${Math.abs(p.trend)}</span>`:''}
@@ -1291,7 +1291,19 @@ function fitLabel(f){
   return {t:'Poor Fit', c:'var(--faint)'};
 }
 
+/* Position filter for an opened opponent roster. Kept per-team rather than
+   global so opening a different team doesn't inherit the last team's filter —
+   when sizing up a trade you almost always want to start from their full board. */
+function setTeamPos(rid, pos){
+  S.teamPos = S.teamPos || {};
+  S.teamPos[rid] = pos;
+  renderTeams();
+  const el = document.getElementById('team_'+rid);
+  if(el && typeof el.scrollIntoView === 'function') el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
 function viewTeam(rid){
+  if(S.teamPos) delete S.teamPos[rid];   // reopening a team starts unfiltered
   S.viewTeam = (S.viewTeam === rid) ? null : rid;
   renderTeams();
   const el = document.getElementById('team_'+rid);
@@ -1481,10 +1493,30 @@ function renderTeams(){
             Any deal here is one of you overpaying.</div>`}
         <div class="small" style="margin-top:8px;color:var(--gold)">${open?'▲ Hide roster':'▼ Show roster'}</div>
       </div>
-      ${open ? `<div class="plist" style="border-radius:0;border-left:0;border-right:0;border-bottom:0">
-          ${t.players.map(p=>rowHTML(p)).join('')}
-          ${(t.picks||[]).map(p=>pickRowHTML(p)).join('')}
-        </div>` : ''}
+      ${open ? (() => {
+          const cur = (S.teamPos && S.teamPos[t.rosterId]) || 'ALL';
+          // Only offer positions this manager actually rosters, plus PICKS if he
+          // holds any. A chip that filters to an empty list is just noise.
+          const present = ['QB','RB','WR','TE','K','DST'].filter(x => t.players.some(p=>p.pos===x));
+          const opts = ['ALL'].concat(present).concat((t.picks||[]).length ? ['PICKS'] : []);
+          const shownPlayers = cur === 'ALL' ? t.players
+                             : cur === 'PICKS' ? []
+                             : t.players.filter(p => p.pos === cur);
+          const shownPicks = (cur === 'ALL' || cur === 'PICKS') ? (t.picks||[]) : [];
+          const chips = opts.map(o =>
+            `<button class="chip ${o===cur?'on':''}" onclick="event.stopPropagation();setTeamPos(${t.rosterId},'${o}')">${o==='ALL'?'All':o}</button>`
+          ).join('');
+          const count = shownPlayers.length + shownPicks.length;
+          return `<div style="padding:9px 10px 2px;border-top:1px solid var(--line)">
+              <div class="chips" style="padding-bottom:6px">${chips}</div>
+              <div class="small muted" style="padding-bottom:7px">${count} asset${count===1?'':'s'}${cur==='ALL'?'':' at '+cur}</div>
+            </div>
+            <div class="plist" style="border-radius:0;border-left:0;border-right:0;border-bottom:0">
+              ${shownPlayers.map(p=>rowHTML(p)).join('')}
+              ${shownPicks.map(p=>pickRowHTML(p)).join('')}
+              ${count===0?'<div class="empty">Nothing at that position on this roster.</div>':''}
+            </div>`;
+        })() : ''}
     </div>`;
   }).join('');
 
