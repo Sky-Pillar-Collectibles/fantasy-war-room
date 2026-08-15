@@ -5,3 +5,1840 @@
   "teams": {},
   "players": {}
 }
+{
+ "generated": "2026-08-11",
+ "sources": [
+  "Sleeper player database (depth chart, injury designations, status) - https://api.sleeper.app/v1/players/nfl, retrieved 2026-08-11",
+  "ESPN public fantasy API season outlooks and ADP/ownership, retrieved 2026-08-11",
+  "FantasyPros Expert Consensus Rankings metadata (tier, standard deviation, weekly ECR delta), updated 2026-08-11",
+  "FantasyCalc dynasty and redraft market values and 30-day trends, retrieved 2026-08-11",
+  "Yahoo Sports NFL news feed, items dated 2026-08-11",
+  "CBS Sports NFL headlines feed, retrieved 2026-08-11",
+  "RotoWire NFL player news feed, items dated 2026-08-11",
+  "CBS Sports per-player fantasy news headlines embedded in its positional ranking pages, retrieved 2026-08-11"
+ ],
+ "teams": {
+  "ARI": {
+   "brief": "Jacoby Brissett opens camp as the starter with rookie Carson Beck behind him, and the staff has been openly complimentary of Beck after his Hall of Fame Game showing, so this is a live competition rather than a settled room. The offense runs through Trey McBride, who has been a target hog regardless of who plays quarterback. Rookie Jeremiyah Love, the No. 3 overall pick, arrives as a three-down back and pushes James Conner (foot) into a complementary role.",
+   "updated": "2026-08-11"
+  },
+  "ATL": {
+   "brief": "Tua Tagovailoa is the starter but is carrying a back issue, and Michael Penix Jr. is working back from ACL surgery, so the quarterback picture is less settled than the depth chart suggests. Bijan Robinson is the offense's engine and among the highest-volume backs in football. Drake London and Kyle Pitts are the passing-game priorities, and both benefit if Tagovailoa's timing-based game holds up.",
+   "updated": "2026-08-11"
+  },
+  "BAL": {
+   "brief": "Lamar Jackson is not playing in the preseason opener but is otherwise healthy and working closely with rookie receiver Lane. Derrick Henry is still the early-down and goal-line back at 32. Zay Flowers (quadriceps) is the No. 1 receiver when right; cornerback Nate Wiggins was carted off with a lower-body injury, which matters more for the defense than the fantasy offense.",
+   "updated": "2026-08-11"
+  },
+  "BUF": {
+   "brief": "Josh Allen is the safest asset in fantasy football and now has DJ Moore as a genuine outside threat alongside Khalil Shakir and Keon Coleman. James Cook remains the lead back with Ray Davis and Ty Johnson (knee) behind him. Guard Connor McGovern is banged up, which is worth tracking for a line that has been a strength.",
+   "updated": "2026-08-11"
+  },
+  "CAR": {
+   "brief": "Bryce Young enters his fourth season with Tetairoa McMillan established as a legitimate No. 1 receiver after Offensive Rookie of the Year honors. The backfield is genuinely muddled: Chuba Hubbard and Jonathon Brooks are ranked within a few spots of each other and neither has separated. The offensive line is a concern with Taylor Moton and Ikem Ekwonu both opening on PUP.",
+   "updated": "2026-08-11"
+  },
+  "CHI": {
+   "brief": "Caleb Williams is in his third season and the expert market has cooled on him relative to a year ago. Colston Loveland has emerged as a top-three fantasy tight end in consensus, which is a real signal about target priority. Luther Burden III is sidelined with a groin injury and Rome Odunze is the other primary receiver; D'Andre Swift leads a backfield that rookie Kyle Monangai is pushing.",
+   "updated": "2026-08-11"
+  },
+  "CIN": {
+   "brief": "One of the cleanest offensive situations in the league: Joe Burrow is healthy and set to play in the preseason opener, and there are no notable injuries on the skill-position depth chart. Ja'Marr Chase and Tee Higgins are both locked in, and the passing volume behind them is thin, which concentrates targets. Chase Brown is the unquestioned lead back and a top-10 PPR option because of his receiving role.",
+   "updated": "2026-08-11"
+  },
+  "CLE": {
+   "brief": "Shedeur Sanders is listed ahead of Deshaun Watson, though Watson is reportedly being carried as a co-starter on the depth chart, so the room is not fully resolved. Harold Fannin Jr. has climbed into the top five at tight end in consensus, an unusually strong signal for a young player. Quinshon Judkins leads the backfield with Dylan Sampson behind him; the receiver group is young and unsettled.",
+   "updated": "2026-08-11"
+  },
+  "DAL": {
+   "brief": "Dak Prescott is healthy and the supporting cast is loaded with CeeDee Lamb and George Pickens, though Pickens is on a franchise tag and his long-term future is already a talking point. Javonte Williams is the lead back after re-signing, with Jaydon Blue behind him. The line has multiple minor injuries (Tyler Guyton, Ajani Cornelius) but no season-altering absence.",
+   "updated": "2026-08-11"
+  },
+  "DEN": {
+   "brief": "Bo Nix is the starter and the receiver room changed shape with Jaylen Waddle joining Courtland Sutton. Waddle, Marvin Mims and Michael Woods are all carrying minor injuries, so early-camp usage reports are noisy. The backfield is a three-way problem between J.K. Dobbins, RJ Harvey and Jonah Coleman, and no source has it settled. Denver's defense is the consensus No. 1 fantasy unit.",
+   "updated": "2026-08-11"
+  },
+  "DET": {
+   "brief": "Jared Goff returns with Amon-Ra St. Brown and Sam LaPorta, and Goff has publicly said the team needs to find more ways to get LaPorta the ball. Jahmyr Gibbs is the RB1 in fantasy and just signed a record running back contract; he is listed questionable with a back issue but has no meaningful competition after David Montgomery's departure. Isiah Pacheco (knee) is the primary backup.",
+   "updated": "2026-08-11"
+  },
+  "GB": {
+   "brief": "Jordan Love will start the preseason opener against Pittsburgh and the coaching staff has been effusive about his arm talent. Josh Jacobs (groin) is the lead back. The tight end room is decimated -- Tucker Kraft is working back from an ACL injury while Luke Musgrave, Luke Lachey and RJ Maryland are all sidelined -- which raises the risk on Kraft's strong ranking. The receiver group is a committee.",
+   "updated": "2026-08-11"
+  },
+  "HOU": {
+   "brief": "C.J. Stroud enters a season where Houston's postseason ceiling is a live question, and Nico Collins is the clear No. 1 receiver. Tank Dell is still working back from a major knee injury, which opens snaps for second-year receivers Jayden Higgins and Jaylin Noel. David Montgomery leads the backfield with rookie-contract back Woody Marks in a change-of-pace role.",
+   "updated": "2026-08-11"
+  },
+  "IND": {
+   "brief": "The quarterback situation is the story: Daniel Jones is listed first but Anthony Richardson is starting Thursday against New England and Jones is not playing in the preseason, which makes the Week 1 starter genuinely uncertain. Jonathan Taylor is the offense regardless and one of the highest-volume backs in football. Tyler Warren is a top-five fantasy tight end; Alec Pierce (ankle, PUP) and Josh Downs (groin) are both limited.",
+   "updated": "2026-08-11"
+  },
+  "JAX": {
+   "brief": "Trevor Lawrence has a deep, young receiver group -- Brian Thomas Jr., Parker Washington, Jakobi Meyers and Travis Hunter -- which is the main reason no single Jacksonville receiver is priced as a true alpha. Head coach Liam Coen has confirmed starters will sit against New Orleans. The backfield belongs to Bhayshul Tuten with Chris Rodriguez and LeQuint Allen behind him. Injuries are limited to the interior line.",
+   "updated": "2026-08-11"
+  },
+  "KC": {
+   "brief": "Patrick Mahomes is listed questionable with a knee (ACL) designation, which is the single most important thing to track on this roster. The skill group was rebuilt around Rashee Rice, Xavier Worthy (shoulder) and Kenneth Walker III, with Travis Kelce still a fixture. Justin Fields is the backup quarterback, which changes the offense's shape considerably if Mahomes misses time.",
+   "updated": "2026-08-11"
+  },
+  "LAC": {
+   "brief": "Justin Herbert is described as getting comfortable in a new offense, which is the key context for every Chargers pass catcher. Omarion Hampton is a clear lead back entering Year 2 after an injury-shortened rookie season. Ladd McConkey is the primary target; rookie tight end Oronde Gadsden II has already climbed into TE2 territory in consensus. Left tackle Rashawn Slater is banged up.",
+   "updated": "2026-08-11"
+  },
+  "LAR": {
+   "brief": "Matthew Stafford is back with Puka Nacua as a target monopolist and Davante Adams as the complementary veteran. Kyren Williams remains the lead back with Blake Corum behind him, a split that has frustrated fantasy managers for three seasons. The tight end room is a committee between rookie Terrance Ferguson and Colby Parkinson. The Rams defense is a consensus top-four fantasy unit.",
+   "updated": "2026-08-11"
+  },
+  "LV": {
+   "brief": "Rookie Fernando Mendoza is listed as the starter over Kirk Cousins, who was held out of practice after an altercation involving Maxx Crosby -- an unsettled situation worth monitoring. Brock Bowers is the centerpiece of the passing game and Michael Mayer is a usable second tight end. Ashton Jeanty is the workhorse back in Year 2. The receiver room is thin and injury-hit.",
+   "updated": "2026-08-11"
+  },
+  "MIA": {
+   "brief": "Malik Willis is the starter with rookie Quinn Ewers behind him, a significant downgrade in passing quality that suppresses every Miami receiver. That makes De'Von Achane the entire offense: head coach Jeff Hafley has said Achane could see 40-plus touches in some games. The receiver group led by Malik Washington is one of the least valuable in the league.",
+   "updated": "2026-08-11"
+  },
+  "MIN": {
+   "brief": "Kyler Murray has been named the starting quarterback over J.J. McCarthy, the most consequential camp decision of the week for fantasy. Justin Jefferson remains an elite target earner and Murray's mobility changes the offense's structure. The backfield is a committee between Aaron Jones and Jordan Mason with neither separating. Jordan Addison is dealing with a thumb injury.",
+   "updated": "2026-08-11"
+  },
+  "NE": {
+   "brief": "Drake Maye is sitting out the preseason opener but is entrenched as the starter and now throws to A.J. Brown, acquired in June. TreVeyon Henderson and Rhamondre Stevenson split the backfield and Henderson's market value has fallen sharply, suggesting drafters no longer expect a clean takeover. Hunter Henry remains the tight end. The receiver room behind Brown is thin.",
+   "updated": "2026-08-11"
+  },
+  "NO": {
+   "brief": "Tyler Shough is entering his second season as the starter and is a common pick for a Year 2 leap. Chris Olave is coming off a career year and is the clear No. 1, with rookie Jordyn Tyson behind him. Travis Etienne Jr. arrived to lead the backfield and Alvin Kamara is now a complementary piece; Etienne's market value has fallen hard, so drafters are skeptical of the split.",
+   "updated": "2026-08-11"
+  },
+  "NYG": {
+   "brief": "Jaxson Dart is a popular Year 2 breakout pick and the offense added Isaiah Likely at tight end. The critical variable is Malik Nabers, who is listed questionable while working back from a torn ACL. Cam Skattebo is the lead back after an impressive but injury-shortened rookie season, with Tyrone Tracy Jr. behind him. The receiver room behind Nabers is thin and banged up.",
+   "updated": "2026-08-11"
+  },
+  "NYJ": {
+   "brief": "Geno Smith is the starter and Garrett Wilson is the clear No. 1 receiver coming off an injury-shortened season. Breece Hall returns on the franchise tag as the lead back with Braelon Allen behind him. The tight end room now features rookie Kenyon Sadiq (abdomen) alongside Mason Taylor. Cornerback Qwan'tez Stiggers was taken to a hospital after collapsing at practice.",
+   "updated": "2026-08-11"
+  },
+  "PHI": {
+   "brief": "Jalen Hurts anchors an offense that still runs through Saquon Barkley, who is looking to rebound from a down 2025. DeVonta Smith (hamstring) is the top receiver and his market value is rising sharply. Right tackle Lane Johnson has said 2026 is likely his final season, and the backfield behind Barkley is thin with Elijah Mitchell on IR and Dameon Pierce hurt.",
+   "updated": "2026-08-11"
+  },
+  "PIT": {
+   "brief": "Aaron Rodgers is listed as the starter with rookie Drew Allar third on the depth chart. The receiver room pairs DK Metcalf (unspecified injury) with Michael Pittman Jr. (leg), and both are currently limited. The backfield is a true committee between Jaylen Warren and Rico Dowdle, ranked one spot apart in consensus, with rookie Kaleb Johnson behind them. A first-round pick is likely to miss the preseason opener.",
+   "updated": "2026-08-11"
+  },
+  "SEA": {
+   "brief": "Sam Darnold is the starter and Jaxon Smith-Njigba is the reigning Offensive Player of the Year and a consensus top-three fantasy receiver. The backfield is unsettled: Zach Charbonnet opened on PUP with a knee (ACL) issue and rookie Jadarian Price is banged up, so the lead role is unresolved. Cooper Kupp and Rashid Shaheed are complementary pieces. Seattle's defense is a top-three fantasy unit.",
+   "updated": "2026-08-11"
+  },
+  "SF": {
+   "brief": "Christian McCaffrey has now missed multiple consecutive practices, and at 30 that is the single most important thing on this roster to track -- his market value has still been rising. Brock Purdy throws to a rebuilt group led by Mike Evans (quadriceps) and Deebo Samuel, with Ricky Pearsall on IR after PCL surgery. George Kittle remains a top-10 tight end. Jordan James is the handcuff.",
+   "updated": "2026-08-11"
+  },
+  "TB": {
+   "brief": "Baker Mayfield returns with Emeka Egbuka as the leading receiver after a rookie season that started hot and faded. Chris Godwin is back and sources disagree sharply on him. Bucky Irving is the lead back after a disappointing, injury-shortened 2025, with Kenny Gainwell in a complementary role. Left tackle Tristan Wirfs (hamstring) and Jalen McMillan (calf) are both limited.",
+   "updated": "2026-08-11"
+  },
+  "TEN": {
+   "brief": "Cam Ward enters his second season with a reshaped receiver room built around rookie Carnell Tate and Wan'Dale Robinson, with Calvin Ridley now the third option. Tony Pollard leads a backfield that Tyjae Spears splits into, and neither is a workhorse. Gunnar Helm is the tight end. This is one of the lower-volume passing offenses in the league by consensus expectation.",
+   "updated": "2026-08-11"
+  },
+  "WAS": {
+   "brief": "Jayden Daniels is the offense and his rushing floor makes him a top-five fantasy quarterback. Left tackle Laremy Tunsil has a torn triceps and will reportedly miss most of the season, a meaningful hit to Daniels' protection. Terry McLaurin is the No. 1 receiver with Stefon Diggs' market value rising. The backfield is split between Rachaad White and Jacory Croskey-Merritt, who has been one of the biggest risers in August rankings.",
+   "updated": "2026-08-11"
+  }
+ },
+ "players": {
+  "9509": {
+   "player": "Bijan Robinson",
+   "outlook": "Top-five among backs in carries, rushing yards, touches and fantasy points in each of the past two seasons, and he is the entire Atlanta offense on the ground. No injury designation and no committee threat behind him; Brian Robinson Jr. is a short-yardage complement, not a rival. His receiving role is what separates him in full PPR. Sources are unanimous inside RB1-2, and market value is rising.",
+   "watch": "Tua Tagovailoa's back issue -- a downgrade at quarterback would stack more boxes against him.",
+   "updated": "2026-08-11"
+  },
+  "9221": {
+   "player": "Jahmyr Gibbs",
+   "outlook": "Top-10 among backs in yards per carry, routes, targets, receptions and touchdowns in all three of his seasons, with 38 touchdowns over the past two. David Montgomery is gone, so the touch ceiling that capped him (never higher than seventh in touches) should finally lift. He just signed a record running back contract, which confirms Detroit's intent to feed him. Listed questionable with a back issue in early August.",
+   "watch": "The back designation -- any lingering issue would be the only thing standing between him and a career-high workload.",
+   "updated": "2026-08-11"
+  },
+  "7564": {
+   "player": "Ja'Marr Chase",
+   "outlook": "Has finished four of his five seasons no lower than fifth in receiver fantasy points per game. Cincinnati's depth chart is unusually clean this camp with no notable skill-position injuries, and target competition behind him and Tee Higgins is thin. Joe Burrow is healthy and playing in the preseason opener. Consensus WR1 with essentially no dissent among the five sources.",
+   "watch": "Burrow's availability -- Chase's ceiling is entirely tied to it.",
+   "updated": "2026-08-11"
+  },
+  "9493": {
+   "player": "Puka Nacua",
+   "outlook": "Has been one of the most heavily targeted receivers in football in each of his three seasons and remains the clear No. 1 in Los Angeles even with Davante Adams alongside him. Matthew Stafford's presence keeps the volume stable. Healthy with no designation. Market value has softened over the past 30 days despite unchanged expert ranks, which is the only bearish signal on him.",
+   "watch": "Stafford's health -- the Rams' backup quarterback situation would materially cut Nacua's ceiling.",
+   "updated": "2026-08-11"
+  },
+  "9488": {
+   "player": "Jaxon Smith-Njigba",
+   "outlook": "The reigning Offensive Player of the Year led all receivers in target share (36%), receiving yards and air yards. All five sources have him exactly WR3, the tightest agreement of any player on the board. Sam Darnold returns at quarterback, so there is continuity. Healthy with no designation. Market value has drifted down slightly, likely age-and-price mechanics rather than anything about his role.",
+   "watch": "Whether a 36% target share is repeatable if Seattle adds a second real threat.",
+   "updated": "2026-08-11"
+  },
+  "7547": {
+   "player": "Amon-Ra St. Brown",
+   "outlook": "The only player in NFL history with 90-plus catches in each of his first five seasons, and Detroit's offensive structure has not changed. All five sources have him exactly WR4. Jared Goff is back and Jameson Williams remains the field-stretcher rather than a target rival. Healthy, and market value is trending up.",
+   "watch": "Sam LaPorta's target share -- Goff has said publicly the team wants to feed the tight end more.",
+   "updated": "2026-08-11"
+  },
+  "4034": {
+   "player": "Christian McCaffrey",
+   "outlook": "Led all running backs in snaps, routes, touches, targets, receptions and receiving yards in a bounce-back 2025, and he remains the highest-leverage PPR back when healthy. The problem is now: he has missed multiple consecutive practices in August and is listed questionable at age 30. Market value has risen sharply anyway, which suggests drafters are treating the absence as maintenance. Jordan James is the direct handcuff.",
+   "watch": "Whether he returns to full practice before the season -- his profile has no margin for a soft-tissue issue at 30.",
+   "updated": "2026-08-11"
+  },
+  "6813": {
+   "player": "Jonathan Taylor",
+   "outlook": "Has improved his fantasy points per game in each of the past three seasons and delivered his best production since 2021 last year. He is the offense in Indianapolis regardless of who starts at quarterback, which matters because the Daniel Jones and Anthony Richardson competition is genuinely open. No injury designation. His market value has fallen over the past month, the largest drop among top-five backs.",
+   "watch": "The quarterback decision -- a Richardson start changes Indianapolis's game scripts and red-zone distribution.",
+   "updated": "2026-08-11"
+  },
+  "6794": {
+   "player": "Justin Jefferson",
+   "outlook": "Still an elite target earner, but the context changed: Kyler Murray has been named the starter over J.J. McCarthy, which brings more scrambling and a less predictable dropback structure. Sources are tightly grouped at WR5-8. His market value has fallen more than any receiver in the top 10 over the past 30 days, which reads as the market pricing quarterback uncertainty. Jordan Addison (thumb) is the secondary option.",
+   "watch": "How Murray's off-schedule play affects Jefferson's target rate -- the first two preseason games should tell.",
+   "updated": "2026-08-11"
+  },
+  "12527": {
+   "player": "Ashton Jeanty",
+   "outlook": "Workhorse back entering Year 2 after an uneven rookie season that still produced heavy volume (seventh among backs in carries and targets). Las Vegas has no meaningful competition behind him. The complication is the offense around him: rookie Fernando Mendoza is listed ahead of Kirk Cousins, and a rookie quarterback usually means fewer scoring opportunities. FantasyPros has him a full three spots higher than the other four sources.",
+   "watch": "The quarterback resolution -- Jeanty's touchdown equity depends on whether Las Vegas can move the ball.",
+   "updated": "2026-08-11"
+  },
+  "8138": {
+   "player": "James Cook",
+   "outlook": "Remains Buffalo's lead back in the league's most efficient scoring offense, which is the single best touchdown environment available to a running back. Ray Davis and Ty Johnson (knee) are complementary. Sources spread him from RB5 to RB9, a reasonable gap that reflects genuine disagreement over how much of the goal-line work Josh Allen takes. Market value is flat.",
+   "watch": "Goal-line usage -- Allen's rushing touchdowns are the direct tax on Cook's ceiling.",
+   "updated": "2026-08-11"
+  },
+  "6786": {
+   "player": "CeeDee Lamb",
+   "outlook": "Coming off his worst fantasy finish since 2021 (12th among receivers in points per game) despite clearing 1,000 yards. Dak Prescott is healthy and the offense should be more stable, but George Pickens is now a legitimate second alpha, which caps Lamb's target share relative to his 2023 peak. Sources agree tightly at WR5-7. Market value is slightly up.",
+   "watch": "Whether Pickens' presence lowers Lamb's target share or simply raises the offense's total volume.",
+   "updated": "2026-08-11"
+  },
+  "9226": {
+   "player": "De'Von Achane",
+   "outlook": "Scored 11 or 12 touchdowns in each of his three seasons and is now, functionally, the entire Miami offense. Head coach Jeff Hafley has said publicly that Achane could see 40-plus touches in some games. The offsetting factor is severe: Malik Willis is the starting quarterback with rookie Quinn Ewers behind him, so scoring chances will be scarce. ESPN is highest on him at RB5, FantasyPros lowest at RB8.",
+   "watch": "Whether the promised volume actually materialises -- at his size, 40 touches is a durability question as much as an opportunity one.",
+   "updated": "2026-08-11"
+  },
+  "12507": {
+   "player": "Omarion Hampton",
+   "outlook": "Primed for a breakout after an injury-shortened rookie year in which he averaged 13.8 carries and 3.9 targets across nine appearances. He is the unquestioned lead back and the receiving work is what makes him a PPR asset. Justin Herbert is described as still getting comfortable in a new offense, which is a modest early-season risk. Market value is rising sharply.",
+   "watch": "Whether the new scheme keeps him on the field on passing downs.",
+   "updated": "2026-08-11"
+  },
+  "4866": {
+   "player": "Saquon Barkley",
+   "outlook": "Looking to rebound in his ninth season after a clear step back in 2025 following a 378-touch workload the year before. Philadelphia's offensive structure still funnels goal-line work through Jalen Hurts, which caps his touchdown share. NBC is the outlier at RB6 while the other four sit at RB10-11. Market value has fallen, and the backfield behind him is thin with Elijah Mitchell on IR.",
+   "watch": "Age-and-mileage regression -- the 2024 workload is the kind that historically shows up a year or two later.",
+   "updated": "2026-08-11"
+  },
+  "13287": {
+   "player": "Jeremiyah Love",
+   "outlook": "The No. 3 overall pick, with good size and 4.36 speed and a three-down skill set, installed immediately as Arizona's lead back. James Conner (foot) is behind him and Tyler Allgeier is a complement. This is the widest source disagreement in the top 15 at the position -- ESPN has him RB7, CBS RB15 -- which is the honest read on a rookie with no NFL usage to price. Rostered in every league.",
+   "watch": "Whether Arizona trusts him on passing downs from Week 1, which is what separates RB7 from RB15.",
+   "updated": "2026-08-11"
+  },
+  "8130": {
+   "player": "Trey McBride",
+   "outlook": "Trails only Ja'Marr Chase in targets (317) and receptions (252) over the past two seasons, which makes him a receiver in a tight end's body. Arizona's quarterback situation is unsettled between Jacoby Brissett and rookie Carson Beck, but McBride's target share has held up regardless of who has played. Healthy. Four of five sources have him TE1 or TE2.",
+   "watch": "The quarterback decision -- a rookie start would likely mean more checkdowns to him, not fewer.",
+   "updated": "2026-08-11"
+  },
+  "3198": {
+   "player": "Derrick Henry",
+   "outlook": "Finished second in the NFL in rushing yards for the fourth time in 2025 and is still the early-down and goal-line back at 32. His market value has risen more than almost any back in the past 30 days, which is unusual for a player at this age and suggests drafters are betting on one more full season. Justice Hill handles passing downs, which caps his PPR ceiling. Sources spread him RB8 to RB13.",
+   "watch": "The first sign of a genuine workload split -- at 32 it would arrive without warning.",
+   "updated": "2026-08-11"
+  },
+  "8151": {
+   "player": "Kenneth Walker III",
+   "outlook": "Moved to Kansas City and is listed as the clear lead back with Emmett Johnson and Emari Demercado behind him. The upside is obvious if Patrick Mahomes is healthy; the risk is that Mahomes is listed questionable with a knee (ACL) designation and Justin Fields is the backup, which would reshape the offense. Market value is rising. Sources spread him RB10 to RB15.",
+   "watch": "Mahomes' knee -- it is the dominant variable for every Kansas City skill player.",
+   "updated": "2026-08-11"
+  },
+  "8112": {
+   "player": "Drake London",
+   "outlook": "Aiming for a third straight top-15 finish in receiver fantasy points per game. He is the clear alpha in Atlanta with Kyle Pitts as the secondary threat and Bijan Robinson absorbing the ground work. Sources agree tightly at WR5-7. Healthy, with market value drifting up.",
+   "watch": "Tua Tagovailoa's back -- London's efficiency depends on accurate, on-time throws.",
+   "updated": "2026-08-11"
+  },
+  "4984": {
+   "player": "Josh Allen",
+   "outlook": "Has finished no worse than second among quarterbacks in fantasy points in each of the past six seasons, and all five sources have him QB1 unanimously. His rushing floor is the reason: passing volume has been down the past two years without denting his fantasy output. DJ Moore is a genuine upgrade to the receiver room. Healthy at 30, and his market value is climbing.",
+   "watch": "Nothing structural -- the only realistic risk is missed time.",
+   "updated": "2026-08-11"
+  },
+  "9224": {
+   "player": "Chase Brown",
+   "outlook": "Cincinnati's lead back for a third season, and the receiving role is what makes him a top-10 PPR option in a pass-heavy offense with almost no depth behind Ja'Marr Chase and Tee Higgins. This is the biggest source disagreement among top-15 backs: CBS has him RB5 and FantasyPros RB6, while ESPN has him RB12. Market value is rising sharply. Samaje Perine is the only competition.",
+   "watch": "Whether the 2025 slow start (10.1 points per game early) was a fluke or a usage pattern.",
+   "updated": "2026-08-11"
+  },
+  "11604": {
+   "player": "Brock Bowers",
+   "outlook": "A late-game injury in Week 1 last year cost him three weeks and dulled a season that started with 103 yards. He remains the focal point of the Las Vegas passing game with a thin receiver room around him. The offense is the concern: rookie Fernando Mendoza is listed ahead of Kirk Cousins. Market value has fallen meaningfully over the past month, the largest drop among top-two tight ends.",
+   "watch": "Whether a rookie quarterback leans on him as a safety valve or simply produces fewer total plays.",
+   "updated": "2026-08-11"
+  },
+  "11632": {
+   "player": "Malik Nabers",
+   "outlook": "On the comeback trail from a torn ACL that limited him to four games last season, and he is still carrying a questionable designation in August. When healthy he has commanded a 35% target share across 18 full career games, which is elite. The receiver room behind him is thin and banged up, so the volume is there if the knee is. FantasyPros shows the widest rank deviation of any top-15 receiver on him.",
+   "watch": "Practice participation -- a full-go report changes his price immediately.",
+   "updated": "2026-08-11"
+  },
+  "8137": {
+   "player": "George Pickens",
+   "outlook": "Drew the franchise tag from Dallas after a career year in which he ranked near the top of the position in catches, yards, touchdowns and end-zone targets. His market value is up sharply. The friction is contractual, not on-field: his 2026 season is widely framed as his last in Dallas, and CeeDee Lamb is publicly lobbying for him to be paid. Sources are tightly grouped at WR10-13.",
+   "watch": "Whether Dallas's target split between him and Lamb holds at last year's rate.",
+   "updated": "2026-08-11"
+  },
+  "8155": {
+   "player": "Breece Hall",
+   "outlook": "Returns on the franchise tag as the Jets' lead back with Braelon Allen behind him. He has struggled to convert talent into fantasy production inside two underwhelming offenses, and Geno Smith at quarterback is a modest rather than transformative upgrade. Market value has fallen. Sources are grouped at RB13-17 with no strong dissent.",
+   "watch": "Whether the receiving usage returns -- his PPR case rests on it, not on carries.",
+   "updated": "2026-08-11"
+  },
+  "7569": {
+   "player": "Nico Collins",
+   "outlook": "Has cleared 1,000 yards when on the field but has never played a full 17-game season, which is the entire debate on him. He is the unambiguous No. 1 in Houston, and Tank Dell's slow return from a major knee injury concentrates targets further. C.J. Stroud is healthy. Four of five sources have him WR8-9.",
+   "watch": "Availability -- the per-game production has never been the question.",
+   "updated": "2026-08-11"
+  },
+  "5859": {
+   "player": "A.J. Brown",
+   "outlook": "Traded to New England in June and now catches passes from Drake Maye, who is sitting out the preseason opener as a precaution. Brown has finished top-15 in receiver points per game in each of his recent seasons and the room behind him is thin, so target share should be high. Market value has softened slightly on the change of scenery. FantasyPros is highest at WR8.",
+   "watch": "How quickly the timing with Maye develops -- a slow start would be scheme, not decline.",
+   "updated": "2026-08-11"
+  },
+  "8150": {
+   "player": "Kyren Williams",
+   "outlook": "Has produced 1,350-plus scrimmage yards in three straight seasons including a career-high 1,533 in 2025, yet the market never fully trusts him because Blake Corum is always lurking. Nothing has changed on that front this camp. Healthy, in a good offense with Matthew Stafford. Market value has fallen modestly. Sources are grouped at RB13-17.",
+   "watch": "Any real change in the Corum split -- three years of evidence says it will not come.",
+   "updated": "2026-08-11"
+  },
+  "5850": {
+   "player": "Josh Jacobs",
+   "outlook": "His 2025 splits cleanly into a strong pre-injury stretch and a diminished post-injury one, and he is currently listed questionable with a groin issue at 28. He remains Green Bay's clear lead back with MarShawn Lloyd behind him. Market value is rising. Sources spread him RB12 to RB17.",
+   "watch": "The groin -- soft-tissue issues at his age and workload tend to recur.",
+   "updated": "2026-08-11"
+  },
+  "8144": {
+   "player": "Chris Olave",
+   "outlook": "Coming off a career year with highs in targets (156), receptions (100), yards (1,163) and touchdowns (nine), finishing eighth among receivers in points per game. Tyler Shough enters Year 2 as the starter and is a common breakout pick. Olave's market value has risen more than almost any receiver in the past month. Rookie Jordyn Tyson is the only real target competition.",
+   "watch": "Shough's development -- Olave's ceiling now moves with his quarterback's.",
+   "updated": "2026-08-11"
+  },
+  "7588": {
+   "player": "Javonte Williams",
+   "outlook": "Re-signed with Dallas after finishing 12th among backs following three unproductive seasons in Denver. He is the lead back with Jaydon Blue as the change of pace. Sources agree tightly at RB16-18, an unusually clean consensus. The offense should score plenty with Dak Prescott, CeeDee Lamb and George Pickens.",
+   "watch": "Jaydon Blue's role -- if Blue takes passing downs, Williams becomes a two-down back in a PPR league.",
+   "updated": "2026-08-11"
+  },
+  "7525": {
+   "player": "DeVonta Smith",
+   "outlook": "Enters his sixth season as Philadelphia's top receiver and is currently limited with a hamstring issue. His market value has risen sharply, one of the biggest moves among receivers in the past 30 days. Sources disagree moderately: CBS and FantasyPros have him WR13 while NBC has him WR19. The offense's run-heavy identity is the ceiling constraint, not his role.",
+   "watch": "The hamstring -- and whether Philadelphia throws more than its 2025 rate.",
+   "updated": "2026-08-11"
+  },
+  "8146": {
+   "player": "Garrett Wilson",
+   "outlook": "Bouncing back from an injury-shortened 2025 that limited him to seven games, the first time he had missed any. He is the clear No. 1 in New York with Geno Smith now throwing to him, a real upgrade over recent seasons. This is the widest disagreement among top-20 receivers: ESPN has him WR10, CBS and NBC WR20. Market value is flat.",
+   "watch": "Whether Smith's arrival lifts the offense enough to justify ESPN's price rather than the consensus one.",
+   "updated": "2026-08-11"
+  },
+  "12481": {
+   "player": "Cam Skattebo",
+   "outlook": "Year 2 breakout candidate after an impressive but injury-shortened rookie season in which he averaged 16.0 fantasy points per game once he took the job in Week 2. He is the lead back with Tyrone Tracy Jr. behind him. Market value is up sharply. The offense should improve if Jaxson Dart takes the expected Year 2 step.",
+   "watch": "Durability -- the rookie season ended early and his running style is high-contact.",
+   "updated": "2026-08-11"
+  },
+  "12526": {
+   "player": "Tetairoa McMillan",
+   "outlook": "The reigning Offensive Rookie of the Year and a candidate to enter the elite tier after a strong debut as the eighth overall pick in 2025. He is the clear alpha in Carolina with no real target competition. The quarterback is the question: Bryce Young enters Year 4 still unproven. NBC is highest at WR12, CBS lowest at WR21.",
+   "watch": "Bryce Young's efficiency -- McMillan's target volume is safe, his scoring is not.",
+   "updated": "2026-08-11"
+  },
+  "12529": {
+   "player": "TreVeyon Henderson",
+   "outlook": "Enters Year 2 after a roller-coaster rookie season with three enormous games (28-plus points) but otherwise a secondary role behind Rhamondre Stevenson. His market value has fallen more sharply than any other back in the top 25, which says drafters no longer expect a clean takeover. Sources agree tightly at RB22-25. A.J. Brown's arrival should improve the offense around him.",
+   "watch": "Whether the Stevenson split resolves -- the boom games prove the talent, not the volume.",
+   "updated": "2026-08-11"
+  },
+  "12514": {
+   "player": "Emeka Egbuka",
+   "outlook": "A genuinely difficult evaluation: five touchdowns and 20.5 fantasy points per game through his first five rookie games, then a collapse from there. He is Tampa Bay's leading receiver with Chris Godwin and Jalen McMillan (calf) behind him. Sources are grouped at WR16-20. Market value is flat.",
+   "watch": "Which version of his rookie season is the real one -- there is no middle case priced in.",
+   "updated": "2026-08-11"
+  },
+  "4881": {
+   "player": "Lamar Jackson",
+   "outlook": "Not in line to play in the preseason opener, which is routine. He is the consensus QB2 behind Josh Allen with the same rushing-floor argument, and he has been working closely with rookie receiver Lane. Zay Flowers (quadriceps) is his top target. Market value is rising.",
+   "watch": "Baltimore's receiver health -- Jackson's passing volume depends on it more than his rushing does.",
+   "updated": "2026-08-11"
+  },
+  "7543": {
+   "player": "Travis Etienne Jr.",
+   "outlook": "Signed with New Orleans to lead the backfield with Alvin Kamara now in a complementary role. His market value has collapsed over the past 30 days, the sharpest drop of any back in the top 25, which suggests drafters expect a committee rather than a takeover. Expert ranks have not moved with it, so this is a genuine market-versus-expert split. Tyler Shough is the quarterback.",
+   "watch": "Whether Kamara's snap share stays meaningful -- the market is betting it does.",
+   "updated": "2026-08-11"
+  },
+  "12512": {
+   "player": "Quinshon Judkins",
+   "outlook": "Entering Year 2 after a rookie season bookended by an off-field absence and a strong 14-game stretch in between. He is the lead back with Dylan Sampson behind him. Market value has fallen. The offense is the problem: Shedeur Sanders and Deshaun Watson are still splitting the starter designation, and Cleveland's scoring environment is poor.",
+   "watch": "The quarterback resolution -- Judkins' touchdown equity depends on Cleveland reaching the red zone.",
+   "updated": "2026-08-11"
+  },
+  "10229": {
+   "player": "Rashee Rice",
+   "outlook": "Enters Year 4 still without a full season as a starter, having missed most of 2024 to injury and nine more games since. When on the field he has been highly efficient in Kansas City's offense. Market value is rising and sources disagree sharply: Fantasy Football Calculator has him WR6, NBC WR14. Xavier Worthy (shoulder) is the other primary target.",
+   "watch": "Patrick Mahomes' knee designation -- everything about Rice's price assumes Mahomes plays.",
+   "updated": "2026-08-11"
+  },
+  "6801": {
+   "player": "Tee Higgins",
+   "outlook": "Overshadowed by Ja'Marr Chase but has remained a key red-zone piece in a pass-friendly offense, producing despite missing seven games last season. Cincinnati's skill group is unusually healthy this camp. Sources spread him WR13 to WR22, one of the wider gaps in the top 20, reflecting disagreement about whether the second receiver in this offense is a WR2 or a WR1.",
+   "watch": "Health -- he has not played a full season recently, and the per-game production has never been the issue.",
+   "updated": "2026-08-11"
+  },
+  "12518": {
+   "player": "Tyler Warren",
+   "outlook": "A solid rookie season that was better than the surface numbers: five touchdowns and 13.1 fantasy points per game across 12 games with a healthy Daniel Jones. All five sources have him exactly TE4. Market value is rising. The Indianapolis quarterback competition between Jones and Anthony Richardson is unresolved and directly affects him.",
+   "watch": "The quarterback decision -- his rookie splits show a clear gap between Jones and the alternative.",
+   "updated": "2026-08-11"
+  },
+  "11584": {
+   "player": "Bucky Irving",
+   "outlook": "Coming off a disappointing 2025 in which he missed seven games and lost efficiency after a 5.42 yards-per-carry rookie season. He remains the lead back with Kenny Gainwell complementing him. Sources agree tightly at RB19-22. Market value is flat, and Tampa Bay's line is dealing with a Tristan Wirfs hamstring issue.",
+   "watch": "Whether the efficiency returns -- the volume is not in doubt, the yards-per-touch is.",
+   "updated": "2026-08-11"
+  },
+  "7526": {
+   "player": "Jaylen Waddle",
+   "outlook": "Traded to Denver after five seasons in Miami, where he was a consistent top-30 fantasy receiver. He now shares a room with Courtland Sutton in a Bo Nix offense, and he is carrying an undisclosed injury early in camp along with several other Denver receivers. Market value is rising. Sources spread him WR19 to WR25.",
+   "watch": "Whether he or Sutton emerges as the primary target -- Denver has not made that clear.",
+   "updated": "2026-08-11"
+  },
+  "6770": {
+   "player": "Joe Burrow",
+   "outlook": "Bouncing back from an injury-shortened 2025 (eight games) and he has now missed at least six games in three of six pro seasons, which is the whole risk case. He is set to play in the preseason opener, a good sign. The supporting cast is elite and Cincinnati's skill group is unusually healthy. Four of five sources have him QB4.",
+   "watch": "Durability -- his per-game production has never been in question.",
+   "updated": "2026-08-11"
+  },
+  "9997": {
+   "player": "Zay Flowers",
+   "outlook": "Posted career bests in target share (29%), targets, catches and yards in 2025 and is Baltimore's clear No. 1. He is currently listed questionable with a quadriceps issue. Market value is rising. Lamar Jackson's rushing-heavy offense caps total passing volume, which is why he sits WR13-17 rather than higher.",
+   "watch": "The quadriceps -- and whether Baltimore's rookie receivers cut into his target share.",
+   "updated": "2026-08-11"
+  },
+  "11564": {
+   "player": "Drake Maye",
+   "outlook": "Coming off a breakout second season and now throws to A.J. Brown, acquired in June. He is sitting out the preseason opener, which is precautionary rather than an injury. Consensus QB3 with Fantasy Football Calculator highest at QB2. His market value is flat despite the receiver upgrade.",
+   "watch": "How quickly the Brown connection develops -- the rest of the receiver room is thin.",
+   "updated": "2026-08-11"
+  },
+  "11635": {
+   "player": "Ladd McConkey",
+   "outlook": "Rebound candidate after falling short of expectations in 2025, following a rookie year with an 82-1,155-7 line and a 12th-place finish among receivers. He is the primary target in a Justin Herbert offense that is described as still settling into a new scheme. Healthy, and market value is rising. Sources agree tightly at WR17-23.",
+   "watch": "How the new offensive scheme distributes targets -- his rookie usage was slot-heavy.",
+   "updated": "2026-08-11"
+  },
+  "5892": {
+   "player": "David Montgomery",
+   "outlook": "Traded to Houston after seven seasons in Chicago and Detroit, coming off a down 2025 with career lows. He is the lead back with Woody Marks as the change of pace, in an offense that should be competent with C.J. Stroud. This is a touchdown-dependent profile in full PPR. Fantasy Football Calculator is the low outlier at RB30.",
+   "watch": "Woody Marks' passing-down share -- it directly caps Montgomery's PPR floor.",
+   "updated": "2026-08-11"
+  },
+  "13286": {
+   "player": "Jadarian Price",
+   "outlook": "Drafted 32nd overall by Seattle and walks into an unusually open situation: Zach Charbonnet opened camp on PUP with a torn ACL. Price himself is listed questionable with a lower-body issue. He managed only 280 career carries at Notre Dame behind Jeremiyah Love, so the college workload is thin. Market value has risen sharply and all five sources cluster him at RB26-28.",
+   "watch": "His own health -- the job is available if he is.",
+   "updated": "2026-08-11"
+  },
+  "12517": {
+   "player": "Colston Loveland",
+   "outlook": "The single clearest usage trend on the board: 4.1 targets and 8.5 fantasy points per game across his first 14 NFL games, then 12.0 targets (10-plus in each) and 20.0 points per game over his final four. All five sources have him exactly TE3. Healthy, and market value is rising. Caleb Williams enters Year 3 with Luther Burden III (groin) limited.",
+   "watch": "Whether the late-season target volume holds once Burden is healthy.",
+   "updated": "2026-08-11"
+  },
+  "6790": {
+   "player": "D'Andre Swift",
+   "outlook": "Entering his seventh season and third in Chicago, having cleared 1,300 scrimmage yards in each of the past two years. Rookie Kyle Monangai is the push behind him. The receiving work is what keeps him a usable PPR back rather than a touchdown-dependent one. Sources agree tightly at RB20-24.",
+   "watch": "Monangai's early-down share -- Swift's PPR value survives it, his rushing volume does not.",
+   "updated": "2026-08-11"
+  },
+  "2133": {
+   "player": "Davante Adams",
+   "outlook": "At 33 he is the complementary piece to Puka Nacua rather than the alpha, but Matthew Stafford has historically supported two productive receivers. Market value is rising. Sources spread him WR19 to WR25. Healthy with no designation.",
+   "watch": "Age-related decline -- there is no injury or role concern, only the calendar.",
+   "updated": "2026-08-11"
+  },
+  "11566": {
+   "player": "Jayden Daniels",
+   "outlook": "Bouncing back from a 2025 that limited him to seven games, after an Offensive Rookie of the Year debut. His rushing floor is why ESPN has him QB2 while Fantasy Football Calculator has him QB7. His market value has fallen meaningfully. Left tackle Laremy Tunsil's torn triceps is a real hit to his protection.",
+   "watch": "The Tunsil replacement -- a compromised line raises both his rushing volume and his injury risk.",
+   "updated": "2026-08-11"
+  },
+  "11560": {
+   "player": "Caleb Williams",
+   "outlook": "Enters Year 3 after finishing no lower than 11th among quarterbacks in 2025. The expert market has cooled: he fell from QB7 to QB12 in this blend, and his market value is down. FantasyPros is the clear outlier at QB7 while Fantasy Football Calculator has him QB15. Colston Loveland's late-season emergence is a genuine positive.",
+   "watch": "Whether the 2025 leap was the new baseline or the ceiling.",
+   "updated": "2026-08-11"
+  },
+  "13279": {
+   "player": "Carnell Tate",
+   "outlook": "Drafted fourth overall by Tennessee and immediately the top receiver on the depth chart. He was efficient rather than high-volume at Ohio State (13.1 yards per reception). This is one of the widest disagreements on the board: ESPN has him WR25, Fantasy Football Calculator WR38, with the largest FantasyPros standard deviation of any receiver in this range. Cam Ward enters Year 2.",
+   "watch": "Whether Tennessee throws enough to support a rookie alpha -- the offense projects low-volume.",
+   "updated": "2026-08-11"
+  },
+  "4983": {
+   "player": "DJ Moore",
+   "outlook": "Traded to Buffalo, which is a major environment upgrade: Josh Allen's offense is the best scoring situation available to a receiver. His market value has risen sharply. Sources spread him WR23 to WR29. Khalil Shakir and Keon Coleman are the competition for targets.",
+   "watch": "Whether Buffalo funnels enough volume to a single receiver -- historically it has not.",
+   "updated": "2026-08-11"
+  },
+  "4046": {
+   "player": "Patrick Mahomes",
+   "outlook": "Listed questionable with a knee (ACL) designation entering his 10th season, which is the dominant fact about him and about every Kansas City skill player. He followed two disappointing fantasy seasons with an elite 2025 start. His market value has fallen sharply. NBC is far higher on him at QB9 than the other four sources.",
+   "watch": "The knee -- his ADP and rank both assume he opens the season.",
+   "updated": "2026-08-11"
+  },
+  "8228": {
+   "player": "Jaylen Warren",
+   "outlook": "Career highs in touches (251), yards (1,291) and touchdowns (eight) last season, good for 13.6 fantasy points per game. Pittsburgh then signed Rico Dowdle, and the two are ranked one spot apart, which is the honest read on a true committee. His market value has risen sharply anyway. Aaron Rodgers is the quarterback.",
+   "watch": "The Dowdle split -- neither back is priced as a workhorse and neither has separated.",
+   "updated": "2026-08-11"
+  },
+  "11620": {
+   "player": "Rome Odunze",
+   "outlook": "Opened 2025 with five touchdowns in four games and 15-plus fantasy points in each, then faded badly. He shares a room with Luther Burden III (groin) and Colston Loveland, who has emerged as a genuine target competitor. Market value is flat. Sources are grouped at WR24-30.",
+   "watch": "Whether Loveland's late-season target surge comes out of Odunze's share.",
+   "updated": "2026-08-11"
+  },
+  "6797": {
+   "player": "Justin Herbert",
+   "outlook": "Ranked just inside the top 10 in attempts, yards and touchdowns last season and added real rushing value. He is described as getting comfortable in a new offense, which is the reason for the spread: NBC, CBS and FantasyPros have him QB8, ESPN QB14. Market value is flat. Ladd McConkey and Omarion Hampton are the weapons.",
+   "watch": "How the new scheme uses his legs -- the rushing points are what separate QB8 from QB14.",
+   "updated": "2026-08-11"
+  },
+  "12490": {
+   "player": "Bhayshul Tuten",
+   "outlook": "Positioned to take over lead-back duties after Travis Etienne Jr. left, having played sparingly as a rookie (83 carries, 14 targets in 15 games). His market value is up sharply and all five sources agree tightly at RB23-25. The complication is that he is only rostered in about two-thirds of leagues, so the market is still catching up.",
+   "watch": "Chris Rodriguez's role -- a genuine committee would undo the entire thesis.",
+   "updated": "2026-08-11"
+  },
+  "5927": {
+   "player": "Terry McLaurin",
+   "outlook": "Bounce-back candidate after a lost 2025 in which he missed seven games and Jayden Daniels missed 10. He is the clear No. 1 in Washington at 30. His market value has fallen more than most receivers in this range, likely age plus the Stefon Diggs addition. Sources are grouped tightly at WR21-25.",
+   "watch": "Daniels' health -- the two players' fantasy seasons are effectively the same bet.",
+   "updated": "2026-08-11"
+  },
+  "12519": {
+   "player": "Luther Burden III",
+   "outlook": "Sidelined with a groin injury in early August, which is the immediate issue. He is the second receiver in Chicago behind Rome Odunze, with Colston Loveland taking a growing share. His market value is rising despite the injury, and he is rostered in only about 78% of leagues, so there is still acquisition room. Sources are grouped at WR22-27.",
+   "watch": "The groin timeline -- missing camp reps in a crowded room is how young receivers lose roles.",
+   "updated": "2026-08-11"
+  },
+  "2216": {
+   "player": "Mike Evans",
+   "outlook": "Signed with San Francisco after 12 seasons in Tampa Bay and is listed questionable with a quadriceps issue at 33, though he did practice this week. This is the widest source disagreement among top-30 receivers: NBC has him WR21, ESPN WR35. Market value is falling. Brock Purdy and a thin room around him support the volume case.",
+   "watch": "The quadriceps and the calendar -- at 33, a soft-tissue issue in August is not routine.",
+   "updated": "2026-08-11"
+  },
+  "9484": {
+   "player": "Tucker Kraft",
+   "outlook": "Was on the cusp of a breakout before a torn ACL in Week 9 last season, and he is still listed questionable with that knee. The rest of Green Bay's tight end room is decimated -- Luke Musgrave, Luke Lachey and RJ Maryland are all out -- so the role is his if healthy. Sources have him TE6-11, and his market value is falling.",
+   "watch": "Whether the knee is genuinely ready -- the depth chart is clear, the health is not.",
+   "updated": "2026-08-11"
+  },
+  "13281": {
+   "player": "Jordyn Tyson",
+   "outlook": "Drafted eighth overall by New Orleans and led the rookie class with a 35% college target share. He is the second receiver behind Chris Olave in a Tyler Shough offense. Market value is rising. Sources spread him WR32 to WR40, a normal rookie gap.",
+   "watch": "Whether Shough's Year 2 leap arrives -- Tyson's ceiling is capped by the offense, not the depth chart.",
+   "updated": "2026-08-11"
+  },
+  "11631": {
+   "player": "Brian Thomas Jr.",
+   "outlook": "Jacksonville's nominal No. 1 but in a genuinely crowded room with Parker Washington, Jakobi Meyers and Travis Hunter, which is why no Jaguars receiver is priced as an alpha. Sources spread him WR29 to WR40. Market value is flat. Trevor Lawrence is coming off a strong season.",
+   "watch": "Whether Jacksonville concentrates targets -- four viable receivers is the problem, not his talent.",
+   "updated": "2026-08-11"
+  },
+  "6904": {
+   "player": "Jalen Hurts",
+   "outlook": "Tossed a career-high 25 touchdowns last season but his rushing production fell off sharply (105-421-8), which is where his fantasy edge has always come from. Sources agree tightly at QB5-8. Market value is flat. Saquon Barkley's presence keeps competing for goal-line work.",
+   "watch": "Whether the rushing touchdowns return -- that line item alone is the difference between QB5 and QB12.",
+   "updated": "2026-08-11"
+  },
+  "11628": {
+   "player": "Marvin Harrison Jr.",
+   "outlook": "All five sources have him within one spot at WR31-33, unusually tight agreement for a player whose market value has collapsed over the past 30 days -- one of the largest drops on the board. That gap between stable expert ranks and falling market price is the interesting thing about him. Arizona's quarterback situation is unresolved between Jacoby Brissett and Carson Beck. Healthy.",
+   "watch": "The quarterback decision -- the market appears to be pricing in a downgrade the experts have not.",
+   "updated": "2026-08-11"
+  },
+  "8148": {
+   "player": "Jameson Williams",
+   "outlook": "Has delivered 1,000-plus-yard seasons in each of the past two years and is now firmly established as Detroit's second receiver. Market value is rising. Sources agree tightly at WR22-28. Amon-Ra St. Brown and Sam LaPorta are ahead of him in the target hierarchy.",
+   "watch": "Whether Detroit's tight end emphasis, which Jared Goff has spoken about, comes out of his share.",
+   "updated": "2026-08-11"
+  },
+  "12524": {
+   "player": "Shedeur Sanders",
+   "outlook": "Listed as Cleveland's starter but Deshaun Watson is reportedly being carried as a co-starter, so the job is not settled. He made eight appearances as a rookie without much production. Four sources have him tightly at QB32-33. Superflex leagues are the only realistic place he matters.",
+   "watch": "The depth chart resolution -- and whether Cleveland's offense can support any fantasy quarterback.",
+   "updated": "2026-08-11"
+  },
+  "4217": {
+   "player": "George Kittle",
+   "outlook": "On the PUP list with an Achilles injury and listed OUT by ESPN, which the consensus TE10 ranking does not reflect. He has played one full season in his career (2018) and the injury pattern is the entire profile. When available he is a top-five tight end. Market value is flat, which suggests the market has not fully priced the PUP designation.",
+   "watch": "The PUP designation -- a player who cannot open the season should not be drafted as TE10.",
+   "updated": "2026-08-11"
+  },
+  "7594": {
+   "player": "Chuba Hubbard",
+   "outlook": "Coming off a disappointing 2025 in which he battled injury and lost lead-back duties to Rico Dowdle, finishing with 734 yards on 164 touches. He opens as Carolina's lead back with Jonathon Brooks ranked just behind him and neither separating. Market value is flat and he is rostered in only about 80% of leagues. Sources are grouped at RB29-34.",
+   "watch": "Jonathon Brooks' health -- if Brooks is right, this becomes a split rather than a job.",
+   "updated": "2026-08-11"
+  },
+  "7021": {
+   "player": "Rico Dowdle",
+   "outlook": "Signed with Pittsburgh after nearly identical seasons in Dallas (1,328 yards, five touchdowns) and Carolina (1,373 yards, seven touchdowns). He is in a true committee with Jaylen Warren, ranked one spot apart. His market value is rising. Aaron Rodgers gives the offense a reasonable scoring floor.",
+   "watch": "Which back takes passing downs -- that is the whole difference in a PPR league.",
+   "updated": "2026-08-11"
+  },
+  "11565": {
+   "player": "J.J. McCarthy",
+   "outlook": "Lost the Minnesota starting job to Kyler Murray, the most consequential camp decision of the week. He missed his entire rookie season and struggled through 10 games in 2025. Only three sources rank him at all, all around QB36. He is a superflex stash, not a starter.",
+   "watch": "A Murray injury -- that is the only path back to relevance this season.",
+   "updated": "2026-08-11"
+  },
+  "6768": {
+   "player": "Tua Tagovailoa",
+   "outlook": "Signed with Atlanta and is the starter but is listed questionable with a back issue, with Michael Penix Jr. (knee, ACL) behind him. Four sources have him QB27-32. His fantasy relevance is marginal outside superflex, but his health matters enormously for Drake London, Bijan Robinson and Kyle Pitts.",
+   "watch": "The back -- and whether Penix is healthy enough to be a real alternative.",
+   "updated": "2026-08-11"
+  },
+  "10859": {
+   "player": "Sam LaPorta",
+   "outlook": "Has settled in as a top-10 tight end but has never matched his rookie production. The new information is that Jared Goff has publicly said Detroit needs to find more ways to get him the ball, which is the kind of camp signal that sometimes precedes a target bump. Healthy, market value rising, and sources agree tightly at TE5-8.",
+   "watch": "Whether the stated intent converts into actual targets -- Amon-Ra St. Brown is still the priority.",
+   "updated": "2026-08-11"
+  },
+  "12489": {
+   "player": "RJ Harvey",
+   "outlook": "Looking to overtake J.K. Dobbins as Denver's lead back; in the 10 games both were active last season, Harvey handled 50 carries to Dobbins' 153. He is listed as RB2 on the depth chart. Market value is rising and FantasyPros and Fantasy Football Calculator have him a full five spots higher than CBS. Dobbins is carrying an undisclosed injury.",
+   "watch": "Whether the snap split actually flips -- last year's split says it has not yet.",
+   "updated": "2026-08-11"
+  },
+  "7553": {
+   "player": "Kyle Pitts",
+   "outlook": "Ranked TE5-8 by all five sources, the highest consensus of his career, in a role where he is Atlanta's secondary passing option behind Drake London. Healthy with no designation and a flat market. Tua Tagovailoa's back is the offense-level risk.",
+   "watch": "Red-zone usage -- his ranking assumes touchdown regression in his favour, which has not arrived before.",
+   "updated": "2026-08-11"
+  },
+  "8167": {
+   "player": "Christian Watson",
+   "outlook": "A boom-bust career on full display in 2025: missed the first seven games, then produced multiple big fantasy weeks on return. He is nominally Green Bay's top receiver in a genuine committee with Jayden Reed and Matthew Golden. Sources spread him WR26 to WR37, one of the widest gaps in this range. Market value is flat.",
+   "watch": "Whether Green Bay ever concentrates targets -- three years of evidence says no.",
+   "updated": "2026-08-11"
+  },
+  "5967": {
+   "player": "Tony Pollard",
+   "outlook": "Has handled 67.2% of Tennessee's designed rushing attempts since arriving (15.2 per game) and still finished only 22nd and 30th in fantasy, which is the argument against him: volume without efficiency or receiving work. Tyjae Spears splits in. Market value is falling. Sources agree tightly at RB26-30.",
+   "watch": "Whether Tennessee's offense improves enough to make his volume worth anything.",
+   "updated": "2026-08-11"
+  },
+  "11559": {
+   "player": "Michael Penix Jr.",
+   "outlook": "Listed as Atlanta's QB2 behind Tua Tagovailoa and working back from ACL surgery. His market value has collapsed over the past 30 days, one of the largest drops among quarterbacks. Only three sources rank him, around QB33-35. He is a superflex stash contingent on Tagovailoa's back issue.",
+   "watch": "Tagovailoa's back -- Penix's entire 2026 value is a backup-quarterback bet.",
+   "updated": "2026-08-11"
+  },
+  "1373": {
+   "player": "Geno Smith",
+   "outlook": "Traded to the Jets, where he began his career, and is in line to start. Four sources have him tightly at QB28-30. At 35 he is a floor-not-ceiling option, relevant mainly in superflex. His arrival is a modest upgrade for Garrett Wilson and Breece Hall.",
+   "watch": "Nothing on his own profile -- his value is as a stabiliser for the Jets skill players.",
+   "updated": "2026-08-11"
+  },
+  "3257": {
+   "player": "Jacoby Brissett",
+   "outlook": "Back for a second season in Arizona and positioned as the probable Week 1 starter after a surprising 2025. Rookie Carson Beck is pushing him and the staff has been publicly complimentary of Beck. Four sources have him QB23-30. CBS is notably higher at QB23.",
+   "watch": "The Beck decision -- Trey McBride's target volume has held up under either quarterback, but the offense's efficiency would not.",
+   "updated": "2026-08-11"
+  },
+  "6806": {
+   "player": "J.K. Dobbins",
+   "outlook": "Re-signed with Denver and is listed as the depth chart RB1, but he is carrying an undisclosed injury and RJ Harvey is closing. Last season with both active, Dobbins out-carried Harvey 153 to 50. Market value is rising and he is rostered in only about 69% of leagues. Sources agree tightly at RB33-36.",
+   "watch": "His health -- Denver's committee resolves in Harvey's favour the moment Dobbins misses time.",
+   "updated": "2026-08-11"
+  },
+  "11586": {
+   "player": "Blake Corum",
+   "outlook": "Has spent two seasons as Kyren Williams' backup and that is the expectation again. NBC is a striking outlier at RB28 while the other four have him RB35-42. His market value is rising, which usually signals handcuff demand rather than a role change. Williams is healthy.",
+   "watch": "A Kyren Williams injury -- Corum is one of the cleanest one-for-one handcuffs on the board.",
+   "updated": "2026-08-11"
+  },
+  "7567": {
+   "player": "Kenny Gainwell",
+   "outlook": "Signed with Tampa Bay after a second-half breakout in Pittsburgh where he averaged 13.3 touches, 85.0 yards and 17.8 fantasy points. He is the complementary back to Bucky Irving. Market value is rising sharply. ESPN is highest at RB31, NBC lowest at RB39.",
+   "watch": "Whether he takes passing downs from Irving -- that is what would make him startable in PPR.",
+   "updated": "2026-08-11"
+  },
+  "7523": {
+   "player": "Trevor Lawrence",
+   "outlook": "Coming off a breakout 2025 in which he ranked no lower than seventh among quarterbacks in attempts, completions, yards and touchdowns. Four sources have him QB8-10 with NBC the outlier at QB15. Market value is flat. The receiver room is deep but unconcentrated, which supports passing volume.",
+   "watch": "Whether the 2025 breakout holds -- it was his first genuinely good fantasy season.",
+   "updated": "2026-08-11"
+  },
+  "5045": {
+   "player": "Courtland Sutton",
+   "outlook": "Has produced 1,000 yards and a top-20 fantasy finish in each of the past two seasons. Jaylen Waddle's arrival is the complication, and sources disagree sharply as a result: ESPN has him WR29, NBC WR43. His market value is rising, which suggests drafters are siding with the optimistic read. Healthy.",
+   "watch": "Whether Denver's target hierarchy actually changes -- Sutton has been the priority for two straight years.",
+   "updated": "2026-08-11"
+  },
+  "7611": {
+   "player": "Rhamondre Stevenson",
+   "outlook": "Will battle TreVeyon Henderson for New England touches; last season Stevenson usually held the larger share. His market value is falling. All five sources are grouped tightly at RB28-33. A.J. Brown's arrival should raise the offense's efficiency.",
+   "watch": "Whether Henderson finally takes the job -- the market is betting on it slowly.",
+   "updated": "2026-08-11"
+  },
+  "1466": {
+   "player": "Travis Kelce",
+   "outlook": "Re-signed with Kansas City for what may be his final season, and his days as an elite producer are behind him. All five sources have him TE9-11, which is an honest read. Market value is falling. Patrick Mahomes' knee designation is an additional risk.",
+   "watch": "Mahomes' availability -- Kelce's remaining value is entirely volume-based.",
+   "updated": "2026-08-11"
+  },
+  "13311": {
+   "player": "Chris Bell",
+   "outlook": "Third-round rookie on PUP with a torn ACL and listed OUT, so he will not contribute early. At 222 pounds he is the heaviest receiver in his class and profiles as a perimeter possession target. He is fourth on Miami's depth chart. Ranked around WR81-95 by three sources.",
+   "watch": "Return timeline -- he is a late-season stash at best.",
+   "updated": "2026-08-11"
+  },
+  "1166": {
+   "player": "Kirk Cousins",
+   "outlook": "Signed with Las Vegas and lost the starting job to rookie Fernando Mendoza on the depth chart, and he was held out of practice after an altercation involving Maxx Crosby. At 38 he is a superflex-only option. Three sources have him around QB34-35.",
+   "watch": "The Mendoza decision -- and whether the situation in Las Vegas stays workable.",
+   "updated": "2026-08-11"
+  },
+  "4017": {
+   "player": "Deshaun Watson",
+   "outlook": "Expected back on the field after four lost years in Cleveland and is reportedly being listed as a co-starter with Shedeur Sanders. He was a top-six fantasy quarterback by points per game in each of his first four seasons, which is now ancient history. Three sources have him around QB31-35.",
+   "watch": "Whether he actually wins the job -- and whether that matters for Cleveland's skill players.",
+   "updated": "2026-08-11"
+  },
+  "3294": {
+   "player": "Dak Prescott",
+   "outlook": "Coming off a season in which he led the NFL in completions and ranked no lower than fourth in dropbacks, attempts and yards. He throws to CeeDee Lamb and George Pickens, one of the best receiver duos in the league. Market value is falling slightly. Sources spread him QB5 to QB10.",
+   "watch": "Health -- his fantasy profile is volume-based and he has missed extended time before.",
+   "updated": "2026-08-11"
+  },
+  "11637": {
+   "player": "Keon Coleman",
+   "outlook": "Has struggled to make an impact since going 33rd overall in 2024 and is now third on Buffalo's depth chart behind DJ Moore and Khalil Shakir. Sources disagree widely, from WR85 to WR119. Market value is up slightly. This is a talent-versus-role bet with the role currently losing.",
+   "watch": "A Buffalo receiver injury -- he needs vacated targets, not development.",
+   "updated": "2026-08-11"
+  },
+  "4199": {
+   "player": "Aaron Jones",
+   "outlook": "At 31 he splits Minnesota's backfield with Jordan Mason and neither has separated. Kyler Murray's arrival as starter adds rushing competition near the goal line. Sources spread him RB33 to RB42. Market value is falling.",
+   "watch": "The Mason split -- neither back is priced as a starter and the committee looks real.",
+   "updated": "2026-08-11"
+  },
+  "13294": {
+   "player": "Makai Lemon",
+   "outlook": "Drafted 20th overall by Philadelphia and posted the best yards-per-route-run mark in his rookie class despite modest size. He is listed as the second slot receiver behind DeVonta Smith and is currently questionable. Sources spread him WR34 to WR52, a wide rookie range. Market value is falling.",
+   "watch": "Whether Philadelphia's run-heavy offense supports a third receiver at all.",
+   "updated": "2026-08-11"
+  },
+  "12497": {
+   "player": "Tory Horton",
+   "outlook": "Had the look of a Day 3 find in 2025 before a season-ending shin injury in Week 9. He is now fourth on Seattle's depth chart behind Jaxon Smith-Njigba, Rashid Shaheed and Cooper Kupp. Three sources have him around WR85-94. Healthy now.",
+   "watch": "A Kupp or Shaheed absence -- he needs a path to snaps before anything else.",
+   "updated": "2026-08-11"
+  },
+  "9753": {
+   "player": "Zach Charbonnet",
+   "outlook": "Would have entered 2026 as Seattle's clear lead back, but a torn ACL in the playoff loss to San Francisco has him on PUP and listed OUT. Rookie Jadarian Price is taking the reps. Sources still rank him RB42-49, which prices a return rather than a lost season. Market value is rising.",
+   "watch": "His activation date -- the Seattle job is genuinely open if he gets back in time.",
+   "updated": "2026-08-11"
+  },
+  "13317": {
+   "player": "Ted Hurst",
+   "outlook": "Undrafted-level profile as a rookie fourth on Tampa Bay's depth chart behind Emeka Egbuka, Chris Godwin and Jalen McMillan. Sources disagree widely (WR71 to WR99), which is normal for a player with no NFL usage. Market value is falling. He is a deep dynasty flier, not a redraft asset.",
+   "watch": "Injuries ahead of him -- there is no other route to snaps this season.",
+   "updated": "2026-08-11"
+  },
+  "12533": {
+   "player": "Jacory Croskey-Merritt",
+   "outlook": "One of the biggest August risers in published rankings, jumping nearly 30 spots in some sets, and his market value is up sharply. He played a 39% snap share as a seventh-round rookie and is now listed as Washington's depth chart RB1 ahead of Rachaad White. He is rostered in only about 74% of leagues. CBS is highest at RB32.",
+   "watch": "Whether Washington names him the clear starter -- the split with White is the only thing holding his price down.",
+   "updated": "2026-08-11"
+  },
+  "5846": {
+   "player": "DK Metcalf",
+   "outlook": "Year 2 in Pittsburgh and currently listed questionable with an unspecified injury, alongside fellow starter Michael Pittman Jr. (leg). Aaron Rodgers is the quarterback, which should stabilise the passing game. Sources are grouped at WR32-38 and his market value is flat.",
+   "watch": "The undisclosed injury -- an August designation with no named body part usually resolves quickly or not at all.",
+   "updated": "2026-08-11"
+  },
+  "10232": {
+   "player": "Michael Wilson",
+   "outlook": "Averaged 4.3 targets and 7.6 fantasy points per game earlier in his career and is now Arizona's clear No. 2 behind Marvin Harrison Jr., with Trey McBride absorbing a large target share. All five sources agree tightly at WR39-42 and his market value is rising.",
+   "watch": "The Arizona quarterback decision -- a rookie start would likely mean more short, high-volume targets for him.",
+   "updated": "2026-08-11"
+  },
+  "9487": {
+   "player": "Parker Washington",
+   "outlook": "A strong finish to 2025 made him one of the more discussed sleepers of this offseason, and his market value is up sharply. The problem is the depth chart: Brian Thomas Jr., Jakobi Meyers and Travis Hunter are all competing for the same targets. He is rostered in only about 74% of leagues. CBS is highest at WR30.",
+   "watch": "Whether Jacksonville's target distribution ever concentrates -- four receivers cannot all hit.",
+   "updated": "2026-08-11"
+  },
+  "9504": {
+   "player": "Kayshon Boutte",
+   "outlook": "Was a cut or trade candidate for much of the 2025 offseason and is now third on New England's depth chart behind A.J. Brown. Sources spread him WR69 to WR86. Market value is up slightly. He is a bench flier in deeper leagues only.",
+   "watch": "An injury ahead of him -- the room behind Brown is thin enough that one absence changes his role.",
+   "updated": "2026-08-11"
+  },
+  "6819": {
+   "player": "Michael Pittman Jr.",
+   "outlook": "Traded to Pittsburgh and listed questionable with a leg issue. This is the widest source disagreement among top-40 receivers: ESPN has him WR30, NBC WR51. Aaron Rodgers is a reasonable quarterback upgrade over recent seasons, and DK Metcalf is also banged up.",
+   "watch": "Which of the two Pittsburgh receivers gets healthy first -- the target hierarchy is genuinely unset.",
+   "updated": "2026-08-11"
+  },
+  "11563": {
+   "player": "Bo Nix",
+   "outlook": "Finished seventh among quarterbacks in his second season and now has Jaylen Waddle added to the receiver room. ESPN is the outlier at QB10 while NBC has him QB18. His market value is falling. Denver's defence being the consensus No. 1 unit means fewer trailing game scripts, which caps passing volume.",
+   "watch": "Whether the Waddle addition raises his passing volume or just redistributes it.",
+   "updated": "2026-08-11"
+  },
+  "4035": {
+   "player": "Alvin Kamara",
+   "outlook": "Entering his age-31 season with real uncertainty after New Orleans brought in Travis Etienne Jr. to lead the backfield. He is listed as RB2 on the depth chart. Market value is rising and he is rostered in only about 77% of leagues. Sources spread him RB43 to RB55.",
+   "watch": "Whether he keeps the passing-down role -- it is the only thing that would make him startable in PPR.",
+   "updated": "2026-08-11"
+  },
+  "10213": {
+   "player": "Tre Tucker",
+   "outlook": "Nominally Las Vegas's No. 1 receiver, which says more about the room than about him. Brock Bowers dominates the target share and rookie Fernando Mendoza is the likely starter. All five sources cluster him at WR59-66 and his market value is falling.",
+   "watch": "Whether Las Vegas throws to receivers at all -- Bowers and Michael Mayer absorb a lot of it.",
+   "updated": "2026-08-11"
+  },
+  "13296": {
+   "player": "Caleb Douglas",
+   "outlook": "Third-round rookie sitting third on Miami's receiver depth chart in an offense quarterbacked by Malik Willis. His market value has risen sharply but that is off a very low base. Sources disagree widely, from WR85 to WR108.",
+   "watch": "Whether Miami's passing game is functional at all -- no Dolphins receiver is startable if it is not.",
+   "updated": "2026-08-11"
+  },
+  "13268": {
+   "player": "Elijah Sarratt",
+   "outlook": "Fourth-round rookie who is fourth on Baltimore's depth chart behind Zay Flowers and Rashod Bateman. Sources spread him from WR80 to WR124, the widest gap of any receiver in this range. Baltimore's run-heavy offense limits receiver volume generally.",
+   "watch": "A move up the depth chart -- there is nothing else to watch this season.",
+   "updated": "2026-08-11"
+  },
+  "13274": {
+   "player": "Germie Bernard",
+   "outlook": "Second-round rookie sitting third in Pittsburgh's slot behind DK Metcalf and Michael Pittman Jr., both of whom are currently banged up. His market value has collapsed over the past month, one of the largest drops on the board. Sources spread him WR65 to WR83.",
+   "watch": "Whether the injuries ahead of him linger into September -- that is his only path to snaps.",
+   "updated": "2026-08-11"
+  },
+  "12483": {
+   "player": "Jack Bech",
+   "outlook": "A candidate for a Year 2 leap after an underwhelming rookie season as a 2025 second-round pick. He is third on the Las Vegas depth chart behind Tre Tucker. Sources spread him WR79 to WR97 and his market value is falling.",
+   "watch": "Whether he passes Tre Tucker -- the Raiders' No. 1 receiver spot is not well defended.",
+   "updated": "2026-08-11"
+  },
+  "2449": {
+   "player": "Stefon Diggs",
+   "outlook": "Signed with Washington in August after being released, and he is the biggest riser in this refresh: FantasyPros moved him up 23 spots in a week and his positional rank climbed from WR63 to WR51. His market value is rising sharply. At 32 he is the No. 2 behind Terry McLaurin with Jayden Daniels throwing. CBS is highest at WR44.",
+   "watch": "How quickly he learns the offense -- an August signing usually means a slow September.",
+   "updated": "2026-08-11"
+  },
+  "8183": {
+   "player": "Brock Purdy",
+   "outlook": "Rebounding after injuries disrupted his 2025. The receiver room was rebuilt around Mike Evans (quadriceps) and Deebo Samuel, and Christian McCaffrey's practice absences are a concern for the whole offense. Fantasy Football Calculator is the clear outlier at QB6 against a QB11-13 consensus elsewhere.",
+   "watch": "McCaffrey's availability -- Purdy's efficiency has always been tied to the run game.",
+   "updated": "2026-08-11"
+  },
+  "8136": {
+   "player": "Rachaad White",
+   "outlook": "Signed with Washington and is now listed as the depth chart RB2 behind Jacory Croskey-Merritt, who has been climbing rankings all August. White's market value has collapsed, one of the steepest drops on the board, and he is rostered in only about 62% of leagues. Sources still have him RB34-40.",
+   "watch": "Whether Washington confirms Croskey-Merritt as the starter -- the market has already decided.",
+   "updated": "2026-08-11"
+  },
+  "11643": {
+   "player": "Jaylen Wright",
+   "outlook": "Competing again with Ollie Gordon II for backup reps behind De'Von Achane. His market value is rising. Three sources have him around RB66-70. Miami's coaching staff has publicly floated 40-plus touch games for Achane, which caps the backup role.",
+   "watch": "An Achane injury -- given the projected workload, this is a handcuff worth holding in deep leagues.",
+   "updated": "2026-08-11"
+  },
+  "4037": {
+   "player": "Chris Godwin",
+   "outlook": "One of the sharpest source disagreements on the board: CBS has him WR35 and FantasyPros WR36, while ESPN has him WR54. He is back in Tampa Bay as the slot receiver behind Emeka Egbuka at 30, with Jalen McMillan (calf) also in the mix. Market value is flat.",
+   "watch": "Whether the slot role still produces at his age -- the sources are split on exactly that.",
+   "updated": "2026-08-11"
+  },
+  "7600": {
+   "player": "Pat Freiermuth",
+   "outlook": "A career of inconsistent usage, now catching passes from Aaron Rodgers with both starting receivers banged up. ESPN is highest at TE22, CBS lowest at TE30. Market value is rising modestly.",
+   "watch": "Whether Rodgers leans on the tight end -- his history says he sometimes does.",
+   "updated": "2026-08-11"
+  },
+  "8408": {
+   "player": "Jordan Mason",
+   "outlook": "Back for a second season in Minnesota, splitting with 31-year-old Aaron Jones. Neither has separated and sources have them within a spot of each other. Kyler Murray's arrival adds goal-line rushing competition. He is rostered in only about 71% of leagues.",
+   "watch": "Whether the split tilts his way -- Jones' age makes this the more likely direction.",
+   "updated": "2026-08-11"
+  },
+  "11627": {
+   "player": "Troy Franklin",
+   "outlook": "Was on his way to a Year 2 breakout midway through 2025 before it stalled. He is now third in Denver's slot behind Jaylen Waddle and Courtland Sutton. This is one of the widest disagreements on the board: FantasyPros has him WR73, ESPN WR112. Market value is falling.",
+   "watch": "Whether Denver's crowded receiver room leaves him any route share at all.",
+   "updated": "2026-08-11"
+  },
+  "12508": {
+   "player": "Jaxson Dart",
+   "outlook": "A strong breakout candidate after an impressive rookie campaign, and a common pick for a Year 2 leap. ESPN is highest at QB7 with the rest at QB11-12. Isaiah Likely was added at tight end. The complication is Malik Nabers' ACL recovery.",
+   "watch": "Nabers' health -- Dart's ceiling is much lower without his No. 1 receiver.",
+   "updated": "2026-08-11"
+  },
+  "11583": {
+   "player": "Jonathon Brooks",
+   "outlook": "Trying to get his career on track after limited appearances since being drafted. He is Carolina's RB2 behind Chuba Hubbard, and the two are ranked within five spots of each other. His market value is rising but he is rostered in only about 29% of leagues, which makes him one of the cheapest upside adds available. CBS is highest at RB31.",
+   "watch": "His knee -- if the burst is back, the Carolina job is genuinely available.",
+   "updated": "2026-08-11"
+  },
+  "12498": {
+   "player": "Mason Taylor",
+   "outlook": "Played 81% of the Jets' offensive snaps as a rookie, which is an unusually high number for a first-year tight end. Rookie Kenyon Sadiq (abdomen) has been added to the room and is ranked ahead of him. Three sources have him around TE34-41. Market value is falling.",
+   "watch": "The Sadiq split -- one of them will lose meaningful snaps.",
+   "updated": "2026-08-11"
+  },
+  "8142": {
+   "player": "Alec Pierce",
+   "outlook": "On PUP with an ankle injury and listed OUT by ESPN, which the consensus WR36 ranking does not fully reflect. He has been a situational deep threat for most of his career. Fantasy Football Calculator is the outlier at WR26 while NBC has him WR42.",
+   "watch": "The PUP designation -- his ranking assumes he opens the season, and that is not currently supported.",
+   "updated": "2026-08-11"
+  },
+  "12536": {
+   "player": "Jaylin Noel",
+   "outlook": "Second-year receiver sitting fourth on Houston's depth chart, though Tank Dell's slow knee recovery opens snaps. Three sources have him around WR77-96 and his market value is falling.",
+   "watch": "Tank Dell's return timeline -- Noel's role shrinks the moment Dell is cleared.",
+   "updated": "2026-08-11"
+  },
+  "13337": {
+   "player": "Emmett Johnson",
+   "outlook": "Fifth-round rookie listed fourth on Kansas City's depth chart behind Kenneth Walker III. Sources disagree widely, from RB54 to RB84. He is a deep dynasty stash rather than a redraft asset.",
+   "watch": "Whether he passes the other backups -- there are three bodies ahead of him.",
+   "updated": "2026-08-11"
+  },
+  "3163": {
+   "player": "Jared Goff",
+   "outlook": "Entering his 10th season and sixth in Detroit with Amon-Ra St. Brown, Jameson Williams and Sam LaPorta, and he has publicly pushed for more tight end usage. CBS is highest at QB11 against a QB14-18 consensus. Market value is rising.",
+   "watch": "Nothing structural -- his profile is stable and volume-driven.",
+   "updated": "2026-08-11"
+  },
+  "12506": {
+   "player": "Harold Fannin Jr.",
+   "outlook": "Has climbed to a consensus top-six tight end in his second season, which is a strong signal about Cleveland's target priority. All five sources have him TE5-9. The offense is the drag: Shedeur Sanders and Deshaun Watson are still splitting the starter designation.",
+   "watch": "The quarterback resolution -- his role is secure, his scoring environment is not.",
+   "updated": "2026-08-11"
+  },
+  "6804": {
+   "player": "Jordan Love",
+   "outlook": "Back for a fourth season as Green Bay's starter and will start the preseason opener against Pittsburgh, with Matt LaFleur publicly praising his arm talent. NBC is the outlier at QB12 against a QB18-22 consensus elsewhere. The receiver room is a committee and the tight end room is injury-hit.",
+   "watch": "Whether Green Bay ever develops a true No. 1 receiver -- it is the recurring cap on his ceiling.",
+   "updated": "2026-08-11"
+  },
+  "12467": {
+   "player": "Jordan James",
+   "outlook": "The direct handcuff to Christian McCaffrey, who has missed multiple August practices at 30. James is listed questionable with a ribs issue himself. Sources spread him RB54 to RB73. He is rostered in about 83% of leagues.",
+   "watch": "McCaffrey's practice status -- this is the highest-leverage handcuff on the board right now.",
+   "updated": "2026-08-11"
+  },
+  "11783": {
+   "player": "Ryan Flournoy",
+   "outlook": "The favourite for No. 3 receiver duties in Dallas behind CeeDee Lamb and George Pickens. Sources spread him WR67 to WR89. Market value is flat and he is rostered in only about 74% of leagues.",
+   "watch": "A Lamb or Pickens absence -- the Dallas passing volume would make him immediately startable.",
+   "updated": "2026-08-11"
+  },
+  "13405": {
+   "player": "Kaytron Allen",
+   "outlook": "Sixth-round rookie listed fifth on Washington's depth chart. Sources disagree enormously, from RB60 to RB115, which is the widest spread of any back on the board and reflects that nobody has a read on him. His positional rank fell 18 spots since the last refresh.",
+   "watch": "Whether he climbs the Washington depth chart -- he is currently behind three backs.",
+   "updated": "2026-08-11"
+  },
+  "12534": {
+   "player": "Kyle Monangai",
+   "outlook": "Impressive rookie season and now Chicago's RB2 behind D'Andre Swift. All five sources agree tightly at RB31-38. His market value is falling. Swift's receiving role is the ceiling on Monangai's PPR value.",
+   "watch": "Whether he takes early-down work from Swift -- the talent case is there, the opportunity is not yet.",
+   "updated": "2026-08-11"
+  },
+  "4892": {
+   "player": "Baker Mayfield",
+   "outlook": "Year 4 as Tampa Bay's starter with Emeka Egbuka and Chris Godwin. All five sources agree tightly at QB17-21, unusually clean consensus. Market value is rising. Left tackle Tristan Wirfs is dealing with a hamstring issue.",
+   "watch": "Nothing acute -- he is a stable streaming-tier quarterback in one-quarterback formats.",
+   "updated": "2026-08-11"
+  },
+  "11575": {
+   "player": "Ray Davis",
+   "outlook": "The primary insurance behind James Cook in Buffalo's high-scoring offense. Sources disagree sharply: ESPN has him RB49, Fantasy Football Calculator RB79. His positional rank is unchanged but his market value is flat.",
+   "watch": "A James Cook absence -- Buffalo's backfield in that offense would be immediately startable.",
+   "updated": "2026-08-11"
+  },
+  "11655": {
+   "player": "Tyrone Tracy Jr.",
+   "outlook": "The Giants' RB2 behind Cam Skattebo after splitting the backfield last season. Sources are grouped at RB41-50 and his market value is rising modestly.",
+   "watch": "Skattebo's durability -- Tracy is a proven NFL back, not a projection, which makes him a useful handcuff.",
+   "updated": "2026-08-11"
+  },
+  "9482": {
+   "player": "Michael Mayer",
+   "outlook": "Entering a contract year and expected to resume his role as the second tight end in Las Vegas behind Brock Bowers. FantasyPros moved him up five spots this week. Sources have him TE32-40. He is new to this file at TE34.",
+   "watch": "Whether Las Vegas uses two-tight-end sets often enough to make him relevant.",
+   "updated": "2026-08-11"
+  },
+  "11597": {
+   "player": "Theo Johnson",
+   "outlook": "Solid fourth-round find but now the Giants' TE2 after Isaiah Likely signed. Three sources have him around TE36-42 and his market value is falling.",
+   "watch": "A Likely injury -- Johnson has shown he can handle a starting role.",
+   "updated": "2026-08-11"
+  },
+  "9500": {
+   "player": "Josh Downs",
+   "outlook": "Settled in as a serviceable slot receiver and is currently questionable with a groin issue. His market value is rising sharply and he is rostered in only about 67% of leagues, so there is acquisition room. Sources spread him WR34 to WR45. The Colts quarterback competition is unresolved.",
+   "watch": "The Indianapolis quarterback decision -- Downs' short-area role plays very differently with each option.",
+   "updated": "2026-08-11"
+  },
+  "4981": {
+   "player": "Calvin Ridley",
+   "outlook": "His second season in Tennessee did not go to plan and he is now third on the depth chart behind rookie Carnell Tate and Wan'Dale Robinson at 31. Sources have him WR58-70 and his market value is falling.",
+   "watch": "Whether Tennessee's offense supports three receivers -- it likely does not.",
+   "updated": "2026-08-11"
+  },
+  "9506": {
+   "player": "Sean Tucker",
+   "outlook": "Tampa Bay's RB3 behind Bucky Irving and Kenny Gainwell. Sources disagree widely, from RB56 to RB86, and his positional rank fell 11 spots since the last refresh. Market value is falling.",
+   "watch": "Injuries ahead of him -- he is two bodies deep in a crowded backfield.",
+   "updated": "2026-08-11"
+  },
+  "7571": {
+   "player": "Rashod Bateman",
+   "outlook": "Entering his sixth season in Baltimore after an injury-plagued run, and he is the No. 2 receiver behind Zay Flowers (quadriceps). His positional rank improved 13 spots in this refresh and his market value is rising. He is rostered in only about 74% of leagues.",
+   "watch": "Flowers' quadriceps -- Bateman is the direct beneficiary of any absence.",
+   "updated": "2026-08-11"
+  },
+  "11647": {
+   "player": "Kimani Vidal",
+   "outlook": "Third year with the Chargers and competing for backup reps behind Omarion Hampton. His market value has fallen sharply. Sources have him RB57-68.",
+   "watch": "A Hampton injury -- Hampton's rookie season was already injury-shortened, which makes this handcuff live.",
+   "updated": "2026-08-11"
+  },
+  "421": {
+   "player": "Matthew Stafford",
+   "outlook": "The reigning MVP returns for his 18th season at 38 with Puka Nacua and Davante Adams. Fantasy Football Calculator is highest at QB9 against a QB12-15 consensus. Market value is falling, which is age-related rather than performance-related.",
+   "watch": "Age and durability -- a 38-year-old quarterback carries season-ending risk for Nacua and Adams as much as for himself.",
+   "updated": "2026-08-11"
+  },
+  "5947": {
+   "player": "Jakobi Meyers",
+   "outlook": "Consistently underrated and now in a very crowded Jacksonville room, listed third on the depth chart behind Brian Thomas Jr. and Parker Washington with Travis Hunter also involved. Sources have him WR35-45 and his market value is falling.",
+   "watch": "Whether Jacksonville's target split ever settles -- Meyers is the most reliable but least explosive of the group.",
+   "updated": "2026-08-11"
+  },
+  "8131": {
+   "player": "Isaiah Likely",
+   "outlook": "Signed with the Giants after four years behind Mark Andrews and is now a clear TE1 with a full-time role for the first time. CBS is a notable outlier at TE8 against a TE12-17 consensus. He is rostered in only about 48% of leagues, the lowest of any top-15 tight end, and his market value is rising.",
+   "watch": "Jaxson Dart's development -- Likely's opportunity is finally real, the question is offensive quality.",
+   "updated": "2026-08-11"
+  },
+  "7090": {
+   "player": "Darnell Mooney",
+   "outlook": "Signed with the Giants as the likely replacement for Wan'Dale Robinson in the slot, behind Malik Nabers (knee). Sources spread him WR73 to WR87. Market value is flat.",
+   "watch": "Nabers' ACL recovery -- Mooney's target share depends entirely on it.",
+   "updated": "2026-08-11"
+  },
+  "13302": {
+   "player": "Adam Randall",
+   "outlook": "Fifth-round rookie who is Baltimore's RB3 behind Derrick Henry and Justice Hill. His positional rank improved 17 spots this week, one of the larger moves in the tail. Sources spread him RB65 to RB89.",
+   "watch": "Derrick Henry's age -- Baltimore's backfield is one injury from being a genuine opportunity.",
+   "updated": "2026-08-11"
+  },
+  "5872": {
+   "player": "Deebo Samuel",
+   "outlook": "His positional rank improved 10 spots this refresh and his market value is up sharply. He is San Francisco's No. 2 behind Mike Evans (quadriceps) at 30. Sources have him WR45-58 and he is rostered in only about 81% of leagues.",
+   "watch": "Evans' quadriceps -- Samuel is the direct beneficiary, and the market appears to be pricing that in already.",
+   "updated": "2026-08-11"
+  },
+  "13345": {
+   "player": "Jonah Coleman",
+   "outlook": "Fourth-round rookie who is Denver's RB3 behind J.K. Dobbins and RJ Harvey. This is the widest source disagreement of any back on the board: Fantasy Football Calculator has him RB87 while CBS has him RB50. His positional rank fell eight spots this week.",
+   "watch": "Whether Denver's three-way committee thins out -- he is currently the odd man out.",
+   "updated": "2026-08-11"
+  },
+  "10219": {
+   "player": "Chris Rodriguez Jr.",
+   "outlook": "Jacksonville's RB2 behind Bhayshul Tuten, and the pairing is one of the more contested backfields on the board. Sources spread him RB38 to RB56. He is rostered in only about 69% of leagues.",
+   "watch": "Whether Tuten actually holds the job -- Rodriguez is the direct beneficiary if he does not.",
+   "updated": "2026-08-11"
+  },
+  "9756": {
+   "player": "Jordan Addison",
+   "outlook": "Minnesota's No. 2 behind Justin Jefferson and currently questionable with a thumb injury. Kyler Murray's installation as starter changes the offense's structure for every receiver. Sources have him WR37-48 and his market value is falling.",
+   "watch": "The thumb, and how Murray's scrambling affects secondary receivers.",
+   "updated": "2026-08-11"
+  },
+  "12471": {
+   "player": "DJ Giddens",
+   "outlook": "Indianapolis's RB2 behind Jonathan Taylor and currently questionable with a hamstring issue. His positional rank fell 13 spots this refresh. Three sources agree tightly at RB76-80.",
+   "watch": "Taylor's workload -- Giddens is the handcuff to one of the highest-volume backs in football.",
+   "updated": "2026-08-11"
+  },
+  "4066": {
+   "player": "Evan Engram",
+   "outlook": "Second season in Denver after an underwhelming debut, in a crowded pass-catching group with Jaylen Waddle and Courtland Sutton. Sources have him TE24-31 and his market value is falling.",
+   "watch": "Whether Denver's receiver additions squeeze him out of the target hierarchy entirely.",
+   "updated": "2026-08-11"
+  },
+  "8132": {
+   "player": "Tyler Allgeier",
+   "outlook": "Signed with Arizona and is the RB2 behind rookie Jeremiyah Love, with James Conner (foot) also in the mix. Sources agree tightly at RB44-52. He is rostered in only about 68% of leagues.",
+   "watch": "Whether Arizona eases the rookie in -- Allgeier is the most likely short-yardage beneficiary.",
+   "updated": "2026-08-11"
+  },
+  "5012": {
+   "player": "Mark Andrews",
+   "outlook": "One of fantasy's recurring puzzles as his usage has dipped substantially, though he remains Baltimore's clear TE1 at 31. All five sources agree tightly at TE12-15. Market value is falling.",
+   "watch": "Whether the target share stabilises -- the decline has been gradual rather than sudden.",
+   "updated": "2026-08-11"
+  },
+  "8110": {
+   "player": "Jake Ferguson",
+   "outlook": "A reliable target for Dak Prescott in a high-volume Dallas passing offense that also features CeeDee Lamb and George Pickens. Sources have him TE9-16 with NBC highest. Market value is falling modestly.",
+   "watch": "Whether the two star receivers leave enough targets -- Ferguson's floor is usage, not talent.",
+   "updated": "2026-08-11"
+  },
+  "4137": {
+   "player": "James Conner",
+   "outlook": "Entering his 10th season at 31 without a clear path to touches after Arizona drafted Jeremiyah Love third overall, and he is listed questionable with a foot issue and third on the depth chart. His positional rank improved 10 spots this week anyway, which reads as name-value rather than opportunity. Three sources have him around RB57-60.",
+   "watch": "The foot, and whether Arizona gives him goal-line work -- otherwise he is not rosterable.",
+   "updated": "2026-08-11"
+  },
+  "12474": {
+   "player": "Woody Marks",
+   "outlook": "Houston's RB2 behind David Montgomery after a substantial rookie role. All five sources agree tightly at RB41-45 and his market value is rising. The receiving work is what gives him standalone PPR value.",
+   "watch": "Whether he takes passing downs outright -- that would make him startable without a Montgomery injury.",
+   "updated": "2026-08-11"
+  },
+  "12544": {
+   "player": "LeQuint Allen",
+   "outlook": "Jacksonville's RB4 in a backfield that already features Bhayshul Tuten and Chris Rodriguez Jr. Three sources have him around RB70-78 and he is rostered in only about 68% of leagues.",
+   "watch": "Movement up a crowded depth chart -- there is nothing else supporting him this season.",
+   "updated": "2026-08-11"
+  },
+  "9754": {
+   "player": "Quentin Johnston",
+   "outlook": "Looked like he had turned a corner four weeks into 2025 before it faded. He is the Chargers' No. 2 behind Ladd McConkey in a new offensive scheme. Sources have him WR41-50 and his market value is falling.",
+   "watch": "Whether the new scheme gives him a defined role -- his career has been usage-dependent.",
+   "updated": "2026-08-11"
+  },
+  "11571": {
+   "player": "Isaiah Davis",
+   "outlook": "The Jets' RB3 behind Breece Hall and Braelon Allen, and currently questionable with a knee issue. Three sources have him around RB70-76.",
+   "watch": "Two injuries ahead of him -- that is the only route to relevance.",
+   "updated": "2026-08-11"
+  },
+  "13298": {
+   "player": "KC Concepcion",
+   "outlook": "First-round rookie who is Cleveland's slot receiver behind a thin group, and ESPN lists him as questionable. All five sources cluster him at WR48-60, which is a reasonably confident placement for a rookie. Market value is flat.",
+   "watch": "The Cleveland quarterback resolution -- rookie receivers need functional passing offenses.",
+   "updated": "2026-08-11"
+  },
+  "13424": {
+   "player": "Seth McGowan",
+   "outlook": "Seventh-round rookie who is Indianapolis's RB3 behind Jonathan Taylor and DJ Giddens. Three sources have him around RB87-105. He is a deep dynasty name only.",
+   "watch": "Nothing actionable this season -- he is two bodies deep behind a workhorse.",
+   "updated": "2026-08-11"
+  },
+  "10222": {
+   "player": "Jayden Reed",
+   "outlook": "Began his career with two top-30 fantasy seasons before things stalled, and he is now one of three Green Bay receivers ranked within a few spots of each other. Sources have him WR40-49 and his market value is flat.",
+   "watch": "Whether Green Bay concentrates targets -- Reed, Christian Watson and Matthew Golden cannot all produce.",
+   "updated": "2026-08-11"
+  },
+  "5022": {
+   "player": "Dallas Goedert",
+   "outlook": "A recurring touchdown-regression candidate in a Philadelphia offense that runs heavily and funnels goal-line work to Jalen Hurts and Saquon Barkley. Sources have him TE8-14 with Fantasy Football Calculator highest. Market value is flat at 31.",
+   "watch": "Whether Philadelphia's pass rate rises at all -- his ceiling is entirely offense-dependent.",
+   "updated": "2026-08-11"
+  },
+  "6865": {
+   "player": "Colby Parkinson",
+   "outlook": "Resuming his role in the Rams' tight end committee alongside rookie Terrance Ferguson. Sources have him TE31-36 and his market value is falling.",
+   "watch": "Whether the Rams settle on one tight end -- a committee makes both of them unusable.",
+   "updated": "2026-08-11"
+  },
+  "11626": {
+   "player": "Xavier Legette",
+   "outlook": "Eyeing a Year 3 leap after a boom-bust start, but he is now fourth on Carolina's depth chart behind Tetairoa McMillan and Jalen Coker. Sources spread him WR78 to WR98 and his market value is falling.",
+   "watch": "A move back up the depth chart -- he has fallen behind, not just stalled.",
+   "updated": "2026-08-11"
+  },
+  "12501": {
+   "player": "Matthew Golden",
+   "outlook": "Year 2 leap candidate after a disappointing rookie season, and he is rostered in only about 52% of leagues -- the lowest of any receiver in this range, which makes him one of the cheaper upside adds. ESPN is well ahead of the field at WR38 against a WR52-56 consensus. Market value is rising.",
+   "watch": "Whether he wins the Green Bay No. 1 job outright -- ESPN is alone in betting he does.",
+   "updated": "2026-08-11"
+  },
+  "8154": {
+   "player": "Brian Robinson Jr.",
+   "outlook": "Atlanta's RB2 behind Bijan Robinson, who is one of the highest-volume backs in football, which leaves very little standalone value. Sources agree tightly at RB47-55 and he is rostered in only about 58% of leagues.",
+   "watch": "A Bijan Robinson absence -- that is the entire case, and it is a good one given the offense.",
+   "updated": "2026-08-11"
+  },
+  "8205": {
+   "player": "Isiah Pacheco",
+   "outlook": "Signed with Detroit as the primary backup to Jahmyr Gibbs and is currently questionable with a knee (MCL) issue. All five sources agree tightly at RB45-51. He is rostered in only about 60% of leagues.",
+   "watch": "His knee, and Gibbs' back designation -- Pacheco is the handcuff to the consensus RB1.",
+   "updated": "2026-08-11"
+  },
+  "13346": {
+   "player": "Denzel Boston",
+   "outlook": "Rookie sitting third on Cleveland's thin receiver depth chart. Sources spread him WR54 to WR70 and his market value is rising modestly. The Cleveland quarterback situation caps everyone in this offense.",
+   "watch": "Whether the depth chart in front of him holds -- Cleveland's receiver room is the weakest of any team.",
+   "updated": "2026-08-11"
+  },
+  "11435": {
+   "player": "Emanuel Wilson",
+   "outlook": "Seattle's RB3 in a backfield unsettled by Zach Charbonnet's PUP designation. His positional rank fell 16 spots in this refresh, one of the larger drops. Sources spread him RB61 to RB82.",
+   "watch": "Whether Seattle's committee sorts out -- he is currently third in line.",
+   "updated": "2026-08-11"
+  },
+  "10236": {
+   "player": "Dalton Kincaid",
+   "outlook": "A recurring disappointment relative to draft capital, now Buffalo's clear TE1 in the league's best scoring offense with DJ Moore added. NBC is highest at TE10, ESPN lowest at TE17. Market value is flat.",
+   "watch": "Whether the target share finally arrives -- the situation has always been good, the usage has not.",
+   "updated": "2026-08-11"
+  },
+  "8126": {
+   "player": "Wan'Dale Robinson",
+   "outlook": "Signed with Tennessee and is the No. 2 receiver behind rookie Carnell Tate. His positional rank improved five spots this week but his market value has fallen sharply. Fantasy Football Calculator is highest at WR33 against a WR41-45 consensus.",
+   "watch": "Whether Tennessee's low-volume passing offense can support two receivers.",
+   "updated": "2026-08-11"
+  },
+  "12531": {
+   "player": "Trevor Etienne",
+   "outlook": "Carolina's RB4 behind Chuba Hubbard and Jonathon Brooks. Three sources have him around WR87-111 at running back. He is a deep dynasty name only.",
+   "watch": "Two injuries ahead of him -- there is no other route.",
+   "updated": "2026-08-11"
+  },
+  "12048": {
+   "player": "George Holani",
+   "outlook": "On the fantasy radar because Seattle's backfield is unsettled with Zach Charbonnet on PUP, but he is the RB4 and rostered in only about 26% of leagues. Sources spread him RB61 to RB77.",
+   "watch": "Whether Seattle's committee opens up further -- he is a contingency on a contingency.",
+   "updated": "2026-08-11"
+  },
+  "4950": {
+   "player": "Christian Kirk",
+   "outlook": "Signed with San Francisco and is currently questionable, sitting fifth on a rebuilt depth chart behind Mike Evans and Deebo Samuel. Sources disagree widely, from WR84 to WR115. Market value is flat at 30.",
+   "watch": "Whether he carves out the slot role -- there are four bodies ahead of him.",
+   "updated": "2026-08-11"
+  },
+  "12522": {
+   "player": "Cam Ward",
+   "outlook": "Year 2 leap candidate after an underwhelming rookie season, now throwing to rookie Carnell Tate and Wan'Dale Robinson. Four sources agree tightly at QB23-26. He is rostered in only about 29% of leagues, which is where the value is if the leap comes.",
+   "watch": "Whether Tennessee's rebuilt receiver room produces -- Ward's development depends on it.",
+   "updated": "2026-08-11"
+  },
+  "12545": {
+   "player": "Tyler Shough",
+   "outlook": "A surprise second-half breakout in 2025 and a common Year 2 leap pick, with Chris Olave coming off a career year and rookie Jordyn Tyson added. All five sources agree tightly at QB17-21. He is rostered in only about 52% of leagues.",
+   "watch": "Whether the second-half form was real -- his supporting cast is now genuinely good.",
+   "updated": "2026-08-11"
+  },
+  "13330": {
+   "player": "Kenyon Sadiq",
+   "outlook": "Rookie tight end who is already listed as the Jets' TE1 ahead of Mason Taylor, though he is currently questionable with an abdomen issue. ESPN is a striking outlier at TE15 against a TE21-24 consensus. Market value is rising.",
+   "watch": "The abdomen -- a rookie tight end who misses camp reps usually loses the job back.",
+   "updated": "2026-08-11"
+  },
+  "9511": {
+   "player": "Keaton Mitchell",
+   "outlook": "Signed with the Chargers as the RB2 behind Omarion Hampton. Sources disagree sharply: NBC has him RB43, Fantasy Football Calculator RB62. He is rostered in only about 30% of leagues, so he is cheap. His explosiveness is the case; his durability is the concern.",
+   "watch": "A Hampton injury -- Hampton's rookie year was already injury-shortened.",
+   "updated": "2026-08-11"
+  },
+  "4993": {
+   "player": "Mike Gesicki",
+   "outlook": "Cincinnati's TE1 at 30 in a pass-heavy offense with almost no depth behind Ja'Marr Chase and Tee Higgins, which is a better setup than his ranking suggests. Three sources have him around TE30-37. He is rostered in only about 67% of leagues.",
+   "watch": "Whether Cincinnati's third target role goes to him or to Chase Brown out of the backfield.",
+   "updated": "2026-08-11"
+  },
+  "8676": {
+   "player": "Rashid Shaheed",
+   "outlook": "Re-signed with Seattle and is the No. 2 receiver behind Jaxon Smith-Njigba, with Cooper Kupp also in the room. Four sources agree tightly at WR55-60. He is rostered in only about 71% of leagues.",
+   "watch": "Whether Seattle's target share behind Smith-Njigba goes to him or Kupp.",
+   "updated": "2026-08-11"
+  },
+  "13348": {
+   "player": "J'Mari Taylor",
+   "outlook": "Undrafted-tier rookie who is Jacksonville's RB3 behind Bhayshul Tuten and Chris Rodriguez Jr. Only two sources rank him at all. He is a deep dynasty flier.",
+   "watch": "Nothing actionable -- he is third in a crowded backfield.",
+   "updated": "2026-08-11"
+  },
+  "13288": {
+   "player": "Nicholas Singleton",
+   "outlook": "Rookie who is Tennessee's RB3 behind Tony Pollard and Tyjae Spears. His positional rank fell 16 spots in this refresh and the source spread is enormous: ESPN and NBC have him around RB58-63 while Fantasy Football Calculator has him RB117. Market value is falling.",
+   "watch": "Whether he passes Spears -- the two backs ahead of him are both unimpressive but entrenched.",
+   "updated": "2026-08-11"
+  },
+  "3214": {
+   "player": "Hunter Henry",
+   "outlook": "Settled in as one of Drake Maye's most trusted targets, and all five sources agree within one spot at TE18-19 -- the tightest consensus of any tight end on the board. A.J. Brown's arrival is a modest negative for his target share. Market value is rising.",
+   "watch": "Whether Brown's arrival costs him red-zone looks -- that is where his value has been.",
+   "updated": "2026-08-11"
+  },
+  "12543": {
+   "player": "Tahj Brooks",
+   "outlook": "Cincinnati's RB3 behind Chase Brown and Samaje Perine. Sources spread him RB86 to RB120. Deep dynasty only.",
+   "watch": "Nothing actionable this season.",
+   "updated": "2026-08-11"
+  },
+  "8188": {
+   "player": "Tyquan Thornton",
+   "outlook": "Kansas City's third receiver behind Rashee Rice and Xavier Worthy (shoulder). Three sources have him around WR87-99. Market value is flat.",
+   "watch": "Worthy's shoulder -- an absence would push Thornton into a real role in a good offense.",
+   "updated": "2026-08-11"
+  },
+  "13269": {
+   "player": "Fernando Mendoza",
+   "outlook": "The No. 1 overall pick and currently listed ahead of Kirk Cousins on the Las Vegas depth chart, with Cousins' situation complicated by a practice altercation. Four sources have him QB27-31. He is a superflex-relevant rookie with Brock Bowers and Ashton Jeanty around him.",
+   "watch": "Whether the job is confirmed -- and whether a rookie can support Bowers' and Jeanty's fantasy value.",
+   "updated": "2026-08-11"
+  },
+  "5995": {
+   "player": "Justice Hill",
+   "outlook": "Positioned for a larger role in his seventh season as Baltimore's passing-down back behind Derrick Henry. His positional rank improved 11 spots this refresh. Sources disagree sharply: Fantasy Football Calculator has him RB48, FantasyPros RB69. He is rostered in only about 55% of leagues.",
+   "watch": "Henry's age -- Hill is both the passing-down specialist and the immediate beneficiary of any absence.",
+   "updated": "2026-08-11"
+  },
+  "12530": {
+   "player": "Travis Hunter",
+   "outlook": "Now with a full-time focus on defense, which is what makes him one of the widest disagreements on the board: ESPN has him WR43 while Fantasy Football Calculator has him WR76. He is fourth on Jacksonville's receiver depth chart. His positional rank improved eight spots this week. He is rostered in only about 67% of leagues.",
+   "watch": "How many offensive snaps he actually plays -- the entire 33-spot disagreement comes down to that.",
+   "updated": "2026-08-11"
+  },
+  "8121": {
+   "player": "Romeo Doubs",
+   "outlook": "Signed with New England as the No. 2 receiver behind A.J. Brown. All five sources agree tightly at WR46-55. Market value is flat.",
+   "watch": "Whether Drake Maye supports a second fantasy receiver -- the room behind Brown is otherwise thin.",
+   "updated": "2026-08-11"
+  },
+  "5844": {
+   "player": "T.J. Hockenson",
+   "outlook": "A rough stretch since his injury, and now the offense changes again with Kyler Murray installed as Minnesota's starter. ESPN is well ahead of the field at TE14 against a TE20-26 consensus. Market value is rising and he is rostered in only about 63% of leagues.",
+   "watch": "How Murray's off-schedule play affects tight end targets -- historically it has not helped.",
+   "updated": "2026-08-11"
+  },
+  "12484": {
+   "player": "Jayden Higgins",
+   "outlook": "Year 2 breakout candidate who is Houston's No. 2 receiver behind Nico Collins, with Tank Dell still working back from a knee injury. Four of five sources have him WR56 and FantasyPros WR49. Market value is flat.",
+   "watch": "Tank Dell's return -- Higgins' snap share shrinks when Dell is cleared.",
+   "updated": "2026-08-11"
+  },
+  "9225": {
+   "player": "Tank Bigsby",
+   "outlook": "Acquired by Philadelphia early last season and is the RB2 behind Saquon Barkley. Sources spread him RB48 to RB64. He is rostered in only about 32% of leagues, which makes him the cheapest handcuff to a high-volume back on the board.",
+   "watch": "A Barkley absence -- Philadelphia's run game would still be productive without him.",
+   "updated": "2026-08-11"
+  },
+  "12455": {
+   "player": "Brashard Smith",
+   "outlook": "Kansas City's RB3 competing for backup reps behind Kenneth Walker III. Sources spread him RB72 to RB94. Market value is falling.",
+   "watch": "Whether he wins the passing-down role -- that is the only path to standalone value.",
+   "updated": "2026-08-11"
+  },
+  "7002": {
+   "player": "Juwan Johnson",
+   "outlook": "New Orleans' clear TE1 after continued progression, and all five sources agree tightly at TE16-20. Market value is rising. Tyler Shough's Year 2 development is the swing factor.",
+   "watch": "Whether Shough's improvement lifts the whole passing game -- Johnson is a direct beneficiary.",
+   "updated": "2026-08-11"
+  },
+  "8134": {
+   "player": "Khalil Shakir",
+   "outlook": "Reliable short-area receiver now sharing a room with DJ Moore in Buffalo. Sources have him WR47-58. Market value is flat and he is rostered in about 88% of leagues.",
+   "watch": "Whether Moore's arrival cuts his target share -- Buffalo has never supported three fantasy receivers.",
+   "updated": "2026-08-11"
+  },
+  "11646": {
+   "player": "Jalen Coker",
+   "outlook": "Carolina's No. 2 receiver behind Tetairoa McMillan after missing much of the first half of a previous season. All five sources agree tightly at WR48-58. He is rostered in only about 58% of leagues.",
+   "watch": "Bryce Young's efficiency -- Carolina's second receiver is only viable if the offense functions.",
+   "updated": "2026-08-11"
+  },
+  "8117": {
+   "player": "Jalen Tolbert",
+   "outlook": "Signed with Miami and is fifth on the depth chart in an offense quarterbacked by Malik Willis. Sources spread him WR83 to WR112.",
+   "watch": "Nothing realistic -- the depth chart position and the quarterback are both against him.",
+   "updated": "2026-08-11"
+  },
+  "8210": {
+   "player": "Chig Okonkwo",
+   "outlook": "Signed with Washington as the clear TE1 in an offense led by Jayden Daniels. He is rostered in only about 29% of leagues, one of the lowest rates of any top-25 tight end, which makes him a genuine value if the role holds. Sources spread him TE17 to TE26.",
+   "watch": "Whether Washington uses the tight end -- Daniels' short-area throws would suit him.",
+   "updated": "2026-08-11"
+  },
+  "9758": {
+   "player": "C.J. Stroud",
+   "outlook": "Enters his fourth season with Nico Collins and a young supporting cast, and all five sources agree tightly at QB22-24. His market value is falling and he is rostered in only about 55% of leagues.",
+   "watch": "Whether Houston's offensive line holds up -- it has been the recurring drag on his production.",
+   "updated": "2026-08-11"
+  },
+  "11624": {
+   "player": "Xavier Worthy",
+   "outlook": "Kansas City's No. 2 receiver behind Rashee Rice and currently questionable with a shoulder issue. All five sources agree tightly at WR47-52. Patrick Mahomes' knee designation is the larger risk.",
+   "watch": "The shoulder, and Mahomes' availability -- both are unresolved.",
+   "updated": "2026-08-11"
+  },
+  "9502": {
+   "player": "Tank Dell",
+   "outlook": "On the comeback trail from a severe knee injury (ACL and MCL) and still listed questionable. He is third on Houston's depth chart behind Nico Collins and Jayden Higgins. His positional rank improved 12 spots this refresh and his market value is rising, but he is rostered in only about 22% of leagues. Sources spread him WR60 to WR81.",
+   "watch": "His medical clearance -- the talent is not the question, the knee is.",
+   "updated": "2026-08-11"
+  },
+  "9508": {
+   "player": "Tyjae Spears",
+   "outlook": "Fourth season splitting Tennessee's backfield with Tony Pollard, and currently questionable with an undisclosed issue. Sources spread him RB40 to RB54. He is rostered in only about 64% of leagues.",
+   "watch": "Whether the split ever tilts his way -- Pollard has held 67% of the designed carries since arriving.",
+   "updated": "2026-08-11"
+  },
+  "10226": {
+   "player": "Andrei Iosivas",
+   "outlook": "Cincinnati's third receiver behind Ja'Marr Chase and Tee Higgins in a pass-heavy offense. Sources spread him WR94 to WR110.",
+   "watch": "A Higgins injury -- Higgins has missed time in each of the last few seasons, which makes this a real contingency.",
+   "updated": "2026-08-11"
+  },
+  "13276": {
+   "player": "Omar Cooper Jr.",
+   "outlook": "Rookie who is the Jets' third slot option behind Garrett Wilson. His positional rank fell seven spots this refresh and his market value is falling. Sources spread him WR54 to WR71.",
+   "watch": "Depth chart movement -- there is nothing else to track.",
+   "updated": "2026-08-11"
+  },
+  "11370": {
+   "player": "Chris Brooks",
+   "outlook": "Green Bay's RB2 behind Josh Jacobs, who is currently questionable with a groin issue. His market value has fallen sharply. Sources spread him RB63 to RB78 and he is rostered in about 50% of leagues.",
+   "watch": "Jacobs' groin -- soft-tissue issues in August often become in-season absences.",
+   "updated": "2026-08-11"
+  },
+  "11581": {
+   "player": "MarShawn Lloyd",
+   "outlook": "Green Bay's RB3 with a long injury history and rostered in only about 14% of leagues, the lowest of any back in this range. Sources spread him RB52 to RB75. CBS is notably higher at RB52.",
+   "watch": "Whether he stays healthy long enough to matter -- that has been the entire story of his career.",
+   "updated": "2026-08-11"
+  },
+  "4943": {
+   "player": "Sam Darnold",
+   "outlook": "Coming off his first season in Seattle with Jaxon Smith-Njigba as the league's leading target earner. All five sources agree tightly at QB20-25. He is rostered in only about 63% of leagues and is a reasonable one-quarterback streamer.",
+   "watch": "Whether Seattle's backfield instability forces more passing -- that would help him.",
+   "updated": "2026-08-11"
+  },
+  "8800": {
+   "player": "Malik Davis",
+   "outlook": "Dallas's RB2 behind Javonte Williams. Three sources have him around RB66-81 and he is rostered in only about 45% of leagues.",
+   "watch": "A Javonte Williams injury -- the Dallas offense would support a replacement well.",
+   "updated": "2026-08-11"
+  },
+  "5849": {
+   "player": "Kyler Murray",
+   "outlook": "Named Minnesota's starting quarterback over J.J. McCarthy, the most consequential fantasy decision of the week. He throws to Justin Jefferson and Jordan Addison (thumb) and brings a rushing floor that McCarthy does not. All five sources have him QB16-22, which likely lags the news. He is rostered in only about 45% of leagues.",
+   "watch": "How Minnesota's offense is built around him -- his rushing volume is the difference between QB18 and QB10.",
+   "updated": "2026-08-11"
+  },
+  "6149": {
+   "player": "Darius Slayton",
+   "outlook": "The Giants' third receiver behind Malik Nabers (knee) and Darnell Mooney. Sources spread him WR82 to WR97.",
+   "watch": "Nabers' ACL recovery -- Slayton moves up only if it stalls.",
+   "updated": "2026-08-11"
+  },
+  "11834": {
+   "player": "Devaughn Vele",
+   "outlook": "Battling for New Orleans' No. 3 receiver role behind Chris Olave and rookie Jordyn Tyson. Sources spread him WR86 to WR106 and his market value is falling.",
+   "watch": "Whether he wins the third receiver job -- even then the role is small.",
+   "updated": "2026-08-11"
+  },
+  "13417": {
+   "player": "De'Zhaun Stribling",
+   "outlook": "Rookie fourth on San Francisco's depth chart, though Trent Williams has publicly said he will be a player. He is listed questionable. Sources spread him WR61 to WR74 and he is rostered in only about 41% of leagues.",
+   "watch": "Mike Evans' quadriceps -- the 49ers' receiver room is thin enough that one absence creates a role.",
+   "updated": "2026-08-11"
+  },
+  "9757": {
+   "player": "Kendre Miller",
+   "outlook": "New Orleans' RB5 and currently questionable with a back issue. Three sources have him around RB88-94. His market value is falling.",
+   "watch": "Nothing actionable -- he is fifth on the depth chart with a recurring injury history.",
+   "updated": "2026-08-11"
+  },
+  "8180": {
+   "player": "Jalen Nailor",
+   "outlook": "Signed with Las Vegas as the No. 2 slot option. His positional rank fell six spots this refresh and he is rostered in only about 25% of leagues. Sources spread him WR57 to WR71.",
+   "watch": "Whether Las Vegas throws to receivers -- Brock Bowers absorbs a large share.",
+   "updated": "2026-08-11"
+  },
+  "4147": {
+   "player": "Samaje Perine",
+   "outlook": "Expected to resume his role as Chase Brown's primary backup in Cincinnati at 30. Sources disagree sharply: Fantasy Football Calculator has him RB51, FantasyPros RB77. He is rostered in only about 38% of leagues.",
+   "watch": "A Chase Brown absence -- the Cincinnati offense would make the replacement immediately startable.",
+   "updated": "2026-08-11"
+  },
+  "11618": {
+   "player": "Jalen McMillan",
+   "outlook": "A genuine late-round sleeper in Tampa Bay's third receiver role, currently questionable with a calf issue. Four sources agree tightly at WR60-66. He is rostered in only about 28% of leagues.",
+   "watch": "The calf -- and whether Chris Godwin's age opens the slot role.",
+   "updated": "2026-08-11"
+  },
+  "13414": {
+   "player": "Kaelon Black",
+   "outlook": "Third-round rookie who is San Francisco's RB3 and currently questionable with a thigh issue. His positional rank improved 16 spots this refresh and his market value is rising. Sources spread him RB61 to RB79.",
+   "watch": "Christian McCaffrey's practice absences -- the 49ers' backfield behind him is genuinely open.",
+   "updated": "2026-08-11"
+  },
+  "6783": {
+   "player": "Jerry Jeudy",
+   "outlook": "Listed as Cleveland's RWR1 but ranked behind two younger teammates in consensus, which reflects how little the sources trust this passing game. Four sources have him WR58-72. He is rostered in only about 63% of leagues.",
+   "watch": "The Cleveland quarterback resolution -- no Browns receiver is startable until it settles.",
+   "updated": "2026-08-11"
+  },
+  "7049": {
+   "player": "Jauan Jennings",
+   "outlook": "Signed with Minnesota in May and is the third receiver behind Justin Jefferson and Jordan Addison. His positional rank fell seven spots this refresh. Sources spread him WR57 to WR70 and he is rostered in about 87% of leagues.",
+   "watch": "Kyler Murray's target distribution -- Jennings' possession role is the least certain to survive it.",
+   "updated": "2026-08-11"
+  },
+  "11199": {
+   "player": "Emari Demercado",
+   "outlook": "Kansas City's RB2 behind Kenneth Walker III. His positional rank improved 18 spots in this refresh, the largest gain of any back on the board, though it is off a low base. Sources spread him RB59 to RB80.",
+   "watch": "Whether he holds the backup job -- Brashard Smith and Emmett Johnson are both competing for it.",
+   "updated": "2026-08-11"
+  },
+  "9480": {
+   "player": "Brenton Strange",
+   "outlook": "Jacksonville's TE1 after a solid first season as a starter, and all five sources agree tightly at TE17-21. His market value is falling. The receiver room around him is crowded, which is the ceiling constraint.",
+   "watch": "Whether Jacksonville's four-receiver rotation leaves him a consistent target share.",
+   "updated": "2026-08-11"
+  },
+  "11577": {
+   "player": "Will Shipley",
+   "outlook": "Philadelphia's RB5 behind Saquon Barkley and Tank Bigsby, though his positional rank improved 11 spots this refresh with Elijah Mitchell on IR. Sources spread him RB83 to RB98.",
+   "watch": "Depth chart movement -- two injuries ahead of him would be needed.",
+   "updated": "2026-08-11"
+  },
+  "5870": {
+   "player": "Daniel Jones",
+   "outlook": "Re-signed with Indianapolis and is listed first on the depth chart, but Anthony Richardson is starting Thursday against New England and Jones is not playing in the preseason, so the Week 1 job is genuinely uncertain. Sources spread him QB19 to QB26. He is rostered in only about 45% of leagues.",
+   "watch": "The starter announcement -- it matters more for Tyler Warren and Josh Downs than for Jones himself.",
+   "updated": "2026-08-11"
+  },
+  "12493": {
+   "player": "Oronde Gadsden II",
+   "outlook": "A roller-coaster rookie season and now the Chargers' TE1. NBC is a striking outlier at TE15 against a TE21-27 consensus elsewhere. His positional rank fell seven spots since the last refresh and his market value is falling. Justin Herbert is in a new scheme.",
+   "watch": "Whether the new offense features the tight end -- the source disagreement is entirely about that.",
+   "updated": "2026-08-11"
+  },
+  "6130": {
+   "player": "Devin Singletary",
+   "outlook": "The Giants' RB3 behind Cam Skattebo and Tyrone Tracy Jr. at 29. Three sources have him around RB84-101.",
+   "watch": "Nothing actionable -- he is third in line.",
+   "updated": "2026-08-11"
+  },
+  "6039": {
+   "player": "Ty Johnson",
+   "outlook": "Buffalo's change-of-pace back behind James Cook, currently questionable with a knee issue. Sources disagree sharply: Fantasy Football Calculator has him RB53, ESPN RB74. His positional rank improved 10 spots this refresh. He is rostered in only about 36% of leagues.",
+   "watch": "The knee -- and whether Ray Davis or Johnson is the true Cook handcuff.",
+   "updated": "2026-08-11"
+  },
+  "8143": {
+   "player": "Jerome Ford",
+   "outlook": "Signed with Washington and is the RB3 behind Jacory Croskey-Merritt and Rachaad White. His positional rank fell nine spots this refresh and the source spread is enormous: FantasyPros has him RB90, ESPN RB127.",
+   "watch": "Whether Washington's backfield thins out -- he is currently third in a three-way split.",
+   "updated": "2026-08-11"
+  },
+  "11651": {
+   "player": "Isaac Guerendo",
+   "outlook": "On PUP with a pectoral injury and listed OUT, sitting fifth on San Francisco's depth chart. Three sources have him around RB93-112.",
+   "watch": "His activation -- he cannot help until he is off PUP.",
+   "updated": "2026-08-11"
+  },
+  "12509": {
+   "player": "Tre' Harris",
+   "outlook": "Year 2 breakout candidate after flashing as a rookie, now third on the Chargers' depth chart behind Ladd McConkey and Quentin Johnston. Sources spread him WR66 to WR92 and he is rostered in only about 24% of leagues.",
+   "watch": "Whether Quentin Johnston holds the No. 2 job -- Harris is the most likely player to take it.",
+   "updated": "2026-08-11"
+  },
+  "5001": {
+   "player": "Dalton Schultz",
+   "outlook": "Houston's TE1 at 30 and one of the more consistently used tight ends in the league. All five sources agree tightly at TE19-23. Market value is falling.",
+   "watch": "Whether Houston's young receivers cut into his target share.",
+   "updated": "2026-08-11"
+  },
+  "11603": {
+   "player": "AJ Barner",
+   "outlook": "Seattle's TE1 after a solid contributing season. All five sources agree tightly at TE23-27. He is rostered in only about 58% of leagues.",
+   "watch": "Whether Seattle's offense concentrates enough targets beyond Jaxon Smith-Njigba.",
+   "updated": "2026-08-11"
+  },
+  "11576": {
+   "player": "Braelon Allen",
+   "outlook": "The Jets' RB2 behind Breece Hall at 22. Four sources agree tightly at RB53-58 and he is rostered in only about 31% of leagues, which makes him one of the cheaper young handcuffs available.",
+   "watch": "Hall's franchise-tag season -- if the Jets ease his workload, Allen has standalone value.",
+   "updated": "2026-08-11"
+  },
+  "12469": {
+   "player": "Dylan Sampson",
+   "outlook": "Cleveland's RB2 behind Quinshon Judkins. All five sources agree tightly at RB47-53. He is rostered in only about 52% of leagues and his market value is falling.",
+   "watch": "Judkins' availability -- Sampson is the direct beneficiary, though Cleveland's offense limits the upside.",
+   "updated": "2026-08-11"
+  },
+  "9228": {
+   "player": "Bryce Young",
+   "outlook": "Fourth season with Tetairoa McMillan now established as a genuine No. 1 receiver. Four sources agree tightly at QB25-29. He is rostered in only about 30% of leagues and is a superflex-only option.",
+   "watch": "Whether the McMillan connection lifts his efficiency -- it is the best supporting cast he has had.",
+   "updated": "2026-08-11"
+  },
+  "13301": {
+   "player": "Antonio Williams",
+   "outlook": "Rookie third on Washington's slot depth chart behind Terry McLaurin and Stefon Diggs. Sources spread him WR69 to WR82.",
+   "watch": "Depth chart movement -- Diggs' August arrival pushed him further down.",
+   "updated": "2026-08-11"
+  },
+  "8161": {
+   "player": "Malik Willis",
+   "outlook": "Miami's starting quarterback with rookie Quinn Ewers behind him. CBS is highest at QB18 against a QB21-24 consensus. He is rostered in only about 25% of leagues. His fantasy value comes from rushing rather than passing, and his presence suppresses every Miami receiver.",
+   "watch": "Whether Quinn Ewers pushes him -- and how much Miami leans on De'Von Achane as a result.",
+   "updated": "2026-08-11"
+  },
+  "13293": {
+   "player": "Ja'Kobi Lane",
+   "outlook": "Rookie third on Baltimore's depth chart, and Lamar Jackson has been working closely with him in camp per team reporting. Sources spread him WR77 to WR101 and he is rostered in only about 40% of leagues.",
+   "watch": "Whether the camp chemistry translates -- Baltimore's receiver room behind Zay Flowers is unsettled.",
+   "updated": "2026-08-11"
+  },
+  "8111": {
+   "player": "Cade Otton",
+   "outlook": "Tampa Bay's TE1, though the passing game now runs through Emeka Egbuka and Chris Godwin. Four sources agree tightly at TE24-29. He is rostered in only about 37% of leagues.",
+   "watch": "Whether Baker Mayfield's tight end usage returns to earlier levels.",
+   "updated": "2026-08-11"
+  },
+  "11610": {
+   "player": "Malik Washington",
+   "outlook": "Nominally Miami's top receiver, which reflects how thin the room is rather than his standing. Malik Willis at quarterback caps the whole passing game. Four sources have him WR73-82 and he is rostered in only about 31% of leagues.",
+   "watch": "Whether Miami throws at all -- the coaching staff has signalled a heavy De'Von Achane workload.",
+   "updated": "2026-08-11"
+  },
+  "12504": {
+   "player": "Kaleb Johnson",
+   "outlook": "Pittsburgh's RB4 behind Jaylen Warren and Rico Dowdle. Only two sources rank him, around RB82-91, and he is rostered in only about 22% of leagues.",
+   "watch": "Whether the Warren-Dowdle committee thins -- he is currently third in line.",
+   "updated": "2026-08-11"
+  },
+  "12487": {
+   "player": "Terrance Ferguson",
+   "outlook": "Rookie listed as the Rams' TE1 but splitting a committee with Colby Parkinson. ESPN is a clear outlier at TE19 against a TE25-28 consensus. He is rostered in only about 17% of leagues, the lowest of any tight end in this range. Market value is rising.",
+   "watch": "Whether the Rams name a clear starter -- a committee makes both unusable.",
+   "updated": "2026-08-11"
+  },
+  "9486": {
+   "player": "Dontayvion Wicks",
+   "outlook": "Signed with Philadelphia as the third receiver behind DeVonta Smith. Sources spread him WR72 to WR106 and he is rostered in only about 14% of leagues.",
+   "watch": "Whether Philadelphia throws enough to support a third receiver -- historically it has not.",
+   "updated": "2026-08-11"
+  },
+  "4033": {
+   "player": "David Njoku",
+   "outlook": "Signed with the Chargers and is the TE2 behind rookie Oronde Gadsden II, which is a significant demotion at 30. Three sources have him around TE30-32 and his market value is falling.",
+   "watch": "Whether he takes the job back -- Gadsden's rookie season was inconsistent enough to leave the door open.",
+   "updated": "2026-08-11"
+  },
+  "6803": {
+   "player": "Brandon Aiyuk",
+   "outlook": "Listed as did-not-report with a knee (ACL and MCL) injury and sixth on San Francisco's depth chart, which is the most important fact about him. His market value has fallen sharply and sources spread him WR87 to WR117. His positional rank fell 12 spots this refresh.",
+   "watch": "His status -- until the did-not-report designation resolves he is not draftable.",
+   "updated": "2026-08-11"
+  },
+  "13320": {
+   "player": "Zachariah Branch",
+   "outlook": "Rookie second on Atlanta's slot depth chart behind Drake London. Sources spread him WR72 to WR91 and he is rostered in about 51% of leagues.",
+   "watch": "Whether Atlanta uses three receivers -- Bijan Robinson and Kyle Pitts absorb a lot of the non-London work.",
+   "updated": "2026-08-11"
+  },
+  "12457": {
+   "player": "Jaydon Blue",
+   "outlook": "Dallas's RB3 behind Javonte Williams and Malik Davis, though his change-of-pace role gives him some PPR relevance in a high-volume offense. Sources spread him RB59 to RB73 and he is rostered in only about 17% of leagues.",
+   "watch": "Whether he wins passing downs outright -- that is his only path to weekly value.",
+   "updated": "2026-08-11"
+  },
+  "13347": {
+   "player": "Demond Claiborne",
+   "outlook": "Rookie third in Minnesota's backfield behind Aaron Jones and Jordan Mason. The source spread is wide: CBS has him RB60, Fantasy Football Calculator RB100. He is rostered in only about 35% of leagues.",
+   "watch": "Aaron Jones' age -- Minnesota's backfield could open up quickly.",
+   "updated": "2026-08-11"
+  },
+  "12492": {
+   "player": "Pat Bryant",
+   "outlook": "Fourth on Denver's crowded receiver depth chart after the Jaylen Waddle addition. His positional rank fell nine spots this refresh. Sources spread him WR76 to WR107.",
+   "watch": "Whether Denver's receiver room thins -- he is currently behind three others.",
+   "updated": "2026-08-11"
+  },
+  "8172": {
+   "player": "Greg Dulcich",
+   "outlook": "Miami's TE1, and this is one of the sharper tight end disagreements: CBS has him TE15 while FantasyPros has him TE34. He is rostered in only about 8% of leagues, the lowest of any ranked tight end. Malik Willis at quarterback is the constraint.",
+   "watch": "Whether Miami's passing game functions at all -- the CBS ranking assumes it does.",
+   "updated": "2026-08-11"
+  },
+  "12502": {
+   "player": "Gunnar Helm",
+   "outlook": "Tennessee's TE1 in his second season. Four sources agree at TE24-31. He is rostered in only about 19% of leagues and his market value is flat.",
+   "watch": "Cam Ward's Year 2 development -- Tennessee's tight end needs a functional offense.",
+   "updated": "2026-08-11"
+  },
+  "13305": {
+   "player": "Mike Washington",
+   "outlook": "Rookie listed as Las Vegas's RB2 behind Ashton Jeanty. His positional rank improved five spots this refresh. All five sources cluster him at RB51-62 and he is rostered in about 58% of leagues.",
+   "watch": "Jeanty's workload -- Las Vegas has no other back of consequence.",
+   "updated": "2026-08-11"
+  },
+  "12495": {
+   "player": "Ollie Gordon II",
+   "outlook": "Miami's RB3 competing with Jaylen Wright for backup reps behind De'Von Achane. Three sources have him around RB67-83 and he is rostered in only about 21% of leagues.",
+   "watch": "Achane's projected 40-touch games -- the Miami backup role is unusually valuable if it ever opens.",
+   "updated": "2026-08-11"
+  },
+  "12535": {
+   "player": "Isaac TeSlaa",
+   "outlook": "Detroit's third receiver behind Amon-Ra St. Brown and Jameson Williams. His positional rank fell 10 spots this refresh. Sources spread him WR76 to WR98.",
+   "watch": "An injury in front of him -- Detroit's offense would make the third receiver relevant.",
+   "updated": "2026-08-11"
+  },
+  "4039": {
+   "player": "Cooper Kupp",
+   "outlook": "Third on Seattle's depth chart at 33, behind Jaxon Smith-Njigba and Rashid Shaheed. Sources spread him WR69 to WR84 and he is rostered in only about 50% of leagues. Market value is flat.",
+   "watch": "Whether the slot role is still his -- age and the depth chart are both working against him.",
+   "updated": "2026-08-11"
+  },
+  "11625": {
+   "player": "Adonai Mitchell",
+   "outlook": "The Jets' No. 2 receiver behind Garrett Wilson. Four sources agree tightly at WR63-72 and he is rostered in about 52% of leagues.",
+   "watch": "Whether Geno Smith's arrival supports a second fantasy receiver in New York.",
+   "updated": "2026-08-11"
+  },
+  "96": {
+   "player": "Aaron Rodgers",
+   "outlook": "Listed as Pittsburgh's starter at 42, with both starting receivers currently banged up. All four ranking sources have him within one spot at QB28-29, and his market value is near zero -- the market treats him as a one-year placeholder. He is rostered in only about 36% of leagues.",
+   "watch": "Whether he starts all season -- Mason Rudolph and rookie Drew Allar are behind him.",
+   "updated": "2026-08-11"
+  },
+  "11533": {
+   "player": "Brandon Aubrey",
+   "outlook": "Unanimous K1 across all four sources that rank kickers, in a Dallas offense that should move the ball consistently with Dak Prescott, CeeDee Lamb and George Pickens. His range makes him the only kicker with a genuine weekly edge.",
+   "watch": "Nothing -- he is the one kicker worth drafting early in the Rutgers league.",
+   "updated": "2026-08-11"
+  },
+  "2747": {
+   "player": "Jason Myers",
+   "outlook": "Seattle's kicker in an offense led by Jaxon Smith-Njigba that should produce scoring chances, though the backfield instability could mean more stalled drives and more field goals. Ranked K2-K4 by all four sources.",
+   "watch": "Seattle's red-zone efficiency -- kicker value rises when offenses stall inside the 30.",
+   "updated": "2026-08-11"
+  },
+  "3451": {
+   "player": "Ka'imi Fairbairn",
+   "outlook": "Houston's kicker with a strong track record. Sources spread him from K2 to K5. The Texans offense should be competent with C.J. Stroud and Nico Collins.",
+   "watch": "Houston's red-zone conversion rate -- his volume has always come from stalled drives.",
+   "updated": "2026-08-11"
+  },
+  "8259": {
+   "player": "Cameron Dicker",
+   "outlook": "One of the most accurate kickers in the league and ESPN's K2. The Chargers offense is in a new scheme, which adds some uncertainty to scoring volume.",
+   "watch": "How the new Chargers scheme finishes drives.",
+   "updated": "2026-08-11"
+  },
+  "5189": {
+   "player": "Eddy Pineiro",
+   "outlook": "San Francisco's kicker, ranked K6 by three of four sources. Christian McCaffrey's health is the main driver of the offense's scoring rate.",
+   "watch": "McCaffrey's availability -- it affects the kicker's opportunity as much as anyone's.",
+   "updated": "2026-08-11"
+  },
+  "11786": {
+   "player": "Cam Little",
+   "outlook": "Jacksonville's kicker with a big leg. Sources disagree meaningfully: CBS and FantasyPros have him K5, Fantasy Football Calculator K14. The Jaguars offense has a deep receiver room but an unsettled hierarchy.",
+   "watch": "Whether Jacksonville converts in the red zone or settles for field goals -- either outcome helps him.",
+   "updated": "2026-08-11"
+  },
+  "12015": {
+   "player": "Harrison Mevis",
+   "outlook": "New to this file after replacing Evan McPherson in the rankings. ESPN is highest at K4, CBS lowest at K14, which is a wide gap for a kicker. He kicks for the Rams, a consensus top-four defensive unit whose offense should be efficient.",
+   "watch": "Job security -- the spread suggests not every source is confident he holds the role.",
+   "updated": "2026-08-11"
+  },
+  "12711": {
+   "player": "Tyler Loop",
+   "outlook": "Baltimore's kicker in his second season, ranked K7-K11. The Ravens score plenty but Lamar Jackson's rushing near the goal line reduces field goal attempts.",
+   "watch": "Baltimore's red-zone touchdown rate -- it directly suppresses his volume.",
+   "updated": "2026-08-11"
+  },
+  "11539": {
+   "player": "Jake Bates",
+   "outlook": "Detroit's kicker in a high-scoring offense with Jahmyr Gibbs and Amon-Ra St. Brown. Ranked K6-K13 across the four sources.",
+   "watch": "Detroit's scoring rate -- a strong offense that finishes drives limits field goal attempts.",
+   "updated": "2026-08-11"
+  },
+  "2020": {
+   "player": "Cairo Santos",
+   "outlook": "Chicago's kicker, new to this file at K10. Sources spread him K8 to K15. The Bears offense should improve with Caleb Williams in Year 3 and Colston Loveland emerging.",
+   "watch": "Whether Chicago's offense sustains drives -- his value is entirely volume-based.",
+   "updated": "2026-08-11"
+  },
+  "11588": {
+   "player": "Jawhar Jordan",
+   "outlook": "Houston's RB3 and currently questionable with a hip issue. Sources disagree widely, from RB67 to RB104.",
+   "watch": "Depth chart movement -- he is behind David Montgomery and Woody Marks.",
+   "updated": "2026-08-11"
+  },
+  "7720": {
+   "player": "Kene Nwangwu",
+   "outlook": "The Jets' RB5, ranked by only one source. He is primarily a returner rather than an offensive contributor.",
+   "watch": "Nothing actionable this season.",
+   "updated": "2026-08-11"
+  },
+  "1379": {
+   "player": "Kyle Juszczyk",
+   "outlook": "San Francisco's fullback, listed at running back by three sources and currently questionable with a finger issue. He is a blocking specialist with occasional receiving usage, not a fantasy asset in standard formats.",
+   "watch": "Nothing actionable -- he appears here because sources list fullbacks at running back.",
+   "updated": "2026-08-11"
+  },
+  "11237": {
+   "player": "Jacob Saylors",
+   "outlook": "Detroit's RB4 behind Jahmyr Gibbs and Isiah Pacheco, ranked by only one source.",
+   "watch": "Nothing actionable -- he is third in line.",
+   "updated": "2026-08-11"
+  },
+  "8122": {
+   "player": "Zonovan Knight",
+   "outlook": "Arizona's RB4 behind Jeremiyah Love, Tyler Allgeier and James Conner. Ranked by two sources around RB95-102.",
+   "watch": "Nothing actionable -- he is fourth on the depth chart.",
+   "updated": "2026-08-11"
+  },
+  "6828": {
+   "player": "AJ Dillon",
+   "outlook": "Carolina's RB3 behind Chuba Hubbard and Jonathon Brooks. This is the single widest source disagreement on the entire board: Fantasy Football Calculator has him RB50 while FantasyPros has him RB131. That 81-spot gap means at least one source is working from a different depth chart read than the others.",
+   "watch": "Which read is right -- the spread alone makes him worth monitoring in deep leagues.",
+   "updated": "2026-08-11"
+  },
+  "12787": {
+   "player": "Josh Williams",
+   "outlook": "Tampa Bay's RB4, ranked by only one source. Deep dynasty only.",
+   "watch": "Nothing actionable this season.",
+   "updated": "2026-08-11"
+  }
+ }
+}
