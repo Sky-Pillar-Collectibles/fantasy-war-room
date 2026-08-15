@@ -1,11 +1,4 @@
 {
-  "generated": "not yet populated",
-  "note": "Written outlooks and team briefs, rebuilt by the weekly refresh task. Keyed by Sleeper player_id, with a 'player' name field as a fallback match. Empty until the first run — the app treats a missing or empty file as 'no outlook yet' and shows live Sleeper and market data regardless.",
-  "sources": [],
-  "teams": {},
-  "players": {}
-}
-{
  "generated": "2026-08-11",
  "sources": [
   "Sleeper player database (depth chart, injury designations, status) - https://api.sleeper.app/v1/players/nfl, retrieved 2026-08-11",
@@ -1841,4 +1834,4 @@
    "updated": "2026-08-11"
   }
  }
-}
+ }
