@@ -242,8 +242,15 @@ function buildUnified(){
     byKey[k] = p; players.push(p); return p;
   }
 
-  // ---- expert blend (positional ranks from 4 published sources) ----
-  const SRC = {si:'SI', nbc:'NBC', br:'B/R', espn:'ESPN'};
+  // ---- expert blend (positional ranks from the sources named in the file) ----
+  // The blend file declares its own columns in "source_keys", so sources can be
+  // added or dropped by the weekly refresh without touching this code. SHORT is
+  // only a display nicety; unknown keys fall back to the uppercased key.
+  const SHORT = {si:'SI', nbc:'NBC', br:'B/R', espn:'ESPN', cbs:'CBS',
+                 fp:'FPros', ffc:'FFC', rot:'Roto', pff:'PFF', ds:'DShrk', yah:'Yahoo'};
+  const SRC = (S.expert && S.expert.source_keys)
+    ? Object.fromEntries(Object.keys(S.expert.source_keys).map(k => [k, SHORT[k] || k.toUpperCase()]))
+    : {si:'SI', nbc:'NBC', br:'B/R', espn:'ESPN'};
   if(S.expert && S.expert.positions){
     for(const pos in S.expert.positions){
       S.expert.positions[pos].forEach(r => {
