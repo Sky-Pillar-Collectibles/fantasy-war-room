@@ -489,7 +489,14 @@ const PRESETS = [
     scoring:{ pass_td:4, int:-1, pass_yd:0.04, rush_yd:0.1, rush_td:6, fum:-2, rec:1 } },
   { id:'preset_rutgers', name:'Rutgers DU Alum (1QB Redraft)', teams:12, ppr:1, qbs:1, dynasty:false,
     tePremium:0, usesK:true, usesDST:true,
-    scoring:{ pass_td:6, int:-2, pass_yd:0.04, rush_yd:0.1, rush_td:6, fum:-2, rec:1 } }
+    scoring:{ pass_td:6, int:-2, pass_yd:0.04, rush_yd:0.1, rush_td:6, fum:-2, rec:1 } },
+  /* GFL is on ESPN, so it never appears in the Sleeper league list — it has to
+     live here as a preset or the board would price it as one of the Sleeper
+     leagues. Settings read straight from ESPN's own API, not guessed:
+     12-team, 1QB, HALF-PPR, 4-pt pass TD, -2 INT, kicker and defence both used. */
+  { id:'preset_gfl', name:'GFL (ESPN · 1QB Half-PPR)', teams:12, ppr:0.5, qbs:1, dynasty:false,
+    tePremium:0, usesK:true, usesDST:true,
+    scoring:{ pass_td:4, int:-2, pass_yd:0.04, rush_yd:0.1, rush_td:6, fum:-2, rec:0.5 } }
 ];
 
 /* ---------- name normalisation for cross-source joins ---------- */
