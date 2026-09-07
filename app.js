@@ -859,11 +859,31 @@ function applyDraftedNames(names){
   if(!Array.isArray(names)) return {matched:0, added:0, unmatched:[]};
   const byNorm = {};
   S.players.forEach(p => { byNorm[norm(p.name)] = p; });
+
+  /* Defences are named differently everywhere. ESPN says "Texans D/ST", the
+     board says "Houston Texans", Yahoo says "Houston". Match them on the team
+     nickname, which is the one part all three agree on. Found this by testing
+     200 real ESPN names — every single miss was a defence. */
+  const dstByNick = {};
+  S.players.filter(p => p.pos === 'DST').forEach(p => {
+    const parts = norm(p.name).split(' ');
+    dstByNick[parts[parts.length-1]] = p;      // "houston texans" -> "texans"
+  });
+  function findPlayer(txt){
+    const n = norm(txt);
+    if(byNorm[n]) return byNorm[n];
+    const stripped = n.replace(/\b(dst|d st|defense|defence)\b/g,'').trim();
+    if(!stripped) return null;
+    if(byNorm[stripped]) return byNorm[stripped];
+    const words = stripped.split(' ');
+    return dstByNick[words[words.length-1]] || null;
+  }
+
   let matched = 0, added = 0; const unmatched = [];
   names.forEach(raw => {
     const txt = String(raw || '').trim();
     if(!txt) return;
-    const p = byNorm[norm(txt)];
+    const p = findPlayer(txt);
     if(p){ matched++; if(!S.drafted.has(p.key)){ S.drafted.add(p.key); added++; } }
     else unmatched.push(txt);
   });
