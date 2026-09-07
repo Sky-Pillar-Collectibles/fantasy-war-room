@@ -842,6 +842,72 @@ function renderDraft(){
     `${S.drafted.size} players off the board. Tap any player to mark them gone.`;
 }
 
+/* =====================================================================
+   6b. EXTERNAL DRAFT SYNC (ESPN / Yahoo)
+   Those leagues are private, and their cookies are not sent to this origin, so
+   this page cannot read them however it asks — verified, not assumed. What can
+   read them is code running on THEIR page, where the session already applies.
+   So the bookmarklet does the polling there and posts names here.
+   Everything below is name-based on purpose: it works for any source that can
+   produce a list of drafted players, including a plain copy-paste.
+   ===================================================================== */
+
+/* Strike a list of player NAMES off the board. Returns what matched and what
+   didn't — unmatched picks are reported rather than silently dropped, because a
+   name that fails to match is a player you'd wrongly believe is still available. */
+function applyDraftedNames(names){
+  if(!Array.isArray(names)) return {matched:0, added:0, unmatched:[]};
+  const byNorm = {};
+  S.players.forEach(p => { byNorm[norm(p.name)] = p; });
+  let matched = 0, added = 0; const unmatched = [];
+  names.forEach(raw => {
+    const txt = String(raw || '').trim();
+    if(!txt) return;
+    const p = byNorm[norm(txt)];
+    if(p){ matched++; if(!S.drafted.has(p.key)){ S.drafted.add(p.key); added++; } }
+    else unmatched.push(txt);
+  });
+  LS.set('drafted', [...S.drafted]);
+  renderDraft(); renderBoard();
+  return {matched, added, unmatched};
+}
+
+function showSyncStatus(html, bad){
+  const el = document.getElementById('extSyncStatus');
+  if(!el) return;
+  el.innerHTML = html;
+  el.style.color = bad ? 'var(--bad)' : 'var(--faint)';
+}
+
+function syncSummary(res, label){
+  const bits = [`${label}: ${res.matched} on the board`];
+  if(res.added) bits.push(`${res.added} newly struck`);
+  if(res.unmatched.length){
+    bits.push(`<span style="color:var(--bad)">${res.unmatched.length} unmatched</span> (${res.unmatched.slice(0,4).map(esc).join(', ')}${res.unmatched.length>4?'…':''})`);
+  }
+  bits.push(new Date().toLocaleTimeString());
+  return bits.join(' · ');
+}
+
+/* The bookmarklet posts here. Only messages from the sites we expect, of the
+   shape we expect, are honoured — a page can receive messages from anywhere. */
+const SYNC_ORIGINS = ['https://fantasy.espn.com','https://football.fantasysports.yahoo.com','https://sports.yahoo.com'];
+window.addEventListener('message', e => {
+  if(SYNC_ORIGINS.indexOf(e.origin) < 0) return;
+  const d = e.data;
+  if(!d || d.type !== 'warroom-draft' || !Array.isArray(d.players)) return;
+  const res = applyDraftedNames(d.players);
+  showSyncStatus(syncSummary(res, esc(d.source || 'Auto-sync')), false);
+});
+
+document.getElementById('extPasteBtn').onclick = () => {
+  const box = document.getElementById('extPaste');
+  const names = box.value.split(/[\n,;]+/).map(x=>x.replace(/^\s*\d+[.)]\s*/,'').trim()).filter(Boolean);
+  if(!names.length){ showSyncStatus('Nothing pasted.', true); return; }
+  const res = applyDraftedNames(names);
+  showSyncStatus(syncSummary(res, 'Pasted'), false);
+};
+
 document.getElementById('draftReset').onclick = () => {
   S.drafted.clear(); LS.set('drafted', []); renderDraft(); renderBoard();
 };
